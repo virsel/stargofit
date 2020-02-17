@@ -1,0 +1,17 @@
+{% load training_plans_filters %}
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+<!-- exercises list -->
+
+{% for exercise in exercises %}
+
+    <!-- flip card-->
+   {% include 'fitness/exercises/list/card/card.html' with exercise=exercise range=range%}
+    <!-- ###end### flip card-->
+
+{% endfor %}
+
+
+<!-- ###end### exercises list -->

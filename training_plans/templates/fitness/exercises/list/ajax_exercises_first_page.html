@@ -1,0 +1,40 @@
+{% load training_plans_filters %}
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+ 
+
+<!-- exercises list -->
+<div class="exercises-container" onload="set_vote_circle(document.getElementsByClassName('vote-counter'));">
+    {% for exercise in exercises %}
+
+    <!-- flip card-->
+    {% include 'fitness/exercises/list/card/card.html' with exercise=exercise range=range %}
+    <!-- ###end### flip card-->
+    {% endfor %}
+</div>
+<!-- ###end### exercises list -->
+
+<script>
+function fSetResultCount(){
+    
+    console.log( "ready!" );
+    // set variables
+    var eResult_count = document.getElementById('search_result_count');
+    var eResult_count_text = document.getElementById('search_result_text');
+    var iResult_count = {{ exercises.paginator.count }};
+    // ###end### set variables
+
+
+    console.log('set result count');
+    console.log(eResult_count);
+    console.log(iResult_count);
+    eResult_count.innerText = iResult_count;
+    if (iResult_count == 1)
+        eResult_count_text.innerText = '{% trans '  Resultat' %}';
+    else
+        eResult_count_text.innerText = '{% trans '  Resultate' %}';
+}
+</script>

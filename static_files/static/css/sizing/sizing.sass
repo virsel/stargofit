@@ -1,0 +1,40 @@
+@import "../node_modules/rfs/sass"
+
+@function pixel($n)
+ @return $n
+
+@for $i from 1 through 50
+    .txt-s-#{$i}
+        font-size: pixel($i) + px + ' !important'
+@media (max-width: 768px)
+    @for $i from 1 through 50
+        .txt-s-md-#{$i}
+            font-size: pixel($i) + px + ' !important'
+
+@for $i from 1 through 200
+    .h-p-#{$i}
+        height: pixel($i) + px + ' !important'
+@for $i from 1 through 100
+    .h-pct-#{$i}
+        height: pixel($i) + % + ' !important'
+.h-max
+    height: max-content !important
+
+.w-max
+    width: max-content !important
+@for $i from 1 through 500
+    .w-p-#{$i}
+        width: pixel($i) + px + ' !important'
+        min-width: pixel($i) + px + ' !important'
+@for $i from 1 through 100
+    .w-pct-#{$i}
+        width: pixel($i) + % + ' !important'
+
+@for $ten from 0 through 2
+    @for $one from 0 through 9
+        $scale_string: inspect($ten) + inspect($one)
+        $scale_number: $ten + $one * 0.1
+        .scale-#{$scale_string}
+            transform: scale($scale_number)
+
+$windowSizes: 'sm', 'md', 'lg'

@@ -1,0 +1,9 @@
+{% load training_plans_filters %}
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+{% load embed_video_tags %}
+        
+        {% video exercise.video as my_video %}
+        {% video my_video '520x400' %}
+        {% endvideo %}

@@ -1,0 +1,341 @@
+.plan_generate {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 40px;
+  margin-bottom: 50px;
+}
+
+.plan_generate .card_heading {
+  color: #bbdefb !important;
+  position: relative;
+  width: 100%;
+  padding-top: 0px;
+  z-index: 1;
+  height: 40px;
+}
+
+.plan_generate .card_heading .text {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  top: 5px;
+}
+
+.plan_generate .card_heading .text label {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.plan_generate .card {
+  z-index: 0;
+  height: -webkit-max-content !important;
+  height: -moz-max-content !important;
+  height: max-content !important;
+}
+
+.plan_generate .card .time .e-slider-container {
+  padding: 0px 15px;
+}
+
+.plan_generate .card .personal_info {
+  -webkit-transition: max-height 1s ease-in-out !important;
+  transition: max-height 1s ease-in-out !important;
+  max-height: 150px !important;
+  height: auto !important;
+}
+
+.plan_generate .card .personal_info .pRow {
+  padding: 10px;
+}
+
+.plan_generate .card .personal_info .pRow .btn-group {
+  position: absolute;
+  left: 130px;
+}
+
+.plan_generate .card .chart_content {
+  -webkit-transition: max-height 1s ease-in-out !important;
+  transition: max-height 1s ease-in-out !important;
+  max-height: 600px !important;
+  height: auto !important;
+}
+
+.plan_generate .card .btn-group .btn {
+  padding: 0px 10px;
+}
+
+.plan_generate .card .btn-group input {
+  text-align: center;
+  width: 45px;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+.plan_generate .card .btn-group .weight {
+  padding: 0 10px;
+  border-radius: 0px;
+}
+
+.plan_generate .card .row {
+  margin: 0px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  width: 92%;
+  left: 50%;
+  position: relative;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  margin-bottom: 25px;
+  z-index: 0;
+}
+
+.plan_generate .card .row.middle {
+  -ms-grid-columns: 100%;
+      grid-template-columns: 100%;
+  margin-bottom: 50px;
+}
+
+.plan_generate .card .row.middle .badge {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 7px 15px;
+  font-size: 15px;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.plan_generate .card .row.middle .heading {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  position: relative;
+}
+
+.plan_generate .card .row.middle .input {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+}
+
+.plan_generate .card .row.middle .control-styles {
+  width: 70%;
+  position: relative;
+}
+
+.plan_generate .card .row.last {
+  margin-bottom: 20px;
+}
+
+.plan_generate .card .row.dropdown {
+  z-index: 1;
+}
+
+.plan_generate .card.second {
+  -webkit-transition: max-height 1s ease-in-out !important;
+  transition: max-height 1s ease-in-out !important;
+  max-height: 500px !important;
+  height: 500px !important;
+  width: 100%;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+}
+
+.plan_generate .card.second .checkboxes {
+  display: -ms-grid;
+  display: grid;
+  color: black;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.plan_generate .card.second .checkboxes label {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.plan_generate .card.second .checkboxes label::before {
+  margin: 0px 10px 0px 0px !important;
+  position: relative !important;
+  display: inline-block !important;
+}
+
+.plan_generate .card.second .body_areas {
+  width: 100%;
+  -webkit-transition: max-height 1s ease-in-out !important;
+  transition: max-height 1s ease-in-out !important;
+  max-height: 460px !important;
+  height: 460px !important;
+  overflow: auto;
+}
+
+.plan_generate .card.second .body_areas svg {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  z-index: 100;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.plan_generate .card.second .body_areas svg .field {
+  fill: #a1e7fc;
+  fill: -moz-radial-gradient(center, ellipse cover, #a1e7fc 0%, #60dee5 100%);
+  fill: -webkit-radial-gradient(center, ellipse cover, #a1e7fc 0%, #60dee5 100%);
+  fill: radial-gradient(ellipse at center, #a1e7fc 0%, #60dee5 100%);
+}
+
+.plan_generate .card.second .body_areas svg .selected {
+  fill: blue;
+}
+
+.plan_generate .card.second .body_areas svg .selected .field {
+  fill: blue !important;
+}
+
+.plan_generate .card.disable .personal_info, .plan_generate .card.disable .body_areas, .plan_generate .card.disable .chart_content {
+  max-height: 0px !important;
+}
+
+.plan_generate .card.disable.second {
+  max-height: 40px !important;
+}
+
+.plan_generate .card#column_chart {
+  display: none;
+}
+
+.plan_generate .card#column_chart.enabled {
+  display: block;
+}
+
+.plan_generate .card#column_chart #sColumn-container {
+  height: 300px !important;
+}
+
+.plan_generate .card#column_chart #chart_controller {
+  height: 85%;
+  width: 85%;
+  position: relative;
+}
+
+.plan_generate .card#column_chart #chart_controller .saved .range {
+  pointer-events: none;
+}
+
+.plan_generate .card#column_chart #chart_controller .disabled {
+  display: none !important;
+}
+
+.plan_generate .card#column_chart #chart_controller .goal_label {
+  color: white;
+  font-weight: bold;
+}
+
+.plan_generate .card#column_chart #chart_controller .goal_label_0 {
+  background-color: #00bdae;
+}
+
+.plan_generate .card#column_chart #chart_controller .goal_label_1 {
+  background-color: #404041;
+}
+
+.plan_generate .card#column_chart #chart_controller .goal_label_2 {
+  background-color: #357cd2;
+}
+
+.plan_generate .card#column_chart #chart_controller .goal_label_3 {
+  background-color: #e56590;
+}
+
+.plan_generate .card#column_chart #chart_controller .goal_label_4 {
+  background-color: #f8b883;
+}
+
+.plan_generate .card#column_chart #chart_controller .goal_label_5 {
+  background-color: #70ad47;
+}
+
+.plan_generate .card#column_chart #chart_controller th {
+  text-align: center;
+}
+
+.plan_generate .card#column_chart #chart_controller th, .plan_generate .card#column_chart #chart_controller td {
+  padding: 10px 10px;
+}
+
+.plan_generate .card#column_chart #chart_controller td .form-check {
+  margin-right: 0px;
+  margin-left: 10px;
+}
+
+.plan_generate .card#column_chart #chart_controller .w-60 {
+  width: 60px !important;
+}
+
+.plan_generate .card#column_chart #chart_controller .e-slider-container {
+  height: 25px;
+  width: 90%;
+  left: 50%;
+  position: relative;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+}
+
+.plan_generate .card#column_chart .grid {
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  display: -ms-grid;
+  display: grid;
+}
+
+.plan_generate .first {
+  width: 100%;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  position: relative;
+  margin: 0px;
+}
+
+.plan_generate .last {
+  width: 100%;
+}
+
+.plan_generate .last .bottom a {
+  position: relative;
+  margin: 0;
+  width: 110px;
+  height: 110px;
+}
+
+.plan_generate .last .bottom a span {
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 17px;
+}
+/*# sourceMappingURL=training_plan_generate.css.map */

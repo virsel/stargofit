@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Startseite' %}{% endblock %}
+
+<!-- main content -->
+{% block main_content %}
+<header>
+<!-- Intro Section -->
+    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient3.png); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+      <div class="mask rgba-indigo-slight">
+        <div class="container h-100 d-flex justify-content-center align-items-center">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="intro-info-content text-center">
+                <h1 class="display-3 blue-text mb-5 wow fadeInDown font-weight-bold" data-wow-delay="0.3s">{% trans 'Stargofit' %}
+                </h1>
+                <h5 class="text-uppercase blue-text mb-5 mt-1 font-weight-bold wow fadeInDown" data-wow-delay="0.3s">{% trans 'Unendlich viele Trainingspläne, völlig kostenlos' %}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main Layout-->
+  <main>
+
+    <div class="container">
+
+      <!--Section: Team v.1-->
+      <section class="text-center team-section">
+
+        <!--Grid row-->
+        <div class="row text-center">
+
+          <!--Grid column-->
+          <div class="col-md-12 mb-4" style="margin-top: -100px;">
+
+            <div class="avatar mx-auto">
+              <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="img-fluid rounded-circle z-depth-1"
+                alt="First sample avatar image">
+            </div>
+            <h3 class="my-3 font-weight-bold">
+              <strong>Anna Deynah</strong>
+            </h3>
+            <h6 class="font-weight-bold teal-text mb-4">Web Designer</h6>
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!--Section: Team v.1-->
+
+<!--Section: Features v.4-->
+      <section class="section wow fadeIn" data-wow-delay="0.3s">
+
+        <!--Section heading-->
+        <h1 class="font-weight-bold text-center h1 my-5">{% trans 'Erstelle eigene Trainingspläne' %}</h1>
+        <!--Section description-->
+
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-md-4">
+
+            <!--Grid row-->
+            <div class="row mb-2">
+              <div class="col-2">
+                <i class="fas fa-2x fa-flag-checkered indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="font-weight-bold mb-4">{% trans 'Übersichtlich' %}</h5>
+                <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores
+                  nam, aperiam minima assumenda.</p>
+              </div>
+            </div>
+            <!--Grid row-->
+
+            <!--Grid row-->
+            <div class="row mb-2">
+              <div class="col-2">
+                <i class="fas fa-2x fa-flask blue-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="font-weight-bold mb-4">{% trans 'Einfach' %}</h5>
+                <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores
+                  nam, aperiam minima assumenda.</p>
+              </div>
+            </div>
+            <!--Grid row-->
+
+
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-4 mb-2 text-center text-md-left flex-center">
+            <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/iphone-portfolio1.png" alt="" class="z-depth-0">
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-4">
+
+            <!--Grid row-->
+            <div class="row mb-2">
+              <div class="col-2">
+                <i class="fas fa-2x fa-heart deep-purple-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="font-weight-bold mb-4">{% trans 'Professionell' %}</h5>
+                <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores
+                  nam, aperiam minima assumenda.</p>
+              </div>
+            </div>
+            <!--Grid row-->
+
+            <!--Grid row-->
+            <div class="row mb-2">
+              <div class="col-2">
+                <i class="fas fa-2x fa-glass-martini cyan-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="font-weight-bold mb-4">{% trans 'Schnell' %}</h5>
+                <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores
+                  nam, aperiam minima assumenda.</p>
+              </div>
+            </div>
+            <!--Grid row-->
+
+
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!--/Section: Features v.4-->
+
+<!-- Projects section v.3 -->
+<section class="my-5">
+
+  <!-- Section heading -->
+  <h2 class="h1-responsive font-weight-bold text-center my-5">{% trans 'Und vieles mehr...' %}</h2>
+
+
+  <!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-lg-5 mb-lg-0 mb-5">
+      <!--Image-->
+      <img src="https://mdbootstrap.com/img/Photos/Others/images/83.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1">
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-lg-7">
+
+      <!-- Grid row -->
+      <div class="row mb-3">
+        <div class="col-md-1 col-2">
+          <i class="fas fa-book fa-2x cyan-text"></i>
+        </div>
+        <div class="col-md-11 col-10">
+          <h5 class="font-weight-bold mb-3">{% trans 'Über 250 Übungen' %}</h5>
+          <p class="grey-text">{% trans 'Zu jeder gibt es eine Durchführungsanleitung. Außerdem kannst du dir ein Video zu jeder Übung anschauen. 
+          Es ist auch möglich diese zu bewerten und so kannst du erkennen welche am beliebtesten sind.' %}</p>
+        </div>
+      </div>
+      <!-- Grid row -->
+
+      <!-- Grid row -->
+      <div class="row mb-3">
+        <div class="col-md-1 col-2">
+          <i class="fas fa-code fa-2x red-text"></i>
+        </div>
+        <div class="col-md-11 col-10">
+          <h5 class="font-weight-bold mb-3">{% trans 'Finde alles schnell' %}</h5>
+          <p class="grey-text">{% trans 'Die Übungen sind nach Art, Effektivität, Schwierigkeit und Wirkungsbereich Sortierbar. So kannst du leicht und schnell
+          die für dich wichtigen Übungen finden.' %}</p>
+        </div>
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+
+  <hr class="my-5">
+
+  <!-- Grid row -->
+  <div class="row">
+  <h4 class="h4-responsive font-weight-bold text-center my-2 mb-4 w-100">{% trans 'Lass dir einen Plan erstellen' %}</h4>
+    <!-- Grid column -->
+    <div class="col-lg-7">
+
+      <!-- Grid row -->
+      <div class="row mb-3">
+        <div class="col-md-1 col-2">
+          <i class="far fa-chart-bar fa-2x indigo-text"></i>
+        </div>
+        <div class="col-md-11 col-10">
+          <h5 class="font-weight-bold mb-3">{% trans 'Schnell' %}</h5>
+          <p class="grey-text">{% trans 'Es reichen wenige Angaben und du erhälst einen umfangreichen und professionellen Trainingsplan.
+          Diesen kannst du natürlich danach nach deinen Wünschen anpassen.' %}</p>
+        </div>
+      </div>
+      <!-- Grid row -->
+
+      <!-- Grid row -->
+      <div class="row mb-3">
+        <div class="col-md-1 col-2">
+          <i class="fas fa-music fa-2x pink-text"></i>
+        </div>
+        <div class="col-md-11 col-10">
+          <h5 class="font-weight-bold mb-3">{% trans 'Passend' %}</h5>
+          <p class="grey-text">{% trans 'Du hast die Möglichkeit deine Ziele genau festzulegen. Außerdem kannst du Schwerpunkte auf vorhandene Schwächen von dir setzen.' %}</p>
+        </div>
+      </div>
+      <!-- Grid row -->
+
+
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-lg-5">
+      <!--Image-->
+      <img src="https://mdbootstrap.com/img/Photos/Others/images/82.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1">
+    </div>
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+
+<!-- Grid row -->
+  <div class="row">
+  <h4 class="h4-responsive font-weight-bold text-center my-2 mb-4 w-100">{% trans 'Stöbere im sortierten Shop' %}</h4>
+  <hr class="my-5">
+
+    <!-- Grid column -->
+    <div class="col-lg-5 mb-lg-0 mb-5">
+      <!--Image-->
+      <img src="https://mdbootstrap.com/img/Photos/Others/images/83.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1">
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-lg-7">
+
+      <!-- Grid row -->
+      <div class="row mb-3">
+        <div class="col-md-1 col-2">
+          <i class="fas fa-book fa-2x cyan-text"></i>
+        </div>
+        <div class="col-md-11 col-10">
+          <h5 class="font-weight-bold mb-3">{% trans 'Günstig' %}</h5>
+          <p class="grey-text">{% trans 'bla bal' %}</p>
+        </div>
+      </div>
+      <!-- Grid row -->
+
+      <!-- Grid row -->
+      <div class="row mb-3">
+        <div class="col-md-1 col-2">
+          <i class="fas fa-code fa-2x red-text"></i>
+        </div>
+        <div class="col-md-11 col-10">
+          <h5 class="font-weight-bold mb-3">{% trans 'Qualität' %}</h5>
+          <p class="grey-text">{% trans 'bla bal' %}</p>
+        </div>
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+
+</section>
+<!-- Projects section v.3 -->
+    </div>
+
+  </main>
+  <!--Main Layout-->
+{% endblock %}
+<!-- ###end### main content -->

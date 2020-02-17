@@ -1,0 +1,21 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+
+
+<li class="bg-c-r-d-1 txt-c-l-1 h-p-40">
+  <div class="day_label text-nowrap ">
+    <span class="d-inline-block"> {% trans 'Tag' %}: </span>
+    
+    <span class="value_box d-inline-flex align-items-center">
+      {% if not is_first %}
+        <i class="fas fa-angle-up arrow txt-c-blue-4" data-dir="down" onclick="ClickOnDaySortingArrow(this)"></i>
+      {% endif %}
+      <span class="day_value d-inline-block mx-1">{{ day }}</span>  
+      {% if not is_first %}        
+        <i class="fas fa-angle-down arrow txt-c-blue-4" data-dir="up" onclick="ClickOnDaySortingArrow(this)"></i>
+      {% endif %}
+    </span>
+  </div>
+</li>

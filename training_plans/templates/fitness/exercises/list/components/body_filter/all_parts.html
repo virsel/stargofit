@@ -1,0 +1,108 @@
+﻿{% load static %}
+{% load training_plans_filters %}
+{% load custom_tags %}
+{% load i18n %}
+<!-- right muscle group selector menu -->
+    <div class="human-muscles_menu" style="display: inline-block">
+
+        <h1>{% trans 'Wähle eine oder mehr Muskelgruppen aus' %}</h1>
+
+
+        <!-- human muscles selected grid -->
+        <div class="human_muscles-selected-grid">
+        <!-- muscle groups labels -->
+
+        <!-- muscle groups labels left -->
+        <div class="human-muscles_labels human-muscles-labels-left">
+            <input type="checkbox" class="muscles-input-heading schulter-input" id="schulter-i"> <label class="heading-schulter-label muscle-group-heading">{% trans 'Schulter' %}</label>
+            <input type="checkbox" class="muscles-input schulter-input" id="vordere_schulter-i"> <label class="sub-vordere_schulter">{% trans 'vordere Schulter' %}</label>
+            <input type="checkbox" class="muscles-input schulter-input" id="seitliche_schulter-i"> <label class="sub-seitliche_schulter">{% trans 'seitliche Schulter' %}</label>
+            <input type="checkbox" class="muscles-input-heading arme-input" id="arme-i"> <label class="heading-arme-label muscle-group-heading">{% trans 'Arme' %}</label>
+            <input type="checkbox" class="muscles-input arme-input" id="bizeps-i"> <label class="sub-bizeps">{% trans 'Bizeps' %}</label>
+
+            <input type="checkbox" class="muscles-input arme-input" id="unterarme-i"> <label class="sub-unterarme">{% trans 'Unterarme' %}</label>
+            <input type="checkbox" class="muscles-input-heading brust-input" id="brust-i"> <label class="heading-brust-label muscle-group-heading ">{% trans 'Brust' %}</label>
+            <input type="checkbox" class="muscles-input brust-input" id="obere_brust-i"> <label class="sub-obere_brust">{% trans 'obere Brust' %}</label>
+
+            <input type="checkbox" class="muscles-input brust-input" id="mittlere_brust-i"> <label class="sub-mittlere_brust">{% trans 'mittlere Brust' %}</label>
+            <input type="checkbox" class="muscles-input brust-input" id="untere_brust-i"> <label class="sub-untere_brust">{% trans 'untere Brust' %}</label>
+            <input type="checkbox" class="muscles-input-heading bauch-input" id="bauch-i"> <label class="heading-bauch-label muscle-group-heading">{% trans 'Bauch' %}</label>
+            <input type="checkbox" class="muscles-input bauch-input" id="mittlerer_bauch-i"> <label class="sub-mittlerer_bauch">{% trans 'mittlerer Bauch' %}</label>
+
+            <input type="checkbox" class="muscles-input bauch-input" id="seitlicher_bauch-i"> <label class="sub-seitlicher_bauch">{% trans 'seitlicher Bauch' %}</label>
+            <input type="checkbox" class="muscles-input-heading beine-input" id="beine-i"> <label class="heading-beine-label muscle-group-heading">{% trans 'Beine' %}</label>
+            <input type="checkbox" class="muscles-input beine-input" id="adduktoren-i"> <label class="sub-adduktoren">{% trans 'Adduktoren' %}</label>
+            <input type="checkbox" class="muscles-input beine-input" id="oberschenkel-i"> <label class="sub-oberschenkel">{% trans 'Oberschenkel' %}</label>
+            <input type="checkbox" class="muscles-input beine-input" id="schienbein-i"> <label class="sub-schienbein">{% trans 'Schienbein' %}</label>
+            
+        </div>
+        <!-- ###end### muscle groups labels left -->
+
+
+        <!-- muscle groups shapes + Select all button -->
+        <div class="human-muscles_picture">
+            <span class="btn text-muted select_all_muscles" id="select_all_btn">{% trans 'Alle auswählen' %}</span>
+            {% include 'fitness/exercises/list/components/body_filter/human_muscles_svg.html' %}
+        </div>
+        <!-- ###end### - muscle groups shapes -->
+
+
+
+                <!-- muscle groups labels right -->
+        <div class="human-muscles_labels human-muscles_labels_right">
+                        <input type="checkbox" class="muscles-input-heading schulter-input" id="schulter-i"> <label class="heading-schulter-label muscle-group-heading">{% trans 'Schulter' %}</label>
+            <input type="checkbox" class="muscles-input schulter-input" id="hintere_schulter-i"> <label class="sub-hintere_schulter">{% trans 'hintere Schulter' %}</label>
+            <input type="checkbox" class="muscles-input-heading arme-input" id="arme-i"> <label class="heading-arme-label muscle-group-heading">{% trans 'Arme' %}</label>
+            <input type="checkbox" class="muscles-input arme-input" id="trizeps-i"> <label class="sub-trizeps">{% trans 'Trizeps' %}</label>
+
+     
+            <input type="checkbox" class="muscles-input-heading rücken-input" id="rücken-i"> <label class="heading-rücken-label muscle-group-heading">{% trans 'Rücken' %}</label>
+            <input type="checkbox" class="muscles-input rücken-input" id="nacken-i"> <label class="sub-nacken">{% trans 'Nacken' %}</label>
+            <input type="checkbox" class="muscles-input rücken-input" id="untergrätenmuskel-i"> <label class="sub-untergrätenmuskel">{% trans 'Untergrätenmuskel' %}</label>
+            <input type="checkbox" class="muscles-input rücken-input" id="kapuzenmuskel-i"> <label class="sub-kapuzenmuskel">{% trans 'Kapuzenmuskel' %}</label>
+            <input type="checkbox" class="muscles-input rücken-input" id="rautenmuskel-i"> <label class="sub-rautenmuskel">{% trans 'Rautenmuskel' %}</label>
+                        <input type="checkbox" class="muscles-input rücken-input" id="rundmuskel-i"> <label class="sub-rundmuskel">{% trans 'Rundmuskel' %}</label>
+                        <input type="checkbox" class="muscles-input rücken-input" id="latissimus-i"> <label class="sub-latissimus">{% trans 'Latissimus' %}</label>
+            <input type="checkbox" class="muscles-input rücken-input" id="unterer_rücken-i"> <label class="sub-unterer_rücken">{% trans 'unterer Rücken' %}</label>
+                        <input type="checkbox" class="muscles-input-heading po-input" id="po-i"> <label class="sub-po-label muscle-group-heading">{% trans 'Po' %}</label>
+            <input type="checkbox" class="muscles-input-heading beine-input" id="beine-i"> <label class="heading-beine-label muscle-group-heading">{% trans 'Beine' %}</label>
+            <input type="checkbox" class="muscles-input beine-input" id="beinbizeps-i"> <label class="sub-beinbizeps">{% trans 'Beinbizeps' %}</label>
+
+            <input type="checkbox" class="muscles-input beine-input" id="wade-i"> <label class="sub-wade">{% trans 'Wade' %}</label>
+
+        </div>
+        <!-- ###end### muscle groups labels right -->
+        <!-- ###end### - muscle groups labels -->
+
+
+
+        </div>
+        <!-- ###end### - human muscles selected grid -->
+</div>
+
+<!-- ###end### - right muscle group selector menu -->
+
+
+
+{% block sub_sub_script %}
+<script>
+// on click of muscle group load Content
+function loadExercises(id) {
+    var new_block_id = '#' + id + '_list';
+    // create new html div container
+    var new_block = "<div id='" + id + "_list'><div>"
+    $('#ajax-content').append(new_block);
+    // ###end### create new html div container
+ 
+    // get relating data + append to div container
+    $(new_block_id).load( "selection/", { "muscle": id } );
+    // ###end### get relating data + append to div container
+};
+// ###end### on click of muscle group load Content
+
+
+
+</script>
+
+<script src="{% static "js/human_muscles.js" %}"></script>
+{% endblock %}

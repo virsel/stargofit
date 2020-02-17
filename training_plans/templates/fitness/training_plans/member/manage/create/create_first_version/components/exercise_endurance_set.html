@@ -1,0 +1,10 @@
+<tr class="set"><td class="first-col"></td><td class="step"><span>{{ count }}.</span></td>
+    <td class="durance"><span><div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-outline-light-blue btn-rounded waves-effect minus" onclick="fChangeInputByOneStepOnClick(this)" data-kind="duration"><i class="fas fa-minus"></i></button>
+  <input class="duration_input btn-outline-light-blue" min="1" name="exercise-exercises-{{ exercise_count }}-sets-{{ count }}-duration"
+   id="id_exercise-exercises-{{ exercise_count }}-sets-{{ count }}-duration" value="10" type="number" onfocus="fSetTotalDurationOnSetInputEdit(this)">
+        <div class="input-group-append">
+    <span class="input-group-text btn-outline-light-blue">Min.</span>
+  </div>
+  <button type="button" class="btn btn-outline-light-blue btn-rounded waves-effect plus" onclick="fChangeInputByOneStepOnClick(this)" data-kind="duration"><i class="fas fa-plus"></i></button>
+</div></span></td></tr>

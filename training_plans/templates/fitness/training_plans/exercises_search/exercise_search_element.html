@@ -1,0 +1,79 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+<div class="exercise" id="search-exercise-id_{{ exercise.id }}" data-title="{{ exercise.title }}" data-kind="{{ kind }}" data-diff="{{ exercise.difficulty }}" data-eff="{{ exercise.efficiency }}" data-area="{{ area }}">
+        <div class="stg">
+            <div id="stg_icon_{{ exercise.id }}">
+                
+            </div>
+        </div>
+        <div class="img">
+            <img alt="bild" src="{{ exercise.image.url }}" />
+        </div>
+        <div class="text">             
+            <div class="icons">
+                <div class="row_1">
+                    <span class="e-badge e-badge-info">
+                    <img class="eff_icon icon" src="{% static "images/icons/efficiency-24px.svg" %}" />
+                    <!-- Primary Colored Notification Badge -->
+                    <span class="number">{{ exercise.efficiency }}</span>
+                    <img class="star icon" src="{% static "images/star_shine.svg" %}" />
+                    </span>
+                </div>
+                <div class="row_2">
+                    <span class="e-badge e-badge-info">
+                    <img class="diff_icon icon" src="{% static "images/icons/fitness_center-24px.svg" %}" />
+                    <!-- Primary Colored Notification Badge -->
+                    <span class="number">{{ exercise.difficulty }}</span>
+                    <img class="star icon" src="{% static "images/star_shine.svg" %}" />
+                    </span>
+            </div>
+                       </div>
+            
+            <div class="e-card e-card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title">{{ exercise.title }}</div>
+                    <div class="e-card-sub-title">({{ exercise.area }})</div>
+                </div>
+            </div>
+      
+        </div>
+        <div class="add_box">
+            <button class="btn-floating btn-light-blue add" id="plus_{{ exercise.id }}" data-kind="{{ exercise.fGetKindString }}" data-area="{{ part }}" onclick="ClickOnExerciseAddButton(this)"><i class="fas fa-plus"></i></button>
+        </div>
+        <script>
+        
+
+
+// set settings button
+    ej.base.enableRipple(true);
+
+// Initialize action items.
+var items = [
+    {
+        text: 'Display Settings'
+    },
+    {
+        text: 'System Settings'
+    },
+    {
+        text: 'Additional Settings'
+    }];
+
+// Initialize DropDownButton options.
+var options = {
+  items: items,
+  cssClass: 'e-caret-hide',
+  iconCss: 'e-image_{{ exercise.id }}'
+
+};
+
+// To initialize the DropDownButton with sprite image.
+var drpDownBtn = new ej.splitbuttons.DropDownButton(options, '#stg_icon_{{ exercise.id }}');
+var sStg_img = '<img src="{% static 'images/icons/stg.svg' %}">'
+$('.e-image_{{ exercise.id }}').append(sStg_img);
+// #end set settings button
+</script>
+</div>
+
+

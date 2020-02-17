@@ -1,0 +1,33 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+
+<div class="header bg-c-g-d-3">
+  <button type="button" class="close" id="exercise_selection_small_close" onclick="ClickOnCloseIcon(this)">
+      <span aria-hidden="true" class="white-text">&times;</span>
+  </button>
+</div>
+<div class="d-flex no-gutters flex-wrap">
+{% for kind in kinds %}
+<div class="col " data-kind="{{ kind.identify }}" onclick="AddExerciseOnSmallWindowStepTwo(this)">
+  <!-- Collection card -->
+  <div class="card collection-card z-depth-1-half w-p-150 h-p-150 d-flex justify-content-center">
+    <!-- Card image -->
+    <div class="view zoom">
+      <img src="{{ kind.image.url }}" class="img-fluid"
+        alt="">
+      <div class="stripe dark">
+        <a>
+          <p>{{ kind }}
+            <i class="fas fa-angle-right"></i>
+          </p>
+        </a>
+      </div>
+    </div>
+    <!-- Card image -->
+  </div>
+  <!-- Collection card -->
+</div>
+{% endfor %}
+</div>

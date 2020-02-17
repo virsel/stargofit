@@ -1,0 +1,23 @@
+  
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+<tr class="set"><td class="first-col"></td><td class="step"><span>{{ count }}.</span></td>
+    <td class="weight"><span><div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-outline-light-blue btn-rounded waves-effect minus" onclick="fChangeInputByOneStepOnClick(this)" data-kind="weight"><i class="fas fa-minus"></i></button>
+  <input class="weight_input btn-outline-light-blue" min="0" name="exercise-exercises-{{ exercise_count }}-sets-{{ count }}-weight"
+   id="id_exercise-exercises-{{ exercise_count }}-sets-{{ count }}-weight" value="0" type="number" onfocus="fSetTotalDurationOnSetInputEdit(this)">
+      <div class="input-group-append">
+    <span class="input-group-text btn-outline-light-blue">kg</span>
+  </div>
+  <button type="button" class="btn btn-outline-light-blue btn-rounded waves-effect plus" onclick="fChangeInputByOneStepOnClick(this)" data-kind="weight"><i class="fas fa-plus"></i></button>
+</div></span></td>
+    <td class="repeats"><span><div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-outline-light-blue btn-rounded waves-effect minus" onclick="fChangeInputByOneStepOnClick(this)" data-kind="repeats"><i class="fas fa-minus"></i></button>
+  <input class="repeats_input btn-outline-light-blue" min="1" name="exercise-exercises-{{ exercise_count }}-sets-{{ count }}-reversrements"
+   id="id_exercise-exercises-{{ exercise_count }}-sets-{{ count }}-reversrements" value="12" type="number" onfocus="fSetTotalDurationOnSetInputEdit(this)">
+  <button type="button" class="btn btn-outline-light-blue btn-rounded waves-effect plus" onclick="fChangeInputByOneStepOnClick(this)" data-kind="repeats"><i class="fas fa-plus"></i></button>
+</div></span></td></tr>
+
+

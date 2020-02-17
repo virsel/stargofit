@@ -1,0 +1,68 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+
+
+<li class="nav-item  align-items-center h-p-40 p-0 pr-3 day{% if is_first %} active{% endif %}{% if is_last %} last{% endif %} nav_item-{{ ids.0 }}" data-ids="{{ ids }}">
+    <i class="fas fa-th-large mx-2"></i>
+    <div class="control-styles mx-2">
+      <select class="kind_selection" id="kind-selection_{{ training_id }}">
+        {% for goal in goals %}
+        <option name="area" value="{{ goal.identify }}" {% if goal.title == current_kind %}selected{% endif %}>{{ goal.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class=" mx-2 day_link align-items-center d-flex  flex-nowrap p-0" onclick="fClickOnDayLink(this)">
+        <span  class="w-p-150 bg-c-d-2 edit-not-visible txt-c-blue-1 h-p-40 px-2 kind_areas font-weight-bold" id="kind_area_{{ training_id }}">
+          <span class="kind d-block txt-s-8">{{ current_kind }}</span>
+          <span class="main_areas text-nowrap txt-c-l-1 txt-s-14">
+            {% for part  in main_parts %}
+              <span class="area">{{ part }}</span>
+            {% endfor %}
+          </span>
+        </span>
+        <!-- if 2 units on one day -->
+        <!-- Notification Badge --
+        {% if value.0.1 %}
+          <span class="unit_heading">{% trans 'Erste Einheit' %}: </span>
+          <span class="unit_box">
+          <span class="kind">{{ value.1.0.fGetKind }}</span>
+          <span class="exercises"><span class="text"><span class="heading">{% trans 'Übungen' %}:</span> {{ value.1.0.fGetExercisesCount }}</span></span>
+          <span class="main_parts">        
+          {% with value.1.0.fGetMainTrainedPartDict as dParts %}
+          <div class="e-btn-group e-custom-button d-none d-md-inline-flex">
+          {% for part, value in dParts.items %}
+              <button  class="e-btn">{{ part }}:
+                  <!-- Notification Badge --
+                  <span class="e-badge e-badge-info ">{{ value }}</span>
+              </button>
+          {% endfor %}{% endwith %}</div></span>
+              <button  class="e-btn duration">
+                  <!-- Notification Badge --
+                  <span class="e-badge e-badge-info ">{{ value.1.0.duration }} <i class="far fa-clock"></i></span>
+              </button>
+          </span>
+          <span class="unit_ending">{{ value.2 }} {% trans 'mehr' %}...</span
+        
+        
+        
+        {% else %}<!-- Notification Badge -->
+        <div class="areas d-none d-sm-inline-flex align-items-center px-1">
+          <span  class=" d-inline-flex">
+            <span class="txt-c-lila-1 txt-s-15 font-weight-bold pr-2 d-inline-block exercise_count">{{ exercise_count }}</span>
+            <span class="d-inline-block">{% trans 'Übungen' %}:</span>
+          </span>
+          {% for areaList in parts %}
+          <span  class="area px-2 text-center d-inline-block" >
+            <span class="txt-s-10 d-block text">{{ areaList.1 }}</span>
+            <span class="value">{{ areaList.0 }}</span>
+          </span>
+          {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class=" mx-2 align-items-center d-none delete ml-auto">
+      <i class="fas fa-trash" data-ids="{{ ids }}" onclick="fDeleteTrainingDay(this)"></i>
+    </div>
+</li>

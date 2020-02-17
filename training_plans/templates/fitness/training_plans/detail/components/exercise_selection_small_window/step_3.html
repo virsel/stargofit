@@ -1,0 +1,19 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+
+
+<div class="header bg-c-g-d-3">
+  <span type="button" class="back ml-2" id="exercise_selection_small_back" data-kind="{{ kind }}" onclick="{% if boolBack_to_step_two %}AddExerciseOnSmallWindowStepTwo(this){% else %}AddExerciseOnSmallWindowStepOne(){% endif %}">
+    <i class="fas fa-caret-left scale-15"></i>
+  </span>
+  <button type="button" class="close" id="exercise_selection_small_close" onclick="ClickOnCloseIcon(this)">
+    <span aria-hidden="true" class="white-text">&times;</span>
+  </button>
+</div>
+<div class="exercise_list_small_screen">
+{% for exercise in exercises %}
+{% include 'fitness/training_plans/detail/components/exercise_selection_small_window/exercise_search_element.html' with exercise=exercise %}
+{% endfor %}
+</div>

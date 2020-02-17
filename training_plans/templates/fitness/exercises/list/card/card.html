@@ -1,0 +1,105 @@
+{% load training_plans_filters %}
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+<!-- Card Narrower -->
+<div class="card card-cascade narrower">
+
+  <!-- Card image -->
+  <div class="view view-cascade overlay">
+
+    <img  class="card-img-top" src="{{ exercise.image.url }}" alt="Card image cap">
+
+    <a>
+      <div class="mask rgba-blue-strong"></div>
+    </a>
+
+  </div>
+      <!-- Avatar -->
+  <div class="user_rating mx-auto white" id="rating-container-{{ exercise.id }}">
+    {% include 'fitness/exercises/list/card/user_rating.html' with user_rating=exercise.rating.fGetRatingResult id=exercise.id %}
+  </div>
+  <!-- Card content -->
+  <div class="card-body card-body-cascade">
+    <span data-href="{% url 'exercise_detail' exercise.id exercise.slug %}" class="exercise_detail" onclick="fClickOnExerciseDetail(this)"><h4 class="blue-text text-center card-title">{{ exercise.title }}</h4></span>
+    <p class="card-text text-center">({{ exercise.fGetAreaString }})</p>
+    <hr>
+     <!-- Card grid -->
+    <div class="card-grid-3">
+    <div class="left">
+        <ul class="list-unstyled list-inline rating mb-0">
+        {% for x in range %}
+                    {% if exercise.difficulty|is_not_star:forloop.counter %}
+                    <li class="mr-0"><i class="far fa-star amber-text"></i></li>
+
+                    {% else %}
+                    <li class="mr-0"><i class="fas fa-star amber-text"> </i></li>
+                    {% endif %}
+                    {% endfor %}
+                    <li class="mr-0">
+                    <i class="fas fa-dumbbell text-muted text-center" data-toggle="tooltip" data-placement="top" title="{% trans 'Schwierigkeit' %}"></i></li>
+    </ul>
+    </div>
+   <div class="middle">   
+    <!-- Equipment -->
+    {% if exercise.equipment.all %}
+    <h4 class="font-weight-bold equipment_title">{% trans 'Equipment:' %}</h4>
+    {% else %}
+    <h4 class="font-weight-bold equipment_title">{% trans 'kein Equipment' %}</h4>
+    {% endif %}
+
+    <div class="equipments">
+    {% for e in exercise.equipment.all %}
+        <div class="chip lighten-4">
+        {{ e }}
+        </div>
+    {% endfor %}
+    </div>
+    <!-- #end Equipment -->
+    <button class="btn blue-gradient video_btn" data-toggle="modal" data-target="#exercise_video" id="video_btn_{{ exercise.id }}"><i class="far fa-play-circle"></i>  Video</button>
+    </div>
+
+        <div class="right">
+        <ul class="list-unstyled list-inline rating mb-0">
+        {% for x in range %}
+                    {% if exercise.efficiency|is_not_star:forloop.counter %}
+                     <li class="mr-0"><i class="far fa-star amber-text"></i></li>
+                    {% else %}
+                    <li class="mr-0"><i class="fas fa-star amber-text"> </i></li>
+                    {% endif %}
+                    {% endfor %}
+                    <li class="mr-0">
+                    <i class="fas fa-chart-line text-muted" data-toggle="tooltip" data-placement="top" title="{% trans 'Effektivität' %}"></i></li>
+    </ul>
+    </div>
+  </div>
+<!-- #end Card grid -->
+</div>
+
+
+</div>
+<!-- Card Narrower -->
+
+<script>
+$('#video_btn_{{ exercise.id }}').on('click',function(){
+  console.log('video btn clicked');
+var settings = {
+        'url': '{% url "exercise_video" %}',
+        "method": "GET",
+        'traditional': true,
+        "data": {
+            'id': '{{ exercise.id }}',
+        }
+    }
+
+$.ajax(settings).done(function (data) {
+  console.log(data);
+$('#video_box').empty();
+$('#video_box').append(data);
+});
+
+});
+</script>
+

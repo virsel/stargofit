@@ -1,0 +1,60 @@
+@import '../variables/variables.scss';
+
+.exercises_main_lists_container {
+  position: relative;
+  height: 100%;
+  margin-top: 40px;
+}
+#exercises_list {
+  margin-right: 40px;
+}
+
+/* exercise list */
+.exercises-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 270px));
+  grid-gap: 0px 45px;
+  padding: 15px 25px 0px 5px;
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
+  .card{
+    .middle {
+      position: relative;
+      width: 190px;
+  }
+    .equipment_title {
+      width: max-content;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%);
+      font-size: 20px;
+    }
+    .equipments {
+      position: absolute;
+      top: 35px;
+      width: max-content;
+      left: 50%;
+      transform: translate(-50%);
+      .chip{
+        margin: 0px;
+      }
+  }
+  .video_btn{
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 7px 15px;
+    width: max-content;
+    border-radius: 10px;
+    margin: 0;
+  }
+  }
+}
+
+
+/* ###end### exercise list */
+
+
+

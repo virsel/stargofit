@@ -1,0 +1,1142 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+
+
+<div class="btn bg-c-g-l-1 h-center w-pct-60 m-0 my-2 position-relative d-none {% if request.user == plan.owner %}d-block{% endif %}" data-id="{{ plan.id }}" onclick="DeletePlan(this)">{% trans 'Plan löschen' %}</div>
+<div class="mx-auto days_menu">
+  <div class="collapse_content show mx-auto bg-c-blue-1" id="days_toggle_menu">
+    <ul class="days_list">
+      {% for day in days %}
+              {% include 'fitness/training_plans/detail/components/day_label.html' with is_first=forloop.first day=day %}
+      {% endfor %}
+    </ul>
+
+    <ul class="navbar-nav" id="units_list">
+      {% for key, value in plan.fGetTrainingPlanDays.items %}
+        {% setvar value.1.0.GetKind as current_kind %}
+        <input type="hidden" data-areas="{{ value.1.0.GetMainTrainedParts }}" /> 
+        {% include 'fitness/training_plans/detail/components/day_nav_item.html' with is_first=forloop.first is_last=forloop.last ids=value.0 training_id=value.0.0 goals=goals current_kind=current_kind parts=value.1.0.GetMainTrainedParts main_parts=value.1.0.GetMainTrainedWorkoutParts exercise_count=value.1.0.GetExercisesCount %}
+      {% endfor %}
+    </ul>
+  </div>
+  <nav class="navbar navbar-dark trainings_collapse bg-c-g-l-3 justify-content-center w-100">
+    <div class="row flex-nowrap w-100  align-items-center no-gutters">
+
+      <button class="navbar-toggler p-0 col-3 col-sm-1 txt-c-d-1" type="button" onclick="ToggleDaysMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    
+
+      <div id="current_day_label" class="text-nowrap col-3 col-sm d-flex bg-c-r-d-1 h-p-40 align-items-center justify-content-center">{% trans 'Tag' %}: <span class="current_day_value pl-1"></span></div>
+
+      <span class="col bg-c-d-2 txt-c-blue-1 flex-wrap d-flex h-p-40 w-p-90 align-items-center justify-content-center px-2 txt-s-10 font-weight-bold" id="current_kind">
+      </span>
+   
+      <div class="areas d-none d-sm-inline-flex col align-items-center px-1" id="current_areas">
+      </div>
+    </div>
+  </nav>
+  <div class="d-flex flex-wrap toggle_menu_bottom bg-c-g-l-1 m-0 mx-auto">
+    <div id="add_training_day" class="col-12 text-nowrap border-right" onclick="AddTrainingDay(this)">{% trans 'Tag hinzufügen' %}</div>
+    <div class="edit_plan col-12 bg-c-g-blue-3" onclick="fSetPlanEditMode(this)" id="edit_btn">{% trans 'Bearbeiten' %}</div>
+  </div>
+</div>
+
+
+
+
+<div class="plan_tables mt-4">   
+
+</div>
+
+
+
+
+<script src="{% static "js/plus_minus.js" %}" type="text/javascript"></script>
+
+<script>
+var bExercise_order_is_changed = false;
+var bReload = true;
+var iCurrant_training_id;
+var sDay = '1';
+var iTraining_plan_id = '{{ plan.id }}';
+var sMain_kind = "train";
+var bDataIsLoaded = false;
+var bFirst_dialog_open = true;
+var bUnit_order_is_changed = false;     // for changed units order
+var ldEdited_exercises = {};
+var lChanged_units_order = [];
+// document initiation
+var lIds = {{ first_day_ids }};
+var lKind_selections = [];
+var sRecent_day = '{{ recent_day }}';
+
+
+
+function ToggleDaysMenu()
+{
+  var eDays_menu = $('#days_toggle_menu');
+  eDays_menu.toggleClass('show');
+  if(eDays_menu.hasClass('show'))
+  {
+    expandSection(eDays_menu[0]);
+  }
+  else{
+    collapseSection(eDays_menu[0]);
+  }
+}
+
+
+function expandSection(element) {
+  // get the height of the element's inner content, regardless of its actual size
+  var sectionHeight = element.scrollHeight;
+  
+  // have the element transition to the height of its inner content
+  element.style.height = sectionHeight + 'px';
+
+  // when the next css transition finishes (which should be the one we just triggered)
+  element.addEventListener('transitionend', function(e) {
+    // remove this event listener so it only gets triggered once
+    element.removeEventListener('transitionend', arguments.callee);
+    
+    // remove "height" from the element's inline styles, so it can return to its initial value
+    element.style.height = null;
+  });
+}
+
+
+function collapseSection(element) {
+  // get the height of the element's inner content, regardless of its actual size
+  var sectionHeight = element.scrollHeight;
+  
+  // temporarily disable all css transitions
+  var elementTransition = element.style.transition;
+  element.style.transition = '';
+  
+  // on the next frame (as soon as the previous style change has taken effect),
+  // explicitly set the element's height to its current pixel height, so we 
+  // aren't transitioning out of 'auto'
+  requestAnimationFrame(function() {
+    element.style.height = sectionHeight + 'px';
+    element.style.transition = elementTransition;
+    
+    // on the next frame (as soon as the previous style change has taken effect),
+    // have the element transition to height: 0
+    requestAnimationFrame(function() {
+      element.style.height = 0 + 'px';
+    });
+  });
+}
+
+
+
+function SetFirstDayAsCurrentDay()
+{
+    var eRecent_day = $('#units_list .day_link')[0];
+    $(eRecent_day).click();
+}
+
+
+function fDayKindSelectionChanged(eElement,lDropdown_data)
+{
+  console.log('Kind selection changed');
+  var sTraining_id = eElement.attr('id').split('_')[1];
+  var sValue = lDropdown_data['value'];
+  var sText = lDropdown_data['itemData']['text'];
+  var eKind_area = $('')
+  console.log('training id: ' + sTraining_id);
+  console.log('value: ' + sValue);
+  
+  var settings = {
+        "url": '/de/fitness/plan/change_training_kind/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'training_id':sTraining_id,'value':sValue}
+    }
+  $.ajax(settings).done(function (data) {
+
+    console.log('change training_kind completed with Status: ' + data['status']);
+    $('#kind_area_' + sTraining_id + ' .kind').html(sText);
+
+    if(IsTrainingInCurrentDay(sTraining_id))
+      ChangeCurrentDayKind(sText);
+  });
+}
+
+function IsTrainingInCurrentDay(sTraining_id)
+{
+return iCurrant_training_id === parseInt(sTraining_id);
+}
+
+function fAddKindSelectionToList(eElement)
+{
+  var ejNew_selection = new ej.dropdowns.DropDownList({
+        mode: 'CheckBox',
+        showDropDownIcon: true,
+        allowFiltering: false,
+        allowCustom: false,
+        popupHeight: '350px',
+        popupWidth: '250px',
+        change: function (data) {fDayKindSelectionChanged(eElement,data);},
+    });
+  ejNew_selection.appendTo('#' + eElement.attr('id'));
+  lKind_selections.push(ejNew_selection);
+}
+
+
+
+
+function fSetAllKindSelectionsOnLoad()
+{
+  $('#units_list .kind_selection').each(function(index){
+    console.log('set kind selection: ' + String(index));
+    console.log($(this));
+    fAddKindSelectionToList($(this));
+  });
+}
+
+
+
+
+
+$( document ).ready(function(){
+  fSetAllKindSelectionsOnLoad();
+  SetFirstDayAsCurrentDay();
+});
+
+
+
+
+
+
+
+
+
+function AddTrainingDay(eBtn)
+{
+  var sDay = $('.days_list .day_value:last').html();
+  var settings = {
+        "url": '/de/fitness/plan/add_day/',
+        "method": "GET",
+        'traditional': true,
+        "data": {'day':sDay,'plan_id':iTraining_plan_id}
+    }
+  $.ajax(settings).done(function (data) {
+    $('#units_list').append(data);
+    console.log('create new day completed with Status: ' + data['status']);
+    fAddKindSelectionToList($('#units_list .kind_selection:last'));
+    fAddNewDayLabel(parseInt(sDay)+2);  // for left day label in top menu
+  });
+}
+
+
+function fAddNewDayLabel(iDay)
+{
+  var iNumber = $('.days_list li').length;
+    var settings = {
+        "url": '/de/fitness/plan/add_day_label/',
+        "method": "GET",
+        'traditional': true,
+        "data": {'day':iDay,'number':iNumber}
+    }
+  $.ajax(settings).done(function (data) {
+    $('.days_list').append(data);
+  });
+}
+
+
+
+
+
+
+// end edit mode
+// send input changes
+// change exercise ordering
+// change unit ordering
+function fEndEditMode(){
+   fSendInputChanges();
+   fSetSetChipValue();
+   fSendChangedUnitsOrder()
+}
+
+
+function fSetSetChipValue()
+{
+    Object.keys(ldEdited_exercises).forEach(function(sIncl_ex_id) { // get changed data of each exercise
+        var lExercise = ldEdited_exercises[sIncl_ex_id];
+        console.log(lExercise);
+        var dExercise = lExercise[1];
+        var eSets = $('#sets_' + String(sIncl_ex_id)).find('.value');
+        console.log('Sets: ');
+        console.log(eSets);
+            Object.keys(dExercise).forEach(function(set) {  // change value of each set
+                var iSet_id = parseInt(set);
+                var iValue =  dExercise[set];
+                console.log(eSets[iSet_id-1]);
+                $(eSets[iSet_id-1]).html(iValue);
+            });
+    });
+}
+
+
+function fSendInputChanges()
+{
+  if(ldEdited_exercises != {})  //changes
+  {
+var settings = {
+        "url": '/de/fitness/plan/input_changes/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'data':JSON.stringify(ldEdited_exercises)}
+    }
+    $.ajax(settings).done(function (data) {
+      console.log('Sending input data changes completed with Status: ' + data['status']);
+    });
+  }
+}
+
+function ChangeDayLabelOfAllTrainings()
+{
+  var iDay_diff =  parseInt($($('#units_list li .day_value')[0]).html()) - 1; // Day difference
+  $('#units_list li .day_value').each(function(index){
+    var iCurrent_value = parseInt($(this).html());
+    $(this).html(iCurrent_value - iDay_diff);
+  });
+}
+
+// delete Day Menu Dom elements
+function RemoveDayDomElement(eList_element){
+  var iIndex = $('#units_list li').index(eList_element);
+
+  if( iIndex === 0) // if first day -> delete last day label
+  {
+    ChangeDayLabelOfAllTrainings();
+    var iLast_index = $('.days_list li').length - 1;
+    $($('.days_list li')[iLast_index]).remove();   // delete day label element
+    ChangeDayOfAllTrainings();
+  }
+  else
+  {
+    $($('.days_list li')[iIndex]).remove();   // delete day label element
+  }
+  eList_element.remove()                  // delete day link element
+}
+
+
+function ChangeDayOfAllTrainings()
+{
+  var settings = {
+        "url": '/de/fitness/plan/change_day_of_all_trainings/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'plan_id': iTraining_plan_id},
+    };
+  $.ajax(settings).done(function (data) {
+    console.log('Delete training day with Status: ' + data['status']);
+  });
+}
+
+
+function fDeleteTrainingDay(eElement)
+{
+  var sIds = $(eElement).data('ids');
+  var eList_element =  $(eElement).parent().parent(); 
+  var eOther_element = $($('#units_list li').not( ".active" )[0]);
+  if(eOther_element.length == 0)   // only active day exists
+  {
+    // warning message 
+  }
+  else
+  {
+    if(eList_element.hasClass('active'))
+      eOther_element.find('.day_link').trigger('click');
+
+
+    // save changes in database
+    var settings = {
+          "url": '/de/fitness/plan/delete_day/',
+          "method": "POST",
+          'traditional': true,
+          "data": {'data':sIds},
+      };
+
+    $.ajax(settings).done(function (data) {
+      console.log('Delete training day with Status: ' + data['status']);
+      RemoveDayDomElement(eList_element);
+    });
+  }
+}
+
+
+function fSendChangedUnitsOrder()
+{
+  if(bUnit_order_is_changed)
+  {
+    console.log('changed units order sending...');
+    var dUnit_ids_per_days = {}
+    var leDays = $('.days_list .day_value');
+    $('#units_list .day').each(function(iIndex){
+      var sDay = $(leDays[iIndex]).html();
+      console.log(sDay);
+      var lIds = $(this).data('ids');
+      console.log(lIds);
+      dUnit_ids_per_days[sDay] = lIds;
+    });
+    
+    var settings = {
+            "url": '/de/fitness/plan/unit_order_changes/',
+            "method": "POST",
+            'traditional': true,
+            "data": {'dData':JSON.stringify(dUnit_ids_per_days)},
+        }
+    $.ajax(settings).done(function (data) {
+      console.log('Sending new units order completed with Status: ' + data['status']);
+      console.log(dUnit_ids_per_days);
+    });
+    bUnit_order_is_changed = false;
+  }
+}
+
+
+function fGetOrderedExerciseList(lExercise_rows)
+{
+  dResult = {}
+  lExercise_rows.each(function(index){
+    var sEx_id = $(this).data('incl_ex_id');
+    dResult[sEx_id] = index + 1 ;
+  });
+  return dResult;
+}
+
+
+function fSendChangedExerciseOrder()
+{
+console.log('changed order sended...');
+lChanged_units_order.forEach(function(sUnit)
+{
+    console.log('send unit oder of unit: ' + sUnit);
+    var dWarm_exercises = fGetOrderedExerciseList($('#unit_' + sUnit + ' .warm_row'));
+    var dTrain_exercises = fGetOrderedExerciseList($('#unit_' + sUnit + ' .train_row'));
+    var dCool_exercises = fGetOrderedExerciseList($('#unit_' + sUnit + ' .cool_row'));
+
+    context = {'warm_exercises':JSON.stringify(dWarm_exercises),'train_exercises':JSON.stringify(dTrain_exercises),'cool_exercises':JSON.stringify(dCool_exercises)}
+    var settings = {
+            "url": '/de/fitness/plan/order_changes/',
+            "method": "POST",
+            'traditional': true,
+            "data": context,
+        }
+
+    $.ajax(settings).done(function (data) {
+      console.log('Sending new exercise order of unit ' + sUnit + ' completed with Status: ' + data['status']);
+    });
+});
+
+bExercise_order_is_changed = false;
+lChanged_units_order = [];
+}
+
+
+function ClickOnDaySortingArrow(elementArrow){
+  var iValue_before, iValue_after;
+  var leDays_labels = $('.days_list li');
+  var iLast_pos = leDays_labels.length;
+  var eCurrent_label = $(elementArrow).parent().parent().parent();
+  var iPos = leDays_labels.index(eCurrent_label) + 1;
+  var bMore = $(elementArrow).data('dir') == 'up';
+  var eDay_value = eCurrent_label.find('.day_value');
+  var iCurrent_val = parseInt(eDay_value.html());
+
+  if(bMore)
+  {
+    if(iCurrent_val < 364)
+    {
+      iValue_after = iPos == iLast_pos ? 364 : parseInt($(leDays_labels[iPos]).find('.day_value').html());
+      iCurrent_val = iCurrent_val == --iValue_after ? iValue_after : ++iCurrent_val;
+      eDay_value.text(String(iCurrent_val));
+      bUnit_order_is_changed = true;
+    }
+  }
+  else
+  {
+    if(iPos==1)
+    {
+      iCurrent_val = --iCurrent_val == 0 ? 1 : iCurrent_val;
+    }
+    else
+    {
+      iValue_before = iPos == 2 ? 1 : parseInt($(leDays_labels[iPos-2]).find('.day_value').html());
+      iCurrent_val = iCurrent_val == ++iValue_before ? iValue_before : --iCurrent_val;
+    }
+    eDay_value.text(String(iCurrent_val));
+    bUnit_order_is_changed = true;
+  }
+}
+// #end  end edit mode
+
+
+
+
+
+
+function fGetDayTableData(lIds)
+{
+  console.log('data ids: ' + String(lIds));
+    var settings = {
+        "url": '/de/fitness/plan/training_data/',
+        "method": "GET",
+        'traditional': true,
+        "data": {'data':lIds,'plan_id': iTraining_plan_id}
+    }
+    
+    $.ajax(settings).done(function (data) {
+      $('.plan_tables').empty();
+      $('.plan_tables').append(data);
+    });
+}
+
+
+
+
+
+function fClickOnDayLink(eBtn)
+{
+  $('#units_list .active').removeClass('active')
+  var htmlKind = $(eBtn).find('.kind_areas').html()
+  var htmlArea = $(eBtn).find('.areas').html()
+  var eDay_element = $(eBtn).parent();
+  eDay_element.addClass('active');
+  var sId = eDay_element.data('ids');
+  var sDay =  eDay_element.data('day');
+  iCurrant_training_id = parseInt(sId);
+  
+  ChangeCurrentDayKindAndMainAreas(htmlKind);
+  ChangeCurrentDayAreas(htmlArea);
+  ChangeCurrentDayLabel(eDay_element);
+  
+
+  if (bExercise_order_is_changed)   // if exercise order is edited
+    fSendChangedExerciseOrder();
+  
+  fGetDayTableData(sId);
+}
+
+function ChangeCurrentDayKind(sKind)
+{
+  $('#current_kind .kind').html(sKind);
+}
+
+function ChangeCurrentDayKindAndMainAreas(htmlKind)
+{
+  $('#current_kind').html(htmlKind);
+}
+
+function ChangeCurrentDayAreas(htmlArea)
+{
+  $('#current_areas').empty();
+  $('#current_areas').append(htmlArea);
+}
+
+
+function ChangeCurrentDayLabel(eDay_element)
+{
+  // set day label in current day
+  var iIndex = $('#units_list li').index(eDay_element);
+  var sDay_label_html = $($('.day_value')[iIndex]).html();   // delete day label element
+  console.log('day label: ' + sDay_label_html);
+  $('#current_day_label .current_day_value').empty();
+  $('#current_day_label .current_day_value').append(sDay_label_html);
+}
+
+
+function fDeleteSet(eBtn)
+{
+  console.log('Delete Set');
+    eSets = $(eBtn).parent().parent().parent().parent().parent();
+    eSet_box = $(eBtn).parent().parent().parent();
+    console.log(eSet_box);
+    eSet_box.css('display','none');
+    console.log(eSets);
+    lClose = eSets.find('.close');
+    iClose = lClose.length;
+    if(iClose > 1)
+    {
+      console.log(iClose);
+    var eLeft_sets = eSets.find('.left .set').filter(':visible');
+    var eRight_sets = eSets.find('.right .set').filter(':visible');
+    
+    var iLeft_sets = eLeft_sets.length;
+    var iRight_sets = eRight_sets.length;
+    console.log(iRight_sets);
+    console.log(iLeft_sets);
+    if(iRight_sets + 1 < iLeft_sets)
+    {
+        console.log('right more');
+        eLast_right_set = $(eLeft_sets[iLeft_sets-1]).detach();
+        console.log(eLast_right_set);
+        eSets.find('.right').prepend(eLast_right_set);
+    }
+    eClose = $(lClose[iClose-2])
+    console.log(eClose);
+    eClose.addClass('last');
+    var sId = $(eBtn).data('id');
+    var sTraining_id = $(eBtn).data('training_id');
+    fDeleteSetRequest(null,sId,sTraining_id,'remove',null,null,null);
+    }
+}
+
+
+function fDeleteSetRequest(sKind,sId,sTraining_id,sType,sExercise_id,iPosition,iValue)
+{
+  console.log('delete SEt start request');
+  console.log(sType);
+        var settings = {
+        "url": '/de/fitness/plan/edit_sets/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'kind':sKind,'id': sId,'training_id': sTraining_id,'type':sType,'exercise_id':sExercise_id,'position':iPosition,'value':iValue}
+    }
+    $.ajax(settings).done(function (data) {
+            console.log(data);
+            sType = data['type'];
+            if(sType == 'add')
+            {
+                var sId = data['id'];
+                var eSet_main = $('#sets_' + sId);
+                var eLeft_sets = eSet_main.find('.left .set').filter(':visible');
+                var eRight_sets = eSet_main.find('.right .set').filter(':visible');
+                var iLeft_sets = eLeft_sets.length;
+                var iRight_sets = eRight_sets.length;
+
+                if(iRight_sets >= iLeft_sets)
+                {
+                    eFirst_right_set = $(eRight_sets[0]).detach();
+                    eSet_main.find('.left').append(eFirst_right_set);
+                }
+                console.log($(eRight_sets[iRight_sets-1]).find('.close'));
+                $(eRight_sets[iRight_sets-1]).find('.close').removeClass('last');
+                eSet_main.find('.right').append(data['set_html']);
+                console.log(data['set_html']);
+            }
+    });
+}
+
+
+function fAddSetToExercise(eBtn)
+{
+    var sKind = $(eBtn).data('kind');
+    var sId = $(eBtn).data('exercise_id');
+    var eSet_main = $(eBtn).parent();
+    var lSet = eSet_main.find('.value');
+    var iSets = lSet.length;
+    console.log(lSet[iSets-1]);
+    var iValue = lSet[iSets-1]['textContent'];
+    console.log(iValue);
+    fDeleteSetRequest(sKind,null,null,'add',sId,iSets + 1,iValue)
+}
+
+
+function fAddExerciseToTrainingKind(eBtn)
+{
+  sMain_kind = $(eBtn).data('kind');
+  if (window.innerWidth > 1200)
+    fBaseCreateExercisesSearchDialog();
+  else
+    AddExerciseOnSmallWindowStepOne()
+}
+
+
+function SetExerciseSelectionMenuOnSmallWindowVisible(boolVisible)
+{
+  if(boolVisible)
+  {
+    if(!$('#exercise_selection_small_window').hasClass('visible'))
+      $('#exercise_selection_small_window').addClass('visible');
+  }
+  else
+    $('#exercise_selection_small_window').removeClass('visible');
+}
+
+
+function AddExerciseOnSmallWindowStepOne()
+{
+  SetExerciseSelectionMenuOnSmallWindowVisible(true);
+  var settings = {
+    url: '/de/fitness/plan/exercise_selection_small_first/',
+    method: 'GET',
+    traditional: true,
+    data: {}
+  };
+  $.ajax(settings).done(function (data) {
+    $('#exercise_selection_small_window').empty();
+    $('#exercise_selection_small_window').append(data);
+  });
+}
+
+
+function AddExerciseOnSmallWindowStepThree(eBtn)
+{
+  var sArea = $(eBtn).data('area');
+  var sKind = $(eBtn).data('kind'); 
+  var settings = {
+    url: '/de/fitness/plan/exercise_selection_small_three/',
+    method: 'GET',
+    traditional: true,
+    data: {'area': sArea,'kind':sKind}
+  };
+  $.ajax(settings).done(function (data) {
+    $('#exercise_selection_small_window').empty();
+    $('#exercise_selection_small_window').append(data);
+  });
+}
+
+
+
+
+function AddExerciseOnSmallWindowStepTwo(Element)
+{
+  console.log('window to small for big selection window...');
+  var sKind = $(Element).data('kind'); 
+  var settings = {
+    url: '/de/fitness/plan/exercise_selection_small_second/',
+    method: 'GET',
+    traditional: true,
+    data: {'kind': sKind}
+  };
+  $.ajax(settings).done(function (data) {
+    $('#exercise_selection_small_window').empty();
+    $('#exercise_selection_small_window').append(data);
+  });
+}
+
+
+// click on add exercise button
+function fBaseCreateExercisesSearchDialog() {
+  
+  dExercis_search_dialog.show();
+  // render dialog content
+  if (!bDataIsLoaded) {
+    var eDialog_content = $('#exercises_search-dialog_dialog-content');
+    bDataIsLoaded = true;
+
+    // get data for autocomplete
+    var settings = {
+      url: '/de/fitness/exercises_dialog/',
+      method: 'POST',
+      traditional: true,
+      data: { 'bExercises': 'true', bAutocomplete: 'true'}
+    };
+    $.ajax(settings).done(function (data) {
+      lsExercises_titles = data['exercises_titles'];
+      lsExercises_ids = data['exercises_ids'];
+    });
+    // #end get data for autocomplete
+
+    var settings = {
+      url: '/de/fitness/exercises_dialog/',
+      method: 'POST',
+      traditional: true,
+      data: { 'bExercises': 'true','bIs_edit_dialog':'true' }
+    };
+    $.ajax(settings).done(function (data) {
+      eDialog_content.empty();
+      console.log('Dialog: ' + String(eDialog_content));
+      eDialog_content.append(data);
+      fSetExercisesSearchDialog();
+      $('.kind_selection-topbar .' + sTraining_part).addClass('active');
+    });
+    // create dialog with actual content
+  }
+  // #end render dialog content
+
+  $('.kind_selection-topbar .active').removeClass('active');
+  $('.kind_selection-topbar .' + sTraining_part).addClass('active');
+
+  bFirst_dialog_open = false;
+}
+
+
+function fExerciseDialogKindSelectionClicked(eBtn)
+{
+    var sSelected_main_kind = $(eBtn).data('main_kind');
+    sTraining_part = sSelected_main_kind;
+}
+
+
+function   ClickOnExerciseAddButton(eBtn){
+        var iExercise_id = String($(eBtn).attr('id')).replace('plus_', '');
+        var sKind = $(eBtn).data('kind');
+        fAddExerciseToTable(iExercise_id,sKind);
+}
+
+
+function ClickOnExerciseAddButtonSmallWindow(eBtn){
+  $(eBtn).parent().parent().css('opacity',0.5);
+  ClickOnExerciseAddButton(eBtn)
+}
+
+
+function fGetAddedExercisePosition()
+{
+  return $('.' + sMain_kind + '_row').length + 1;
+}
+
+
+
+function fAddExerciseToTable(iExercise_id,sKind)
+{
+    sPos = fGetAddedExercisePosition();
+    var settings = {
+      url: '/de/fitness/plan/add_exercise/',
+      method: 'GET',
+      traditional: true,
+      data: { 'id': iExercise_id, 'kind': sKind , 'main_kind':sMain_kind , 'training_id': iCurrant_training_id, 'pos': sPos }
+    };
+
+    $.ajax(settings).done(function (data) {
+      switch(sMain_kind)
+      {
+        case 'warm':
+        $(data).insertBefore($('#unit_' + String(iCurrant_training_id) + ' .trainheading'));
+        break;
+        case 'train':
+        $(data).insertBefore($('#unit_' + String(iCurrant_training_id) + ' .coolheading'));
+        break;
+        case 'cool':
+        $('#unit_' + String(iCurrant_training_id)).append(data);
+        break;
+        default:
+        console.log("Sorry, we are out of " + expr + ".");
+      }
+
+      var inclExId = $(data).data('incl_ex_id');
+      CheckIfMainAreasOrderIsChanged(inclExId,1); // change main areas order if necessary
+      ChangeExerciseCount(1);
+    });
+}
+
+
+function ChangeExerciseCount(intNumber)
+{
+  var elementNavItemNumber = $('.nav_item-' + iCurrant_training_id + ' .exercise_count');
+  var elementToggleMenuCurrentNumber = $('#current_areas .exercise_count');
+  var intCurrentValue = parseInt(elementNavItemNumber.html());
+  elementNavItemNumber.html(intCurrentValue + intNumber);
+  elementToggleMenuCurrentNumber.html(intCurrentValue + intNumber);
+}
+
+
+function CheckIfMainAreasOrderIsChanged(inclExId,number)
+{
+
+        // get data for autocomplete
+  var settings = {
+      url: '/de/fitness/plan/change_areas_order/',
+      method: 'POST',
+      traditional: true,
+      data: { 'incl_ex_id': inclExId,'training_id':iCurrant_training_id,'number':number,'kind':sMain_kind}
+    };
+    $.ajax(settings).done(function (data) {
+        ChangeTrainingAreasOrderAndValue(data['areasChanges'][0])
+        ChangeTrainingMainAreaOrder(data['areasChanges'][1])
+    });
+}
+
+
+
+function ChangeTrainingMainAreaOrder(listThreeAreas)
+{
+  console.log('main areas order list: ');
+  console.log(listThreeAreas);
+  if(listThreeAreas != null)
+  {
+    $('.nav_item-' + iCurrant_training_id + ' .main_areas .area').each(function(index){
+      console.log(index);
+      $(this).html(listThreeAreas[1][index]);
+    });
+
+    $('#current_kind .main_areas .area').each(function(index){
+      console.log(index);
+      $(this).html(listThreeAreas[1][index]);
+    });
+  }
+}
+
+
+function ChangeTrainingSubAreaOrder(listThreeAreas)
+{
+  $('.nav_item-' + iCurrant_training_id + ' .areas .area').each(function(index){
+    $(this).find('.text').html(listThreeAreas[index][1]);
+    $(this).find('.value').html(listThreeAreas[index][0]);
+  });
+  $('#current_areas .area').each(function(index){
+    $(this).find('.text').html(listThreeAreas[index][1]);
+    $(this).find('.value').html(listThreeAreas[index][0]);
+  });
+}
+
+function ChangeTrainingAreasOrderAndValue(listThreeAreas)
+{
+  if(listThreeAreas != null)
+  {
+    if(listThreeAreas[0] == 'changed_order')
+    {
+      ChangeTrainingSubAreaOrder(listThreeAreas[1]);
+    }
+    else
+    {
+      ChangeTrainingSubAreaValue(listThreeAreas[1])
+    }
+  }
+}
+
+function ChangeTrainingSubAreaValue(listValue)
+{
+  console.log('changed area value...');
+  console.log(listValue);
+  var indexOfArea = listValue[0];
+  var stringValue = listValue[1];
+  $($('.nav_item-' + iCurrant_training_id + ' .areas .area .value')[indexOfArea]).html(stringValue);
+  $($('#current_areas .area .value')[indexOfArea]).html(stringValue);
+}
+
+
+
+function fExerciseDialogKindSelectionClicked(eBtn)
+{
+    sMain_kind = $(eBtn).data('main_kind');
+}
+
+
+function fDeleteExercise(eBtn)
+{
+    var sIncl_ex_id = $(eBtn).data('incl_ex_id');
+    var sMain_kind = $(eBtn).data('kind');
+    var eRow = $(eBtn).parent().parent();
+    console.log('delete Exercise: ');
+    console.log(eRow);
+    eRow.remove();
+    CheckIfMainAreasOrderIsChanged(sIncl_ex_id,-1); // change main areas order if necessary
+        // get data for autocomplete
+ var settings = {
+      url: '/de/fitness/plan/remove_exercise/',
+      method: 'POST',
+      traditional: true,
+      data: { id: sIncl_ex_id , kind: sMain_kind, training_id: iCurrant_training_id}
+    };
+    $.ajax(settings).done(function (data) {
+      ChangeExerciseCount(-1);
+    });
+}
+
+
+// save input changes in edit mode
+
+function fChangeInputByOneStepOnClick(eBtn)
+{
+var bIs_plus = $(eBtn).hasClass('plus');
+var eInput = $(eBtn).parent().find('input');
+var iInput_value = parseInt(eInput.val());
+var sKind = $(eBtn).data('kind');
+var sSet = $(eBtn).parent().data('set');
+var sIncl_ex_id = $(eBtn).data('incl_ex_id');
+if(bIs_plus)
+{
+    iInput_value += sKind == "muscle_building"? 1 : 5;
+}
+else{
+    if((iInput_value>1))
+    iInput_value -= (sKind == 'stretching' ||sKind == 'endurance') && iInput_value > 5 ? 5 : 1;
+}
+eInput.val(iInput_value);
+
+fAddExerciseToEditedExercises(sIncl_ex_id,iInput_value,sKind,sSet);
+}
+
+
+
+function fAddExerciseToEditedExercises(sIncl_ex_id,iValue,sKind,sSet)
+{
+  if (ldEdited_exercises[sIncl_ex_id] === undefined)
+  {
+      var dNew_entry = {};
+      dNew_entry[sSet] = iValue;
+      ldEdited_exercises[sIncl_ex_id] = [sKind,dNew_entry];
+  }
+  else
+  {
+      ldEdited_exercises[sIncl_ex_id][1][sSet] = iValue;
+  }
+}
+
+
+// manual input value change function
+function fSetTotalDurationOnSetInputEdit(eBtn)
+{
+    var iValue = $(eBtn).val();
+    var sIncl_ex_id = $(eBtn).data('incl_ex_id');
+    var sKind = $(eBtn).data('kind');
+    var sSet = $(eBtn).parent().data('set');
+    $(eBtn).focusout(function(){
+        iValue = $(eBtn).val();
+        if(iValue < 1)
+        {
+            iValue = 1;
+            $(eBtn).val(iValue);
+        }
+        fAddExerciseToEditedExercises(sIncl_ex_id,iValue,sKind,sSet);
+    });
+}
+// #end save input changes in edit mode
+
+function ClickOnSortingArrow(eArrow)
+{
+  console.log('sorting_arrow clicked...');
+  var iPos = parseInt($(eArrow).parent().find('.position').html());
+
+  if(boolCanDragExerciseOneRowDown($(eArrow),iPos))
+    DragExerciseRowOneStepDown($(eArrow))
+
+  else if(iPos > 1)
+    DragExerciseRowOneStepUp($(eArrow))
+}
+
+
+function boolCanDragExerciseOneRowDown(eArrow,iPos)
+{
+  var sKind = eArrow.data('kind');
+  var sDirection = eArrow.data('dir');
+  var iExercise_count = $('.' + sKind + '_row').length;
+  console.log('exercise count: ');
+  console.log(iExercise_count);
+  console.log(iPos);
+  return (sDirection == 'down') && (iPos != iExercise_count);
+}
+
+
+function DragExerciseRowOneStepUp(eArrow)
+{
+  var eList_item = eArrow.parent().parent().parent();
+  var ePrev_list_item = eList_item.prev();
+  eList_item.insertBefore(ePrev_list_item);
+  ChangeExerciseRowPosition(eList_item,-1)
+  ChangeExerciseRowPosition(ePrev_list_item,1)
+  eList_item[0].scrollIntoView(); 
+  bExercise_order_is_changed = true;
+}
+
+function ChangeExerciseRowPosition(eList_item,iNumber)
+{
+  eValue = eList_item.find('.position');
+  iValue = parseInt(eValue.html());
+  eValue.html(iValue += iNumber);
+}
+
+function DragExerciseRowOneStepDown(eArrow)
+{
+  var eList_item = eArrow.parent().parent().parent();
+  var eNext_list_item = eList_item.next();
+  eList_item.insertAfter(eNext_list_item);
+  ChangeExerciseRowPosition(eList_item,1)
+  ChangeExerciseRowPosition(eNext_list_item,-1)
+  eList_item[0].scrollIntoView(); 
+  bExercise_order_is_changed = true;
+}
+
+// change plan mode
+function fSetPlanEditMode(eBtn) {
+    var eContent = $('.sidebar-content');
+    if (eContent.hasClass('edit')) {
+        eContent.removeClass('edit');
+        $(eBtn).html("{% trans 'Bearbeiten' %}");
+        fEndEditMode();
+        fSetTablesDragAndDropAble(false);
+        fSetUnitsDragAndDropAble(false);
+        if (bExercise_order_is_changed)
+            fSendChangedExerciseOrder();
+    }
+    else {
+        eContent.addClass('edit');
+        $(eBtn).html("{% trans 'Fertig' %}");
+        fSetTablesDragAndDropAble(true);
+        fSetUnitsDragAndDropAble(true);
+    }
+}
+// #end change plan mode
+
+
+function fSetTablesDragAndDropAble(bEnable) {
+    $('.responsive-table').each(function (index) {
+        console.log('set table drag and drop able');
+
+        var sUnit_id = $(this).attr('id').split('_')[1];
+
+        if (bEnable) {
+            var isDisabled = $(this).hasClass('ui-sortable-disabled');
+            if (isDisabled) {
+                $(this).sortable("enable");
+            }
+            else {
+                console.log('create sortable list...');
+                $(this).sortable({
+                    fixed: 'li.heading',
+                    items: 'li:not(.heading)',
+                    handle: 'i.fa-th-large',
+                    update: function () {
+                        bExercise_order_is_changed = true;
+                        if (!lChanged_units_order.includes(sUnit_id))
+                            lChanged_units_order.push(sUnit_id);     // append id of changed unit
+                    },
+                });
+            }
+        }
+        else {
+            $(this).sortable("disable");
+        }
+    });
+}
+
+
+
+function fSetUnitsDragAndDropAble(bEnable) {
+    console.log('set units drag and drop able');
+    var eUnit_list = $('#units_list');
+    if (bEnable) {
+        var isDisabled = eUnit_list.hasClass('ui-sortable-disabled');
+        if (isDisabled) {
+            eUnit_list.sortable("enable");
+        }
+        else {
+            eUnit_list.sortable({
+                handle: 'i.fa-th-large',
+                items: 'li',
+                update: function () { bUnit_order_is_changed = true; },
+            });
+        }
+    }
+    else {
+        eUnit_list.sortable("disable");
+    }
+}
+
+
+function DeletePlan(elementBtn)
+{
+    var sId = $(elementBtn).data('id');
+    var settings = {
+        "url": '/de/fitness/plan/delete_plan/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'id':sId}
+    }
+    $.ajax(settings).done(function (data) {
+        console.log('delete plan with status: ' + data['status']);
+        history.pushState(null, null, '/de/fitness/all_training_plans/');
+        fGetAllPlansContent();
+    });
+}
+</script>
+
+<script src="{% static "js/plus_minus.js" %}" type="text/javascript"></script>

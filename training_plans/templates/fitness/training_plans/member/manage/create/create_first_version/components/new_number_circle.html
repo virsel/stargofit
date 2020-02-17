@@ -1,0 +1,8 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+                
+
+    <a href="#step-{{ number }}" id="circle-{{ number }}" type="button" class="btn waves-effect circle number_circle" data-number="{{ number }}" data-kind="number" onclick="javascript:fClickOnCircle(this);"
+    data-toggle="tooltip" data-placement="top" title="Basic Information" data-target="#training_plan_create_carousel" data-slide-to="{{ number }}">
+    <i class="number std" aria-hidden="true">{{ number }}</i></a>

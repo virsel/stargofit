@@ -1,0 +1,34 @@
+
+{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+
+
+
+ <!-- Grid row -->
+<div class="row mb-3 tipps">
+          <div class="col-12 heading">
+            <!-- Badge -->
+            <a href="#!"><span class="badge badge-info"><i class="fas fa-info"></i>Tipps</span></a>
+          </div>
+          <!-- Grid column -->
+
+        <!-- Grid row -->
+{% for tipp in tipps %}
+      <!-- Small news -->
+      <div class="single-news col-12">
+
+        <!-- Title -->
+        <div class="d-flex justify-content-between">
+          <div class="col-11 pl-0 mb-3">
+            <a>{{ tipp }}</a>
+          </div>
+        </div>
+{% if not forloop.last %}<hr class="my-3">{% endif %}
+      </div>
+      <!-- Small news -->
+ {% endfor %}
+    <!-- Grid column -->
+</div>
+<!-- ###end### instruction -->

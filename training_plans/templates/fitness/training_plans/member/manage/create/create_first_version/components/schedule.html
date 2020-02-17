@@ -1,0 +1,89 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+
+<div class="form-group my-3" id="schedule-form">
+
+
+<!-- Table with panel -->
+<div class="card card-cascade narrower">
+
+  <!--Card image-->
+  <div class="view view-cascade my-3 blue lighten-5 narrower d-flex justify-content-center">
+  <p class="">
+    {% trans 'Hier kannst du deine Trainingseinheiten umbenennen, kopieren, löschen und in einem Beispielzeitraum frei einteilen.' %}
+       <span class="material-tooltip-main badge badge-info tip ml-3" data-toggle="tooltip" data-html="true" 
+       title="{% trans 'Klicke mit der rechten Maustaste auf ein Training um es zu Bearbeiten. Mit gedrückter linker Maustaste kannst du es verschieben.' %}"><i class="fas fa-question"></i></span> 
+  </p>
+  </div>
+  <!--/Card image-->
+
+  <div class="px-4" id="planing-schedule" data-units="{{ data }}">
+
+        <div id="Schedule">
+        </div>
+         <ul id="schedule-ContextMenu"></ul>
+    <div id="copy_dialog"></div>
+            <div id="dlgContent" style="visibility: hidden">
+      <div class="md-form">
+        <i class="fas fa-tag prefix grey-text"></i>
+        <input type="text" id="title_of_copied_unit" class="form-control">
+        <label for="form106">{% trans 'Titel' %}</label>
+      </div>
+            <div class="form-group">
+                <span class="position">{% trans 'Position' %}: <span class="number text-muted btn-floating cloudy-knoxville-gradient"><span id="training_unit_copy_number">1</span><span class="point">.</span></span></span>
+<div id='position_slider'></div>
+</div>
+            </div>
+        </div>
+                    <form id="rename_content" style="visibility: hidden">
+           <div class="form-group"><label for="email">Email:</label>
+             <input type="email" class="form-control" id="email">
+           </div>
+            <div class="form-group">
+                <label for="comment">Comments:</label>
+                <textarea style="resize: none;" class="form-control" rows="4" id="comment"></textarea>
+            </div>
+        </form>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+
+<script id="EventEditorTemplate" type="text/x-template">
+    <table id="schedule_unit_edit_content" class="custom-event-editor" width="100%" height="200px" cellpadding="5">
+        <tbody>
+            <tr>
+                <td class="e-textlabel">{% trans 'Titel' %}</td>
+                <td colspan="4">
+                    <input id="Subject" class="e-field e-input" type="text" value="Training" name="Subject" style="width: 100%" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+
+<script id="event-template" type="text/x-template">
+    <div class='template-wrap' style='background:${SecondaryColor}'>
+        <div class="first-row" style='background:${PrimaryColor}'><span class="number text-muted btn-floating cloudy-knoxville-gradient"><span class="training_unit_sch_number">${Number}.</span></span>
+        <span class="ex_count_box">{% trans 'Übungen' %}: <span class="main_ex_count">${Ex_count}</span></span>
+        </div>
+        <div class="subject" style='background:${PrimaryColor}'>${Subject}</div>
+        <div class="description">${Description}</div>
+        <div class="duration" style='background:${PrimaryColor}'><i class="fas fa-clock"></i> ${Duration} min.</div>
+        <div class="footer" style='background:${PrimaryColor}'></div>
+    </div>
+</script>
+
+<script id="event-month-template" type="text/x-template">
+    <div class='template-wrap' style='background:${SecondaryColor}'>
+        <span class="" style='background:${PrimaryColor}'><span class="number text-muted btn-floating cloudy-knoxville-gradient"><span class="training_unit_sch_number">${Number}</span></span> </span>
+        <span class="subject ml-2" style='background:${PrimaryColor}'>${Subject}</span>
+        <span class="duration ml-2" style='background:${PrimaryColor}'><i class="fas fa-clock"></i> ${Duration} min.</span>
+    </div>
+</script>

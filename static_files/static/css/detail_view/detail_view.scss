@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css?family=Chivo:300,300i,400,400i,700,700i,900,900i|Saira+Extra+Condensed:100,200,300,400,500,600,700,800|Saira:100,200,300,400,500,600,700,800');
+/* Variables */
+
+$background: #252827;
+
+$color-primary: #004ffc;
+$color-light: white;
+$color-dim: #6c6d6d;
+$spacing: 50px;
+$radius: 4px;
+
+$date: 120px;
+$dotborder: 4px;
+$dot: 11px;
+$line: 4px;
+
+$font-title: 'Saira', sans-serif;
+$font-text: 'Chivo', sans-serif;
+
+
+.exercise_detail{
+    .rating {
+        color: #5374a8 !important;
+    }
+
+    .video{
+      iframe{
+        width: 100% !important;
+      }
+      .rating{
+        display: flex;
+        background: white;
+        align-items: center;
+        padding: 5px 10px;
+        #main_smiley{
+          position: relative;
+          width: max-content;
+          margin: 0;
+          font-size: 40px;
+        }
+        .user_rating{
+          width: max-content;
+          span{
+            padding: 5px 10px;
+            border: 1px solid black;
+            border-radius: 10px;
+            position: relative;
+          }
+        }
+      }
+    }
+
+      .tipps{
+        position: relative;
+        width: 450px;
+        left: 50%;
+        transform: translate(-50%); 
+        .heading{
+          margin-bottom: 30px;
+          text-align: center;
+          pointer-events: none;
+
+          span{
+            padding: 7px 15px;
+            font-size: 15px;
+            i{
+              margin-right: 7px;
+            }
+          }
+        }
+      }
+
+
+      .timeline {
+        border-left: $line solid $color-primary;
+        border-bottom-right-radius: $radius;
+        border-top-right-radius: $radius;    
+        background: fade($color-light, 3%);
+        color: fade(white, 80%);
+        font-family: $font-text;   
+        letter-spacing: 0.5px;   
+        position: relative;
+        font-size: 1.03em;    
+        list-style: none;
+        text-align: left;  
+        font-weight: 100;   
+        margin-left: 40px;
+        width: 90%;
+        h1 {
+         font-family: $font-title;
+         letter-spacing: 1.5px;
+         font-weight: 100;
+         font-size: 1.4em;    
+        }
+        
+        h2, h3 {
+         font-family: $font-title;
+         letter-spacing: 1.5px;
+         font-weight: 400;
+         font-size: 1.4em;
+        }
+        
+        .event {
+          border-bottom: 1px dashed fade($color-light, 10%);
+          padding-bottom: ($spacing * 0.5);
+          position: relative;
+          
+          p{
+            margin-left: 10px;
+            margin-bottom: 0px;
+          }
+          &:last-of-type { 
+            padding-bottom: 0;
+            margin-bottom: 0; 
+            border: none;      
+          }
+      
+          &:before, &:after {
+            position: absolute;
+            display: block;
+            top: 0;
+          }
+      
+          &:before {
+            left: -40px;    
+            color: fade($color-light, 40%);    
+            content: attr(data-date);
+            font-weight: 700;    
+            font-size: 1.3em;
+            font-family: $font-title;
+          }
+      
+          &:after {
+            box-shadow: 0 0 0 $dotborder fade($color-primary,100%);    
+            left: -20px;        
+            background: lighten($background,5%);    
+            border-radius: 50%;  
+            height: $dot;
+            width: $dot;
+            content: "";
+            top: 10px;
+          }
+        }
+      }
+  
+    .heading{
+        display: grid;
+        width: max-content;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        text-align: center;
+    }
+    .top{
+        margin-top: 40px;
+    }
+}
+
+
+
+
+/* ###end### exercise detail view */
+
+
+@media (max-width: 70em) {
+    
+
+}

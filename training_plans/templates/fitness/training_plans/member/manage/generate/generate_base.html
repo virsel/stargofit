@@ -1,0 +1,570 @@
+
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+<div class="plan_generate">
+
+<!-- top card -->
+<div class="card first p-3 mt-3">
+<div class="d-flex flex-wrap text-center align-items-center justify-content-center">
+  <div class="col col-xl-3 w-p-250 my-3">
+    <select class="mdb-select md-form md-outline colorful-select dropdown-primary" id="status_selection" name="status_selection">
+      <option value="0" selected>{% trans 'Anfänger' %}</option>
+      <option value="1">{% trans 'Erfahren' %}</option>
+      <option value="2">{% trans 'Profi' %}</option>
+    </select>
+    <label class="mdb-main-label" for="status_selection">{% trans 'Dein Status' %}</label>
+  </div>
+
+  <div class="col col-xl-3 w-p-250 my-3">
+    <select class="mdb-select md-form md-outline colorful-select dropdown-primary" id="gender_selection" name="gender_selection">
+      <option value="man" selected>{% trans 'Männlich' %}</option>
+      <option value="woman">{% trans 'Weiblich' %}</option>
+    </select>
+    <label class="mdb-main-label">{% trans 'Geschlecht' %}</label>
+  </div>
+
+
+
+<div class="col col-xl-3 w-p-250 d-flex flex-wrap justify-content-center  my-3">
+<label class="heading col-12">{% trans 'Trainingseinheiten' %}:</label>
+<div class="btn-group input col" role="group" aria-label="Basic example">
+<button type="button" onclick="fChangeInputByOneStepOnClick(this)" class="btn btn-outline-light-blue btn-rounded waves-effect minus"><i class="fas fa-minus"></i></button>
+<input class="btn-outline-light-blue" min="1" onfocus="fSetNumberInputOnFocus(this)" value="5" type="number" id="units_input">
+<button type="button" onclick="fChangeInputByOneStepOnClick(this)" class="btn btn-outline-light-blue btn-rounded waves-effect plus"><i class="fas fa-plus"></i></button>
+</div>
+</div>
+
+<div class="col col-xl-3 w-p-250 d-flex flex-wrap time my-3">
+<label class="heading col-12">{% trans 'Dauer einer Trainingseinheit' %}:</label>
+<div class="input col" id='time_range'></div>
+</div>
+
+<div class="col w-p-250 d-flex flex-wrap my-3">
+<label class="heading col-6">{% trans 'Zeitraum' %}:</label>
+<span class="badge badge-info col-6  d-flex justify-content-center align-items-center txt-s-20">
+  <span  id="frequenz_number" class="mr-3">7</span> 
+  <span  id="frequenz_text">{% trans 'Tage' %}</span>
+</span>
+<div class="input col" id='days_range'></div>
+</div>
+
+
+
+
+<div class="col w-p-250 my-3">
+    <!-- area selection -->
+    <div class="control-styles input">
+    <select id="goals_selection">
+    {% for goal in goals %}
+    <option name="goal" value="{{ goal.identify }}">
+    {{ goal.title }}  
+    </option>
+    {% endfor %}
+    </select>
+    </div>
+<!-- #end area selection -->
+</div>
+</div>
+</div>
+<!-- #end top card -->
+
+<div class="card disable" id="column_chart">
+<div class="card_heading bg-c-g-d-1"> 
+<span class="text">
+ <input type="checkbox" class="form-check-input" id="goals_distribution_input" onclick="fToggleCard(this)" unchecked>
+ <label class="form-check-label txt-s-md-15" for="goals_distribution_input">{% trans 'Wichtigkeit der Ziele einstellen' %}</label>
+ </span>
+</div>
+<div class="chart_content">
+{% include 'fitness/training_plans/member/manage/generate/components/chart.html' with goals=goals %}
+</div>
+</div>
+
+
+<!-- middle card -->
+<div class="card second disable">
+<div class="card_heading bg-c-g-d-1"> 
+<span class="text">
+ <input type="checkbox" class="form-check-input" id="weaks_enable_input" onclick="fToggleWeaksCard(this)" unchecked>
+ <label class="form-check-label txt-s-md-15" for="weaks_enable_input">{% trans 'Schwachstellen verbessern' %}</label>
+ </span>
+</div>
+  <div class="body_areas d-flex flex-wrap justify-content-center align-items-center">
+{% include 'fitness/training_plans/member/manage/generate/components/area_selection.html' with area_weaks=area_weaks %}
+  </div>
+
+</div>
+<!-- #end middle card -->
+
+
+<!-- last row -->
+<div class="last d-flex flex-wrap justify-content-center align-items-center">
+
+<div class="card left disable col p-0">
+<div class="card_heading bg-c-g-d-1"> 
+<span class="text">
+ <input type="checkbox" class="form-check-input" id="personal_enable_input" onclick="fToggleCard(this)" unchecked>
+ <label class="form-check-label  txt-s-md-15" for="personal_enable_input">{% trans 'Plan an mich anpassen' %}</label>
+ </span>
+</div>
+<div class="personal_info">
+<div class="pRow">
+<label>{% trans 'Dein Alter' %}:</label>
+<div class="btn-group input" role="group" aria-label="Basic example"><button type="button" onclick="fChangeInputByOneStepOnClick(this)" class="btn btn-outline-light-blue btn-rounded waves-effect minus"><i class="fas fa-minus"></i></button><input onfocus="fSetNumberInputOnFocus(this)" class="repeats_input btn-outline-light-blue" min="1"  value="18" type="number" id="plan_age"><button type="button" onclick="fChangeInputByOneStepOnClick(this)" class="btn btn-outline-light-blue btn-rounded waves-effect plus"><i class="fas fa-plus"></i></button>
+</div>
+</div>
+<div class="pRow">
+<label>{% trans 'Dein Gewicht' %}:</label>
+<div class="btn-group input" role="group" aria-label="Basic example"><button type="button" onclick="fChangeInputByOneStepOnClick(this)" class="btn btn-outline-light-blue btn-rounded waves-effect minus"><i class="fas fa-minus"></i></button><input onfocus="fSetNumberInputOnFocus(this)" class="weight_input btn-outline-light-blue" min="0"  value="0" type="number" id="plan_weight">
+<div class="input-group-append"><span class="input-group-text btn-outline-light-blue weight">kg</span></div>
+<button type="button" class="btn btn-outline-light-blue btn-rounded waves-effect plus" onclick="fChangeInputByOneStepOnClick(this)"><i class="fas fa-plus"></i></button>
+</div>
+</div>
+
+</div>
+</div>
+<div class="bottom col  d-flex justify-content-center">
+<a class="btn-floating btn-lg btn-default bg-c-g-d-1" id="generate_btn"><span>{% trans 'Generieren' %}</span></a>
+</div>
+</div>
+<!-- #end last row -->
+
+</div>
+<script>
+
+// variables
+var dWeaks_area_count = {'arms':0,'chest':0,'legs':0,'back':0,'glutes':0,'bauch':0,'shoulders':0}
+var sUser = '{{ request.user }}';
+// #end variables
+
+
+// Goals Column:
+    var ejColumn_chart = new ej.charts.Chart({
+        //Initializing Primary X Axis
+        height: '300px',
+        width: '400px',
+        primaryXAxis: {
+            majorGridLines: { width: 0 },
+            minorGridLines: { width: 0 },
+            majorTickLines: { width: 0 },
+            minorTickLines: { width: 0 },
+            interval: 1,
+            lineStyle: { width: 0 },
+            labelIntersectAction: 'Rotate45',
+            valueType: 'Category'
+        },
+        //Initializing Primary Y Axis
+        primaryYAxis: {
+            title: '',
+            minimum: 0,
+            maximum: 100,
+            interval: 10,
+            lineStyle: { width: 0 },
+            minorGridLines: { width: 1 },
+            minorTickLines: { width: 0 },
+            majorTickLines: { width: 0 },
+            majorGridLines: { width: 1 },
+            labelFormat: '{value}%',
+        },
+        chartArea: { border: { width: 0 } },
+        //Initializing Chart Series
+        series: [
+                {% for goal in goals %}
+            {
+                type: 'StackingColumn',
+                dataSource: [
+                    { x: 'Ziele', y: 0 },
+                ],
+                xName: 'x', width: 2,
+                yName: 'y',
+            },
+                {% endfor %}
+        ],
+        //Initializing Tooltip
+        //Initializing Chart Title
+
+    });
+    ejColumn_chart.appendTo('#sColumn-container');
+// #end Goals Column
+
+
+$('.mdb-select').materialSelect();
+
+
+
+
+var ejTime_rangeObj = new ej.inputs.Slider({
+    value: [60, 90],
+    min: 0, 
+    max: 180,
+    tooltip: {
+        isVisible: true,
+        placement: 'Before',
+        format: '# min'
+    },
+    ticks: {
+        placement: 'After',
+        largeStep: 60,
+        smallStep: 10,
+        showSmallTicks: true,
+        /**
+         * Formatting ticks value in numeric with 2-decimal specifier if the any decimal values occurred.
+         * Zeros will be filled if the values are not in 4-digits in the fractional part.
+         */
+        format: '# min'
+    },
+    type: 'Range'
+});
+ejTime_rangeObj.appendTo('#time_range');
+
+
+
+var ejDays_rangeObj = new ej.inputs.Slider({
+    value: 7,
+    min: 0, 
+    max: 31,
+    ticks: {
+        placement: 'After',
+        largeStep: 7,
+        smallStep: 1,
+        showSmallTicks: true,
+    },
+});
+ejDays_rangeObj.appendTo('#days_range');
+
+
+
+// goals input
+var iSelected_goals = 0;
+var iFinished_goals = 0;
+var iSaved_percentage = 0;
+var ejGoal_selection = new ej.dropdowns.MultiSelect({
+    placeholder: '{% trans 'Ziele' %}',
+    mode: 'CheckBox',
+    showDropDownIcon: true,
+    allowFiltering: false,
+    popupHeight: '350px',
+    popupWidth: '200px',
+
+});
+ejGoal_selection.appendTo('#goals_selection');
+
+var lSeries = ejColumn_chart.series;
+var iSeries = lSeries.length;
+
+
+// select goal
+ejGoal_selection.addEventListener('select',function(data){
+  console.log(data);
+  console.log('goals change');
+  var sGoal = data['itemData']['text'];
+  var iGoal_index = data['itemData']['value'];
+  fUncheckGoalsInput();
+   $('#goal_row_' + String(iGoal_index)).removeClass('disabled');
+  if(iSelected_goals == 0)
+  {
+  
+  fSetRangeAndChartOfGoal(iGoal_index,100)
+  iSelected_goals++;
+  }
+  else{
+    if(iSelected_goals == 1)
+    $('#column_chart').addClass('enabled');
+    iSelected_goals++;
+    var iPercentage = 100 / iSelected_goals;
+           $('#chart_controller .form-check-input').filter(':visible').each(function(i)
+           {
+              var iIndex = parseInt($(this).data('index')); 
+              fSetRangeAndChartOfGoal(iIndex,iPercentage);
+           });
+    }
+    
+  });
+  
+
+// #end select goal
+
+$('#chart_controller .form-check-input').on('click',function(){
+  var iIndex = parseInt($(this).data('index'));
+  console.log('checkbox changed');
+  if($(this).is(':checked'))
+  {
+  iSaved_percentage += lGoals_range[iIndex].value;
+  iFinished_goals++;
+  $(this).parent().parent().parent().addClass('saved');
+  }
+  else
+  {
+  iSaved_percentage -= lGoals_range[iIndex].value;
+  iFinished_goals--;
+  $(this).parent().parent().parent().removeClass('saved');
+  }
+});
+
+
+function fUncheckGoalsInput()
+{
+  lChecked_goals = $('#chart_controller .form-check-input').filter(':checked');
+  console.log(lChecked_goals);
+  if(lChecked_goals)
+  {
+  lChecked_goals.each(function(index){
+    $(this).trigger('click');
+  });
+  }
+}
+
+
+function fSetRangeAndChartOfGoal(iIndex,iPercentage)
+{
+        lSeries[iIndex]['dataModule']['dataManager']['dataSource']['json'][0]['y'] = iPercentage;
+        lGoals_range[iIndex]["properties"]["value"] = iPercentage;
+        ejColumn_chart.refresh();
+        lGoals_range[iIndex].refresh();
+}
+
+
+// remove goal
+ejGoal_selection.addEventListener('removed',function(data){
+   var iGoal_index = data['itemData']['value'];
+   var iPercentage = 100 / --iSelected_goals;
+   fUncheckGoalsInput();
+   fSetRangeAndChartOfGoal(iGoal_index,0)
+   $('#goal_row_' + String(iGoal_index)).addClass('disabled');
+           $('#chart_controller .form-check-input').filter(':visible').each(function(i)
+           {
+        var iIndex = parseInt($(this).data('index'));     
+        fSetRangeAndChartOfGoal(iIndex,iPercentage)
+     });
+    
+    if(iSelected_goals == 1)
+  {
+    $('#column_chart').removeClass('enabled');
+  }
+});
+// #end remove goal
+
+
+// #end goals input
+
+
+// set Weaks in area 
+$('.area_weaks input').on('click',function(){
+  console.log('weak area clicked');
+  var sArea = $(this).data('area');
+  console.log(sArea);
+  var bIs_checked = $(this).is(':checked');
+  if(bIs_checked)
+  {
+    var iCount = dWeaks_area_count[sArea];
+    if(iCount == 0) // mark area
+    {
+      $('#area_' + sArea).addClass('selected');
+    }
+    ++dWeaks_area_count[sArea];
+  }
+  else 
+  {
+    var iCount = --dWeaks_area_count[sArea];
+        if(iCount == 0) // unmark area
+    {
+      $('#area_' + sArea).removeClass('selected');
+    }
+  }
+});
+// #end set Weaks in area 
+
+
+// enable card
+function fToggleCard(eBtn)
+{
+  $(eBtn).parent().parent().parent().toggleClass('disable');
+}
+
+
+function fToggleWeaksCard(eBtn)
+{
+  $(eBtn).parent().parent().parent().toggleClass('disable');
+  console.log($(eBtn).is(':checked'));
+  if(($(eBtn).attr('id') == 'weaks_enable_input') && (!$(eBtn).is(':checked')))
+  {
+    console.log('halloe');
+    $('.body_areas input').filter(':checked').each(function(){
+      $(this).prop('checked',false);
+    });
+    $('.human-muscles_picture .selected').each(function(){
+      $(this).removeClass('selected');
+    });
+  }
+}
+// #end enable card
+
+
+// generate
+$('#generate_btn').on('click',function(){
+    if(sUser == 'AnonymouseUser') // user must register first
+    {
+      
+    }
+    else{
+    var lGoals = ejGoal_selection['properties']['value'];
+    if(iSelected_goals == 0) // no goals selected
+    {
+      toastr["warning"]("{% trans 'Wähle bitte mindestens ein Ziel aus.' %}")
+      var eGoal_input = $('.plan_generate .card.first .row.last .e-multiselect');
+      eGoal_input.attr('class','e-multiselect e-input-group e-checkbox e-input-focus');
+    }
+    else
+    {
+    $('#save_plan_modal').modal('show');
+    }
+    }
+});
+
+
+function fSaveTrainingPlan()
+{
+    var dData = fGetGenerateData();
+    console.log('genrerate data: ');
+    console.log(dData);
+    var settings = {
+        'url': '/de/fitness/training_plan_generate/finish/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'data':JSON.stringify(dData)},
+    }
+   $.ajax(settings).done(function (data) {
+        $('#training_plan_title').val('');
+        $('#save_plan_modal').modal('hide');
+        fGetPlanDetail(eSidebarContent,data['url']);
+   });
+}
+
+
+// get data
+function fGetGenerateData()
+{
+  var dData = {};
+  dData['status'] = $('#status_selection').val();
+  dData['gender'] = $('#gender_selection').val();
+  dData['units'] = $('#units_input').val();
+  dData['time'] = ejTime_rangeObj['properties']['value'];
+  dData['frequenz'] = String(ejDays_rangeObj['properties']['value']);
+  dData['goals'] = ejGoal_selection['properties']['value'];
+  dData['goals_percentage'] = fGetGoalsPercentage();
+  console.log(dData['goals_percentage']);
+  dData['weaks'] = fGetWeaksData();
+  console.log('weaks:');
+  console.log(dData['weaks']);
+  dData['special'] = fGetSpecialData();
+  dData['title'] = $('#training_plan_title').val();
+  return dData;
+}
+
+
+function fGetGoalsPercentage()
+{
+   elGoals_enable_input = $('#goals_distribution_input');
+  if(elGoals_enable_input.is(':checked') && elGoals_enable_input.is(':visible')) // user selected percentage
+  {
+    var dResult = {}
+    $('#chart_controller .form-check-input').filter(':visible').each(function(i)
+    {
+       var iIndex = parseInt($(this).data('index')); 
+       dResult[iIndex] = lGoals_range[iIndex].value;
+    });
+    return dResult;
+  }
+  else
+  return '';
+}
+
+
+// get weaks data
+function fGetWeaksData()
+{
+if($('#weaks_enable_input').is(':checked'))
+{
+  var dData = {};
+$('.checkboxes').each(function(){
+  var sArea = $(this).data('area');
+  
+  $(this).find('input').filter(':checked').each(function(){
+    if(!dData[sArea])
+    dData[sArea] = [];
+    dData[sArea].push($(this).data('weak'));
+  });
+});
+ return dData;
+}
+else
+return '';
+}
+// #end get weaks data
+
+
+// get special data
+function fGetSpecialData()
+{
+if($('#personal_enable_input').is(':checked'))
+{
+  var dData = {};
+  dData['age'] = $('#plan_age').val();
+  dData['weight'] = $('#plan_weight').val();
+ return dData;
+}
+else
+return '';
+}
+// #end get special data
+// #end get data
+
+
+// #end generate
+
+
+// number input buttons
+function fChangeInputByOneStepOnClick(eBtn)
+{
+var bIs_plus = $(eBtn).hasClass('plus');
+var eInput = $(eBtn).parent().find('input');
+var iInput_value = eInput.val();
+var sKind = $(eBtn).data('kind');
+
+if(bIs_plus)
+    iInput_value++;
+else{
+    if((iInput_value>1) || ((sKind == 'weight') && iInput_value > 0 ))
+    iInput_value--;
+}
+eInput.val(iInput_value);
+}
+
+
+function fSetNumberInputOnFocus(eInput){
+    var bIsWeight = $(eInput).hasClass('weight_input');
+    var iValue = $(eInput).val();
+
+    $(eInput).focusout(function(){
+        iValue = $(eInput).val();
+        if(iValue <= 0)
+        {
+            if((bIsWeight))
+            iValue = 0;
+            else
+            iValue = 1;
+            $(eInput).val(iValue);
+        }
+    });
+}
+// #end number input buttons
+
+
+// Day slider
+ejDays_rangeObj.addEventListener('change',function(){
+  $('#frequenz_number').html(ejDays_rangeObj['properties']['value']);
+});
+// #end Day slider
+</script>

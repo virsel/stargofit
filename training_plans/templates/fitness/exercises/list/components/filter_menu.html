@@ -1,0 +1,81 @@
+﻿{% load i18n %}
+{% load training_plans_filters %}
+{% load custom_tags %}
+{% load staticfiles %}
+
+<!-- filter -->
+<div class="exercises-filter" >
+<button class="filter-button" onclick="javascript:fDisplayFilterOptions();">Filter</button>
+<div class="filter-form" >
+    
+    <form action="#" method="post">
+    <div class="filter-module">
+    {% csrf_token %}
+
+    <!-- equipment filter -->
+    <div class="cStgF filter-equipment">
+    <div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="equipment-checkbox onoffswitch-checkbox important-widget" id="equipment-switch">
+    <label class="onoffswitch-label" for="equipment-switch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+</div>
+    <label class="filter-label" for="equipment">{% trans 'mit Equipment:' %}</label>
+    <input class="equipment-checkbox important-widget" type="checkbox" id="equipment-checkbox"><span class="checkbox-span"></span>
+    </div>
+    <!-- ###end### equipment filter -->
+
+
+    <!-- difficulty filter -->
+    <div class="cStgF filter-difficulty">
+    <div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="difficulty-checkbox onoffswitch-checkbox important-widget"  id="difficulty-switch">
+    <label class="onoffswitch-label" for="difficulty-switch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+    </div>
+    <label class="filter-label" for="difficulty">{% trans 'Schwierigkeit:' %}</label>
+            <select  class="difficulty-select filter-select important-widget"  id="diff-select">
+  <option value="min">Mindestens</option>
+  <option value="max">Maximal</option>
+  <option value="equal">Genau</option>
+</select>
+    <input class="difficulty-slider exercises-filter-right filter-slider important-widget" type="range" min="1" max="5" value="3" id="diff-slider">
+         <div class="filter-value"><span id="diff-value">5</span><img src="{% static 'images/star_shine.svg' %}" /></div>
+
+    </div>
+<!-- ###end### difficulty filter -->
+
+
+        <!-- efficiency filter -->
+     <div class="cStgF filter-efficiency">
+    <div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="efficiency-checkbox onoffswitch-checkbox important-widget"  id="efficiency-switch">
+    <label class="onoffswitch-label" for="efficiency-switch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+</div>
+    <label class="filter-label" for="efficiency">{% trans 'Effektivität:' %}</label>
+         <select  class="efficiency-select filter-select important-widget" id="eff-select">
+  <option value="min">Mindestens</option>
+  <option value="max">Maximal</option>
+  <option value="equal">Genau</option>
+</select>
+    <input  class="efficiency-slider exercises-filter-right filter-slider important-widget" type="range" min="1" max="5" value="3" id="eff-slider">
+         <div class="filter-value"><span id="eff-value">5</span><img src="{% static 'images/star_shine.svg' %}" /></div>
+    </div>
+        <!-- ###end### efficiency filter -->
+
+
+    </div>
+    </form>
+    
+</div>
+</div>
+<!-- ###end### filter -->
+
+
+<script src="{% static "js/exercises/list/filtering.js" %}" type="text/javascript"></script>

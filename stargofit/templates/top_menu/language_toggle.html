@@ -1,0 +1,47 @@
+﻿{% load i18n %}
+{% load staticfiles %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if LANGUAGE_CODE == 'de' %}
+<script src="{% static 'js/main_top_menu/language_toggle/de_player.js' %}"></script>
+{% else %}
+<script src="{% static 'js/main_top_menu/language_toggle/en_player.js' %}"></script>
+{% endif %}
+
+<script>
+
+    // set variables
+ 
+        var bIs_german = '{{ LANGUAGE_CODE }}' == 'de';
+        var sPath = '';
+    // ###end### set variables
+
+    // set start toggle 
+        if(bIs_german)
+            sPath = '{% static 'json/language_toggle/de_data.json' %}';
+        else
+            sPath = '{% static 'json/language_toggle/en_data.json' %}';
+
+    // add svg to html element
+    var animation = bodymovin.loadAnimation({
+    container: document.getElementById('toggle-svg'),
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    path: sPath,
+        });
+
+
+
+ function fLoop() {
+     animation.playSegments([0,25], true);
+    if(bIs_german)
+        setTimeout(function(){ window.location.href = '/en/'; }, 1000);
+    else
+        setTimeout(function(){ window.location.href = '/de/'; }, 1000); 
+};
+
+var btn = document.getElementById('toggle-svg');
+    btn.addEventListener('click',fLoop);
+
+</script>

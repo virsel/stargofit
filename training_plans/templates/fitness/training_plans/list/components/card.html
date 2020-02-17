@@ -1,0 +1,120 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+
+<!-- Card -->
+<div class="card promoting-card training_plan_card" id="card_{{ plan.id }}">
+
+  <!-- heading -->
+  <div class="card-heading d-flex flex-row">
+  <h4 class="card-title font-weight-bold mb-2 heading">{{ plan.title }}</h4>
+  <p class="text-bg units">{% trans 'Einheiten:' %} <span class="text-sm">{{ plan.trainings.count }}</span> </p>
+  </div>
+<!-- heading -->
+
+   <!-- Card image -->
+  <div class="view overlay picture_wrapper">
+    <img class="card-img-top rounded-0" src="{{ plan.GetMainUsedGoals.0.image.url }}" alt="Card image cap">
+    <div class="mask flex-center rgba-cyan-light img-overlay">
+      <div class="kinds">
+        {% for goal in plan.GetMainUsedGoals %}
+          <div class="{% if forloop.is_first %}first{% else %}second{% endif %}">{{ goal.title }}</div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- kinds -->
+  <div class="kinds pt-1">
+  <h6 class="card-title mb-0 heading">
+  <span class="badge badge-info">{{ plan.fGetMainUsedKinds.0.kind }} </span>{% if plan.fGetMainUsedKinds.1 %}
+  <span class="badge badge-info">{{ plan.fGetMainUsedKinds.1.kind }} </span>
+  {% endif %}
+  </h6>
+  </div>
+<!-- kinds -->
+
+  <!-- Card content -->
+  <div class="card-body">
+
+<p class="intervall"><i class="far fa-clock pr-2"></i><span class="text-bg text-bold">{% trans 'Intervall:' %}</span> <span class="text-sm">{{ plan.fGetFrequenze }}</span></p>
+
+    
+<div class="equipment">
+<h5>{% trans 'Benötigtes Equipment:' %}</h5>
+<div class="buttons">
+       {% for key, values in plan.fGetSortedEquipment.items %}
+       <button type="button" id="popover_{{ key }}_{{ plan.id }}" class="btn cloudy-knoxville-gradient text-muted" data-toggle="popover" data-placement="bottom" 
+        >{{ values.0.fGetKindString }}</button>
+        <div id="equipments_{{ key }}_{{ plan.id }}" style="display: none">
+        {% for var in values %}
+        <div class="chip lighten-4">
+        {{ var }}
+        </div>
+        {% endfor %}
+        </div>
+       {% endfor %}
+</div>
+</div>
+
+<button type="button" class="btn blue-gradient btn-rounded more" data-id="{{ plan.id }}" data-href="{% url 'training_plan_detail' plan.id plan.slug %}">
+{% trans 'Ansehen' %}</button>
+
+    <!-- Avatar -->
+    <div class="footer">
+    <div class="member">
+    <div class="view zoom avatar">
+          <img src="{% static plan.owner.profile.photo.url %}" class="rounded-circle mr-3" alt="avatar">
+    </div> 
+    <span class="name"> {{ plan.owner.first_name }}</span>
+
+    </div>
+
+    <button id="dropdown_menu_{{ plan.id }}" class="options" data-id="{{ plan.id }}">
+    
+    <i class="fas fa-star {% if request.user in plan.favorite_from.all %}visible{% endif %}"></i>
+
+    
+    <i class="fas fa-edit {% if request.user.current_plan.plan == plan %}visible{% endif %}"></i>
+    
+    <i class="fas fa-trash-alt {% if request.user == plan.owner %}visible{% endif %}"></i>
+    <i class="fas fa-ellipsis-h"></i>
+    
+    </button>
+
+    </div>
+</div>
+</div>
+<!-- Card -->
+
+ 
+
+
+
+<script>
+$(function () {
+  console.log('popover install');
+$('#popover_outdoor_{{ plan.id }}').popover({
+      html: true,
+      trigger: 'click',
+      placement: 'bottom',
+      content: function() {return $('#equipments_outdoor_{{ plan.id }}').html()} 
+});
+$('#popover_indoor_{{ plan.id }}').popover({
+      html: true,
+      trigger: 'click',
+      placement: 'bottom',
+      content: function() {return $('#equipments_indoor_{{ plan.id }}').html()} 
+});
+$('#popover_light_{{ plan.id }}').popover({
+      html: true,
+      trigger: 'click',
+      placement: 'bottom',
+      content: function() {return $('#equipments_light_{{ plan.id }}').html()} 
+});
+});
+</script>

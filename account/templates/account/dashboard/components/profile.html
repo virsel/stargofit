@@ -1,0 +1,106 @@
+{% load static %}
+{% load training_plans_filters %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+
+<div class="row row-1">
+<div class="col-6">
+<div class="recent_plan" id="ave">
+
+  <div class="info_section">
+  <div class="header">
+  <h4>{% trans 'Aktueller Trainingsplan' %}</h4>
+  </div>
+    <div class="body">
+
+<!-- kinds -->
+  <div class="kinds">
+  <h6 class="card-title mb-0 heading">
+  <span class="badge badge-info">{{ current_plan.plan.fGetMainUsedKinds.0.kind }} </span>{% if current_plan.plan.fGetMainUsedKinds.1 %} 
+  {% trans 'und' %} <span class="badge badge-info">{{ current_plan.plan.fGetMainUsedKinds.1.kind }} </span>
+  {% endif %}
+  </h6>
+  </div>
+<!-- kinds -->
+
+    <div class="top">
+    <span class="row"><span class="title">{% trans 'Titel' %}:</span>
+    <span class="text">{{ current_plan.plan.title }}</span></span>
+    <span class="row"><span class="title">{% trans 'Einheiten' %}:</span>
+    <span class="text">{{ current_plan.plan.trainings.count }}</span></span>
+    <span class="row"><span class="title">{% trans 'Dauer' %}:</span>
+    <span class="text">{{ current_plan.plan.fGetFrequenze }}</span></span>
+    </br>
+    <span class="row"><span class="title">{% trans 'Start' %}:</span>
+    <span class="text">{{ current_plan.begin }}</span></span>
+    </div>
+    
+        <div class="bottom">
+            <div class="head">
+                <span>{% trans 'Aktueller Trainingstag' %}</span>
+            </div>
+            <div class="sub_body">
+            <div class="top">
+            <div class="block">
+                <span class="title">{% trans 'Art' %}</span>
+                <span class="text">{{ recent_training.fGetKind }}</span>
+            </div>
+                <div class="seperator"></div>
+            <div class="block">
+                <span class="title">{% trans 'Dauer' %}</span>
+                <span class="text">{{ recent_training.duration }}</span>
+            </div>
+                <div class="seperator"></div>
+            <div class="block">
+                <span class="title">{% trans 'Übungen' %}</span>
+                <span class="text">{{ recent_training.fGetExercisesCount }}</span>
+            </div>
+            </div>
+           
+            <div class="middle">
+            <span class="title">{% trans 'Bereiche' %}:</span>
+                <span class="text">        
+                {% with recent_training.fGetMainTrainedPartDict as dParts %}
+       {% for part, value in dParts.items %}
+            <button  class="e-btn">{{ part }}:
+                <!-- Notification Badge -->
+                <span class="e-badge e-badge-info ">{{ value }}</span>
+            </button>
+        {% endfor %}{% endwith %}</span>
+            </div>
+            <div class="last">
+                <button type="button" class="btn blue-gradient btn-rounded more"  data-href="{% url 'training_plan_detail' current_plan.plan.id current_plan.plan.slug %}" data-day="{{ recent_training.day }}" onclick="fOpenPlanDetail(this)">
+                {% trans 'Ansehen' %}</button>
+            </div>
+        
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="blur_back">
+  <img class="card-img-top rounded-0" src="{{ current_plan.plan.fGetMainUsedKinds.0.image.url }}" alt="Card image cap">
+  </div>
+  </div>
+</div>  <!-- end first col -->
+
+<div class="col-6 card">
+      <h1>{% trans 'Interessantes' %}</h1>
+</div><!-- second col -->
+
+</div> <!-- end first row -->
+
+<div class="row row-2">
+<div class="col-12 card"
+      <h1>{% trans 'Über mich' %}</h1>
+      <h2>{% trans 'Name' %}</h2>
+      <p>{{ member.first_name }} {{ member.last_name }}</p>
+      <h2>{% trans 'Herkunft' %}</h2>
+      <p>{{ member.GetCountry }}</p>
+      <h2>{% trans 'Angemeldet seit:' %}</h2>
+      <p>July 21</p>
+      <h2>{% trans 'Zuletzt online:' %}</h2>
+      <p>Female</p>
+</div>
+</div> <!-- end second row -->

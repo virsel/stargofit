@@ -1,0 +1,104 @@
+@mixin bg-c-g($start_color, $end_color)
+    background: $start_color !important // Old browsers
+    background: -moz-linear-gradient(top,  $start_color 0%, $end_color 100%) !important // FF3.6-15
+    background: -webkit-linear-gradient(top,  $start_color 0%,$end_color 100%) !important // Chrome10-25,Safari5.1-6
+    background: linear-gradient(to bottom,  $start_color 0%,$end_color 100%) !important // W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+
+.bg-c-g-d-1
+    background: #79909b !important // Old browsers
+    background: -moz-linear-gradient(top,  #79909b 0%, #62757f 100%) !important // FF3.6-15
+    background: -webkit-linear-gradient(top,  #79909b 0%,#62757f 100%) !important // Chrome10-25,Safari5.1-6
+    background: linear-gradient(to bottom,  #79909b 0%,#62757f 100%) !important // W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#79909b', endColorstr='#62757f',GradientType=0 ) !important // IE6-9
+.bg-c-g-d-2
+    background: #9fa4a8 !important // Old browsers
+    background: -moz-linear-gradient(top,  #9fa4a8 0%, #828689 100%) !important // FF3.6-15
+    background: -webkit-linear-gradient(top,  #9fa4a8 0%,#828689 100%) !important // Chrome10-25,Safari5.1-6
+    background: linear-gradient(to bottom,  #9fa4a8 0%,#828689 100%) !important // W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9fa4a8', endColorstr='#828689',GradientType=0 ) !important // IE6-9
+.bg-c-g-d-3
+    background: #79909b
+    background: -moz-radial-gradient(center, ellipse cover,  #79909b 0%, #62757f 100%)
+    background: -webkit-radial-gradient(center, ellipse cover,  #79909b 0%,#62757f 100%)
+    background: radial-gradient(ellipse at center,  #79909b 0%,#62757f 100%)
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#79909b', endColorstr='#62757f',GradientType=1 )
+
+.bg-c-g-read-1
+    background: linear-gradient(0deg, rgba(195,74,34,0.39234355851715685) 0%, rgba(253,45,45,0.5043883764443278) 100%)
+
+.bg-c-g-blue-1
+    background: #c2e9fb !important // Old browsers
+    background: -moz-linear-gradient(top,  #c2e9fb 0%, #5d98f8 100%) !important // FF3.6-15
+    background: -webkit-linear-gradient(top,  #c2e9fb 0%,#5d98f8 100%) !important // Chrome10-25,Safari5.1-6
+    background: linear-gradient(to bottom,  #c2e9fb 0%,#5d98f8 100%) !important // W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2e9fb', endColorstr='#5d98f8',GradientType=0 ) !important // IE6-9
+
+$opacity: 0.8
+.bg-c-g-blue-1-op-8
+    @include bg-c-g(rgba(194,233,251,$opacity), rgba(93,152,248,$opacity))
+
+.bg-c-g-blue-2
+    background: #265775
+    background: -moz-linear-gradient(top,  #265775 0%, #1c4057 100%)
+    background: -webkit-linear-gradient(top,  #265775 0%,#1c4057 100%)
+    background: linear-gradient(to bottom,  #265775 0%,#1c4057 100%)
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#265775', endColorstr='#1c4057',GradientType=0 )
+.bg-c-g-blue-3
+    @include bg-c-g(rgb(30,220,255), #5ee7ff)
+
+.bg-c-g-l-1
+    background: #fdfbfb
+    background: -moz-linear-gradient(top,  #fdfbfb 0%, #ebedee 99%)
+    background: -webkit-linear-gradient(top,  #fdfbfb 0%,#ebedee 99%)
+    background: linear-gradient(to bottom,  #fdfbfb 0%,#ebedee 99%)
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfbfb', endColorstr='#ebedee',GradientType=0 ) !important // IE6-9
+.bg-c-g-l-2
+    background: #e8e8e8
+    background: -moz-linear-gradient(top,  #e8e8e8 0%, #e0e0e0 100%)
+    background: -webkit-linear-gradient(top,  #e8e8e8 0%,#e0e0e0 100%)
+    background: linear-gradient(to bottom,  #e8e8e8 0%,#e0e0e0 100%)
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#e0e0e0',GradientType=0 )
+
+.bg-c-g-l-3
+    background: #f4f7f9 /* Old browsers */
+    background: -moz-linear-gradient(top,  #f4f7f9 0%, #edf4fa 100%) /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #f4f7f9 0%,#edf4fa 100%) /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #f4f7f9 0%,#edf4fa 100%) /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f7f9', endColorstr='#edf4fa',GradientType=0 ) /* IE6-9 */
+// bg radial
+.bg-c-r-d-1
+    background: radial-gradient(#79909b, #62757f)
+
+// bg colors
+.bg-c-d-1
+    background: #79909b !important
+.bg-c-d-2
+    background: #2d4451 !important
+.bg-c-d-3
+    background: #62757f !important
+.bg-c-d-4
+    background: #2c3b40 !important
+
+.bg-c-blue-1
+    background: #daebf7 !important
+
+.bg-c-red-1
+    background: rgba(225,140,140,0.4)
+
+// text colors
+.txt-c-l-1
+    color: white !important
+.txt-c-d-1
+    color: #6c757d !important
+
+.txt-c-blue-1
+    color: #c2e9fb !important
+.txt-c-blue-2
+    color: #a1d7ff !important
+.txt-c-blue-3
+    color: #5d98f8 !important
+.txt-c-blue-4
+    color: rgb(30,220,255)
+
+.txt-c-lila-1
+    color: #5434c6 !important

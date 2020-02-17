@@ -1,0 +1,10 @@
+﻿{% load i18n %}
+<!-- areas -->
+                    <h5>{% trans 'beanspruchte Regionen:' %}</h5>
+                    <div class="detail_used_muscle">
+                    <i class="main_information">{% blocktrans %}{{ area }}{% endblocktrans %}</i>
+                    {% for area in areas %}
+                    <i class="sub_information">{% blocktrans %}{{ area }}{% endblocktrans %}</i>
+                    {% endfor %}
+                    </div>
+<!-- ###end### areas -->

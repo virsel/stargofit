@@ -1,0 +1,371 @@
+﻿
+{% load staticfiles %}
+{% load i18n %}
+
+
+
+<!-- set variables -->
+<script>
+console.log('all exercises start list');
+var field = 'all';
+var names = [];
+var sSearchTerm = '';
+var block_request = false;
+var iPage = 1;
+var lsExercises_titles = [];
+var bIs_search_action = false;
+</script>
+
+
+<!-- exercises list -->
+<div class="exercises_main_lists_container">
+{% include 'fitness/exercises/list/ajax_exercises_first_page.html' with exercises=exercises range=range %}
+</div>
+<!-- ###end### exercises list -->
+
+
+<!-- set variables -->
+<script>
+
+function fSetExercisesList()
+{
+        // get data for autocomplete
+    var settings = {
+      url: '/de/fitness/exercises/autocomplete/',
+      method: 'GET',
+      traditional: true,
+      data: {  }
+    };
+    $.ajax(settings).done(function (data) {
+      lsExercises_titles = data;
+      console.log(lsExercises_titles);
+      fSetExerciseSearchAutoComplete();
+    });
+
+
+    // #end get data for autocomplete
+    var buttonHuman_window = $('#human_muscles_window');
+    $('#human_body').on('click',function(){
+        if(buttonHuman_window.hasClass('visible'))
+        {
+        buttonHuman_window.removeClass('visible');
+        }
+        else
+        {
+        buttonHuman_window.addClass('visible');
+        }
+    });
+    $('#muscles_window_close').on('click',function(){
+    buttonHuman_window.removeClass('visible');
+    });
+
+
+    // set filter button
+    var buttonFilter = $('#exercises_filter');
+    buttonFilter.on('click',function(){
+        console.log('human button clicked');
+        if(buttonFilter.hasClass('visible'))   // check if menu is visible
+        {
+        $('#filter_menu_window').css('display','none');
+        buttonFilter.removeClass('visible');
+        }
+        else
+        {
+        $('#filter_menu_window').css('display','block');
+        buttonFilter.addClass('visible');
+        }
+    });
+
+    $('#filter_window_close').on('click',function(){
+    $('#filter_menu_window').css('display','none');
+    buttonFilter.removeClass('visible');
+    });
+    // #end set filter button
+}
+
+
+// exercise detail
+function fClickOnExerciseDetail(e)
+{
+    console.log('exercise detail');
+    console.log(e);
+    var sUrl = $(e).data('href');
+    sSection = sUrl.split('fitness/')[1];
+    console.log(sUrl);
+    console.log(sSection);
+    var settings = {
+        'url': sUrl,
+        "method": "POST",
+        'traditional': true,
+        "data": {
+            'url': sUrl,
+        }
+    }
+$.ajax(settings).done(function (data) {
+$('.sidebar-content').empty();
+$('#main_content').attr('class','main_content exercise_detail');
+$('.sidebar-content').append(data);
+history.pushState(null,null,'/de/fitness/' + sSection);
+});
+}
+
+
+// #end exercise detail
+
+
+
+$(document).ready(function() {
+fSetResultCount();
+$('#sub_topbar').attr('style','display: block !important');
+fSetExercisesList();
+});
+
+
+    var eMainExercisesContainer = $('.exercises_main_lists_container');  
+
+<!-- ###end### set variables -->
+
+// on scroll get more results
+// capture scroll event
+$(window).scroll(function(){
+if($('#main_content').hasClass('all_exercises'))
+{
+var margin = $(document).height()-$(window).height()-400;
+if ($(window).scrollTop() > margin && block_request == false) 
+{
+block_request = true;
+iPage += 1;
+sSearchTerm = document.getElementsByName('exercises_search')[0].value;
+console.log('exercises scroll event');
+var settings = {
+        'url': '{% url "exercises_selection" %}',
+        "method": "POST",
+        'traditional': true,
+        "data": {
+            'field': field,
+            'names': names,
+            "kind": sExercise_kind,
+            'search': sSearchTerm,
+            'page': iPage,
+            'sOn_scroll': 'true',
+            "iEquipment": iEquipment,
+            "lEfficiency": liEff_values,
+            "lDifficulty": liDiff_values,
+        }
+    }
+
+$.ajax(settings).done(function (data) {
+block_request = false;
+$('.exercises-container').append(data);
+});
+}
+}
+});
+
+
+function fCloseVideoModal()
+{
+    $('#video_box').empty();
+    console.log($('#video_box'));
+}
+
+function fGetExercisesPerConditions() {
+      eExercisesList = $('#exercises_list');
+      iPage = 1;
+      console.log(field);
+      console.log(names);
+
+    var settings = {
+        'url': '{% url "exercises_selection" %}',
+        "method": "POST",
+        'traditional': true,
+        "data": {
+            'field': field,
+            'names': names,
+            "kind": sExercise_kind,
+            'search': sSearchTerm,
+            'page': iPage,
+            'sOn_scroll': 'false',
+            'iEquipment': iEquipment,
+            "lEfficiency": liEff_values,
+            "lDifficulty": liDiff_values,
+        }
+    }
+    $.ajax(settings).done(function (data) {
+            eMainExercisesContainer.empty();
+            eMainExercisesContainer.append(data);
+            fSetResultCount();
+            console.log('search: ');
+            console.log(sSearchTerm);
+                if(sSearchTerm != '')
+                sSearchTerm = '';
+    });
+}
+// specific selection
+
+
+
+function fExerciseListKindSelectionClicked(eBtn)
+{
+sExercise_kind = $(eBtn).data('kind');
+$('#exercises_topbar').attr('class','topbar_contant ' + sExercise_kind);
+fGetExercisesPerConditions();
+}
+
+$('#kinds_btn_group').on('select',function(){
+console.log('select');
+});
+
+
+
+// exercises search
+function fSetExerciseSearchAutoComplete(){
+   
+var eExercise_search_input = $('#exercise_list_search_input');
+eExercise_search_input.mdbAutocomplete({
+data: lsExercises_titles
+});
+var eExercise_search_btn = document.getElementById('exercises_list_search_btn')
+
+// set search selection event
+eExercise_search_btn.addEventListener('click',function(e){
+    e.preventDefault();
+    fStartSearchProcess();
+});
+// #end  set search selection event
+
+function fStartSearchProcess()
+{
+    sSearchTerm = eExercise_search_input.val();
+    console.log(sSearchTerm);
+    $('#exercises_topbar .mdb-autocomplete-wrap').empty();
+    fGetExercisesPerConditions();
+}
+
+document.getElementById('exercise_search').addEventListener('submit',function(e){
+e.preventDefault();
+fStartSearchProcess();
+});
+
+// set autocomplete wrapper visibility
+eExercise_search_input.on('focus',function(){
+    console.log('search input focus fcn');
+eExercise_search_input.on('focusout',function(){
+$(".mdb-autocomplete-wrap").click(function(){
+    $(this).data('clicked', true);
+});
+if(!$('#mdb-autocomplete-wrap').data('clicked'))
+$('#autocomplete-clear').trigger('click');
+else
+{
+  $(".mdb-autocomplete-wrap").data('clicked', false);  
+}
+});
+
+$('#autocomplete-clear').click(function(){
+    $(this).data('clicked', false);
+});
+});
+}
+// #end exercises search
+
+
+
+function fResetFilterOptions(){
+fResetFilterDropdown();
+fResetHumanDropdown();
+}
+
+
+function fResetFilterDropdown()
+{
+liDiff_values = [1, 5];
+liEff_values = [1, 5];
+bWith_equ = true;
+bWithout_equ = true;
+iEquipment = 3;
+document.getElementById('range_eff').noUiSlider.set([1,5]);
+document.getElementById('range_diff').noUiSlider.set([1,5]);
+if($('#equipment-switcher').is(':checked'))
+$('#equipment-switcher').click();
+}
+
+
+function fResetHumanDropdown()
+{
+    var eSelect_all_btn = $('#select_all_btn');
+    if(eSelect_all_btn.hasClass('clickable'))
+    {
+        document.querySelectorAll(".muscle").forEach(function (path) {
+            Util.fSetExpandedStandardClassName(path, 'path-start'); // fill all shapes with light blue 
+    });
+
+
+        eSelect_all_btn.removeClass('clickable'); // make 'Select all' button not clickable
+
+
+        // set corresponding muscle group unselected
+        document.querySelectorAll('.selected-muscle-group').forEach(function (group) {
+            Util.toggleClass(group, 'selected-muscle-group', false);
+        });
+        // ###end### set corresponding muscle group unselected
+
+
+        document.querySelectorAll('.muscles-input').forEach(function (input) {
+            input.checked = false;
+        });
+        document.querySelectorAll('.muscles-input-heading').forEach(function (input) {
+            input.checked = false;
+        });
+
+        field = 'all'; // for django request
+        names = [];
+}
+}
+
+
+// areas selection
+$('#select_all_areas_btn').on('click',function(){
+    console.log('unselect all selections');
+    var bChange = false;
+    $('.main_parts .selections input').each(function(index){
+        $(this).prop('checked', false);
+        if(!bChange)
+        bChange = true;
+    });
+    if(bChange)
+    {
+        names = []
+        field = 'all';
+        fGetExercisesPerConditions();
+        bChange = false;
+    }
+});
+
+$('.main_parts .selections input').on('change',function(){
+    if($(this).is(':checked')) // add area
+    {
+        names.push($(this).val())
+    }
+    else // remove area
+    {
+        var index = names.indexOf($(this).val());
+        if (index > -1) {
+           names.splice(index, 1);
+        }
+    }
+    if(names.length > 0)
+    {
+    if(field != 'area')
+    field = 'area';
+    }
+    else
+    field = 'all'
+    console.log(field);
+    console.log(names);
+    fGetExercisesPerConditions();
+});
+// #end areas selection
+
+
+</script>

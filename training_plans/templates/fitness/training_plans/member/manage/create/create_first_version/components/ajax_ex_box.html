@@ -1,0 +1,40 @@
+﻿{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+<form  method="POST" action="">
+{% csrf_token %}
+{{ formset.management_form }}
+<input type="hidden" name="sets-TOTAL_FORMS" value="1" id="id_sets-TOTAL_FORMS">
+<input type="hidden" name="sets-INITIAL_FORMS" value="0" id="id_sets-INITIAL_FORMS">
+<input type="hidden" name="sets-MIN_NUM_FORMS" value="0" id="id_sets-MIN_NUM_FORMS">
+<input type="hidden" name="sets-MAX_NUM_FORMS" value="1000" id="id_sets-MAX_NUM_FORMS">
+
+<div class="ex_list ex_list_empty">
+    <div class="title">
+        <i class="stg_icon">stg</i>
+        <p>{{ exercise.title }}</p>
+        <div class="change"><i class="change_icon">change</i></div>
+    </div>
+    <div class="content">
+        <div class="left">
+            <img alt="{% trans 'Bild' %}" src="{{ exercise.image.url }}"/>
+            <p class="info">
+                {% trans 'Bereich' %}: 
+                <span>{{ exercise.fGetAreaString }}</span>
+            </p>
+        </div>
+        <div class="right">
+            <p class="sub_heading">{% trans 'Sätze' %}</p>
+            <div class="sets">
+                
+                {% include 'fitness/training_plans/member/manage/create/components/ajax_set.html' with kind=exercise.fGetKindString count='1' %}
+            </div>
+            <i class="stg_icon">stg</i>
+        </div>
+    </div>
+</div>
+<input type="button" for="id_sets-0-DELETE" name="sets-0-DELETE" id="id_sets-0-DELETE" value="{% trans 'Entfernen' %}">
+<input type="hidden" name="sets-0-id" id="id_sets-0-id"><input type="hidden" name="sets-0-exercise" id="id_sets-0-exercise">
+</form>

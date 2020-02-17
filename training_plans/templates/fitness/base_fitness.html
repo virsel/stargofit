@@ -1,0 +1,292 @@
+{% extends "sub_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+<!-- css files -->
+{% block css %}
+<link href="{% static "css/exercises/exercises.css" %}" rel="stylesheet">
+<link href="{% static "css/training_plans_list/training_plans_list.css" %}" rel="stylesheet">
+<link href="{% static "css/human_muscles/human_muscles.css" %}" rel="stylesheet">
+<link href="{% static "css/human_areas/human_areas.css" %}" rel="stylesheet">
+<link href="{% static "css/cards/cards.css" %}" rel="stylesheet">
+<link href="{% static "css/exercises_list/exercises_list.css" %}" rel="stylesheet">
+<link href="{% static "css/training_plan_detail/training_plan_detail.css" %}" rel="stylesheet">
+<link href="{% static "css/training_plan_generate/training_plan_generate.css" %}" rel="stylesheet">
+<link href="{% static "css/detail_view/detail_view.css" %}" rel="stylesheet">
+<link href="{% static "css/exercise_selection/exercise_selection.css" %}" rel="stylesheet">
+{% endblock %}
+<!-- css end -->
+
+
+
+
+{% block toolbar %}
+  <div class="topbar_contant muscle_building" id="exercises_topbar">{% include 'fitness/exercises/list/components/toolbar.html' with areas=areas %}</div>
+
+
+  <!-- sub bar for training kind selection -->
+<div class="btn-group text-muted text-bold" id="kinds_btn_group" data-toggle="buttons">
+  <label class="btn btn-light-blue form-check-label btn-rounded text-muted cloudy-knoxville-gradient warm left"
+   data-kind="stretching" onclick="fExerciseListKindSelectionClicked(this)">
+    <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off">
+    <span>{% trans 'Dehnung' %}</span>
+  </label>
+  <label class="btn btn-light-blue form-check-label btn-rounded text-muted cloudy-knoxville-gradient train active" 
+  data-kind="muscle_building" onclick="fExerciseListKindSelectionClicked(this)">
+    <input class="form-check-input" type="radio" name="options" id="option3" autocomplete="off"> <span>{% trans 'Muskelaufbau' %}</span>
+  </label>
+  <label class="btn btn-light-blue form-check-label btn-rounded  text-muted cloudy-knoxville-gradient cool right" 
+   data-kind="endurance" onclick="fExerciseListKindSelectionClicked(this)">
+    <input class="form-check-input" type="radio" name="options" id="option4" autocomplete="off"> <span>{% trans 'Ausdauer' %}</span>
+  </label>
+</div>
+<!-- #end  sub bar for training kind selection -->
+{% endblock %}
+ 
+ 
+
+
+
+
+
+{% block left_sidebar %}
+  <ul class="">
+    <li class="active start" ><a id="fitness_start" href="#">{% trans 'Startseite' %}</a></li>
+    <span class="e-list-text header" >{% trans 'Trainingsplan' %}</span>
+    <li><a class="sidebar-link" id="training_plan_create" href="{% url 'training_plan_create' %}">{% trans 'Erstellen' %}</a></li>
+    <li><a class="sidebar-link" id="training_plan_generate" href="{% url 'training_plan_generate' %}">{% trans 'Generieren' %}</a></li>
+    <span class="e-list-text header">{% trans 'Datenbank' %}</span>
+    <li><a class="sidebar-link" href="{% url 'all_training_plans' %}" id="all_training_plans">{% trans 'Pläne' %}</a></li>
+    <li><a  class="sidebar-link" href="{% url 'all_exercises' %}" id="all_exercises">{% trans 'Übungen' %}</a></li>
+  </ul>
+{% endblock %}
+
+
+
+{% block js %}
+<script src="{% static "js/exercises_dialog.js" %}" type="text/javascript"></script> 
+<script src="{% static "js/utils.js" %}" type="text/javascript"></script> 
+
+<script> 
+var leExerciseBoxes;
+var eSidebarContent = $('.sidebar-content');
+var bBack_button = false;
+var header;
+var kind_selection;
+var sTraining_part = 'train';
+var sPage = '{{ page }}';
+var sExercise_kind = 'muscle_building';
+var dExercis_search_dialog;
+var bIsFirstFiltering = false;
+var eEff_output,eEff_slider,liEff_values,eDiff_output,
+eDiff_slider,liDiff_values,lsSelected_kinds,bIsFirstFiltering,
+iExerciseBoxes_count,bFilter_is_more,iEff_diff,iDiff_diff,
+bIsFirstAreaSelection,bIsFirstKindSelection,iSearch_index ,iExercise_id, eExercise_list, lsExercises_titles, lsExercises_ids ,checkList,atcObj,dNew_start_data,dStart_data;
+var lsSelected_areas = [];
+var lsSelected_kinds = [];
+
+
+// click on sidebar el
+$('.sidebar-link').click(function(e){
+  e.preventDefault()
+  var sCurrant_section = location.href.split('fitness/')[1];
+  console.log(sCurrant_section);
+  var sSection = $(this).attr('id');
+  history.pushState(null, null, '/de/fitness/' + sSection +'/');
+  console.log('replace State'); 
+
+// #end set history
+    fFitnessMenuChoices(sSection,false);
+});
+// specific selection
+
+
+function fFitnessMenuChoices(sSection,bIs_reload)
+{
+  DeleteOldPopups();
+  console.log(sSection);
+    if(sSection == 'training_plan_create')
+    {
+    SetSidebarLinkActive(sSection);
+    fGetCreatePlanContent(bIs_reload);
+    }
+    else if(sSection == 'training_plan_generate')
+    {
+    SetSidebarLinkActive(sSection);
+    fGetPlanGenerateContent();
+    }
+    else if(sSection == 'all_exercises')
+    {
+      SetSidebarLinkActive(sSection);
+    fGetExercisesContent();
+    }
+    else if(sSection == 'all_training_plans')
+    {
+      SetSidebarLinkActive(sSection);
+    fGetAllPlansContent()
+    }
+    else if(sSection == 'fitness')
+    {
+      SetSidebarLinkActive('fitness_start');
+    fGetFitnessContent();
+    }
+    else if(sSection.includes('exercise'))
+    {
+    fGetExerciseContent(sSection);
+    }
+    else if(sSection.includes('plan'))
+    {
+    fGetTrainingPlanContent(sSection);
+    }
+}
+
+function fGetFitnessContent()
+{
+  console.log(eBtn);
+ 
+    var settings = {
+        'url': '/de/fitness/',
+        "method": "POST",
+        'traditional': true,
+        "data": {
+          'sidebar': 'true'
+        }
+    }
+    $.ajax(settings).done(function (data) {
+      console.log(data);
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content');
+    });
+}
+
+function fGetExercisesContent()
+{
+    var settings = {
+        'url': '/de/fitness/all_exercises/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'kind' : sExercise_kind}
+    }
+    $.ajax(settings).done(function (data) {
+      console.log(data);
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content all_exercises');
+    });
+}
+
+
+function fGetPlanGenerateContent()
+{
+    var settings = {
+        'url': '/de/fitness/training_plan_generate/',
+        "method": "POST",
+        'traditional': true,
+        "data": {}
+    }
+    $.ajax(settings).done(function (data) {
+      console.log(data);
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content training_plan_generate');
+    });
+}
+
+
+
+function fGetCreatePlanContent(bIsReload)
+{
+    var settings = {
+        "method": "POST",
+        'traditional': true,
+        "data": {
+            'url': '/de/fitness/training_plan_create/',
+            'kind': 'all',
+            'unit_number': 'begin',
+            'bExercises': 'false',
+            'bAutocomplete': 'false',
+        }
+    }
+    if(!bIsReload)
+    settings['url'] = '/de/fitness/training_plan_create/';
+    $.ajax(settings).done(function (data) {
+      console.log(data);
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content training_plan_detail');
+        fSetPlanEditMode(document.getElementById('edit_btn'));
+    });
+}
+
+
+
+
+function fGetTrainingPlanContent(sSection)
+{
+    var settings = {
+        'url': '',
+        "method": "POST",
+        'traditional': true,
+        "data": {}
+    }
+    $.ajax(settings).done(function (data) {
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content training_plan_detail');
+    });
+}
+
+
+function fGetExerciseContent(sSection)
+{
+    var settings = {
+        'url': '',
+        "method": "POST",
+        'traditional': true,
+        "data": {}
+    }
+    $.ajax(settings).done(function (data) {
+      console.log(data);
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content exercise_detail');
+    });
+}
+
+window.addEventListener('popstate', function (event)
+{
+  var sSection = location.href.split('fitness/')[1];
+  if(sSection[sSection.length - 1] == '/')
+  {
+    sSection = sSection.slice(0, -1);
+  }
+  console.log('wichtig: ' + sSection);
+  bBack_button = true;
+  fFitnessMenuChoices(sSection,false);
+  bBack_button = false;
+});
+
+
+
+// document initiation
+$( document ).ready(function() {
+  header = document.getElementById('exercises_search-header').innerHTML;
+    dExercis_search_dialog = new ej.popups.Dialog({
+    header: header,
+    showCloseIcon: true,
+    width: '900px',
+    height: '500px',
+    allowDragging: true,
+    enableResize: true,
+    visible: false
+  });
+  dExercis_search_dialog.appendTo('#exercises_search-dialog');
+  
+fFitnessMenuChoices(sPage,true);
+});
+// #end document initiation
+</script>
+<script src="{% static "js/plan_create.js" %}" type="text/javascript"></script> 
+{% endblock %}
+
+

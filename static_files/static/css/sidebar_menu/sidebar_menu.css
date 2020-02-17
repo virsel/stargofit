@@ -1,0 +1,122 @@
+@charset "UTF-8";
+/* colors */
+/* colors */
+/* gradients */
+/* colors */
+/* specials */
+/* ###end### specials */
+/* buttons */
+/* ###end### buttons */
+/* pictures */
+/* ###end### pictures */
+/* forms */
+/* ###end### forms */
+/* cards */
+/* ###end### cards */
+/* �positions */
+/* #end positions */
+#sidebar-left {
+  min-width: 180px;
+  position: relative;
+  -webkit-box-shadow: 2px 4px 5px 0px #d1d1d1;
+  box-shadow: 2px 4px 5px 0px #d1d1d1;
+  background: #193341;
+  font-size: 0.65em;
+  text-align: right;
+  font-weight: bold;
+}
+
+@media (max-width: 1200px) {
+  #sidebar-left {
+    position: absolute !important;
+    opacity: 0.95 !important;
+    z-index: 10 !important;
+    width: 0px !important;
+    -webkit-transition: all 0.4s ease-in;
+    transition: all 0.4s ease-in;
+    left: -180px;
+  }
+}
+
+@media (max-width: 786px) {
+  #sidebar-left {
+    width: 100% !important;
+    left: 0px !important;
+    top: -1000px !important;
+    text-align: center;
+  }
+  #sidebar-left li {
+    margin: 20px 0px !important;
+  }
+}
+
+#sidebar-left.visible {
+  left: 0px !important;
+  top: 0px !important;
+}
+
+#sidebar-left .header {
+  font-weight: bold;
+}
+
+#sidebar-left .e-list-text {
+  color: #bbdefb;
+  font-size: 15px;
+}
+
+#sidebar-left .main-menu {
+  background: #eff9ff;
+  background: -webkit-gradient(linear, left top, right top, from(#eff9ff), to(rgba(249, 253, 255, 0.7)));
+  background: linear-gradient(to right, #eff9ff 0%, rgba(249, 253, 255, 0.7) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eff9ff', endColorstr='#f9fdff',GradientType=1 );
+  height: 100%;
+  color: white;
+}
+
+#sidebar-left ul {
+  list-style: none;
+}
+
+#sidebar-left ul .start {
+  font-size: 14px;
+}
+
+#sidebar-left li {
+  position: relative;
+  margin: 3.2em 0;
+}
+
+#sidebar-left li a {
+  line-height: 2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.35);
+  display: block;
+  -webkit-transition: all ease-out 300ms;
+  transition: all ease-out 300ms;
+}
+
+#sidebar-left li.active a {
+  color: white;
+}
+
+#sidebar-left li:not(.active)::after {
+  opacity: 0.2;
+}
+
+#sidebar-left li:not(.active):hover a {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+#sidebar-left li::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 0.1em;
+  background: -webkit-gradient(linear, left top, right top, from(#c2e9fb), to(#5d98f8));
+  background: linear-gradient(to right, #c2e9fb, #5d98f8);
+  left: 0;
+  bottom: 0;
+}
+/*# sourceMappingURL=sidebar_menu.css.map */

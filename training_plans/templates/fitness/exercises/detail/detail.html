@@ -1,0 +1,259 @@
+﻿
+{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+{% load embed_video_tags %}
+
+
+
+<div class="exercise_detail p-4">
+
+<!-- sub heading -->
+<div class="heading">
+<div>
+<h3 class="font-weight-bold dark-grey-text mb-3">{{ exercise.title }}</h3></div>
+<div class="sub_heading_underline"></div>
+</div>
+<!-- ###end### sub heading -->
+
+
+<!-- sub content -->
+{% block sub_content %}
+
+<div class="row mt-4 flex-wrap">
+<div class="col-md-6 video">
+<div class="card">
+{% video exercise.video as my_video %}
+{% video my_video '520x400' %}
+{% endvideo %}
+
+
+<!-- user rating -->
+<div class="rating row align-items-center flex-wrap no-gutters">
+
+  <div class="col-12 col-md-8">
+    <div class="row no-gutters flex-wrap align-items-center">
+      <div class="col">
+        <h6 class="font-weight-bolder m-0 mr-1">
+          {% trans 'Deine Bewertung' %}:
+        </h6>
+      </div>
+      <div class="col">
+        <div class="user_rating">
+        {% include "fitness/exercises/detail/components/user_rating.html" with user_rating=user_rating %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="col-auto align-items-center ml-md-auto d-flex">
+    <h6 class="font-weight-bolder m-0 mr-1">
+      {% trans 'Gesamt' %}:
+    </h6>
+        <span class="">
+    {% with exercise.rating.fGetRatingResult as rating %}
+      {% if rating.1 == 1 %}
+      <i class="far fa-angry text-muted smiley live" id="main_smiley" data-index="0" data-rating="Very bad"></i>
+{% elif rating.1 == 2 %}
+      <i class="far fa-frown text-muted smiley live" id="main_smiley" data-index="1" data-rating="Poor"></i>
+{% elif rating.1 == 3 %}
+      <i class="far fa-meh text-muted smiley live" id="main_smiley" data-index="2" data-rating="OK"></i>
+{% elif rating.1 == 4 %}
+      <i class="far fa-smile text-muted smiley live" id="main_smiley" data-index="3" data-rating="Good"></i>
+{% else %}
+      <i class="far fa-laugh text-muted smiley live" id="main_smiley" data-index="4" data-rating="Excellent"></i>
+{% endif %}
+{% endwith %}
+    </span>
+  </div>
+</div>
+</div>
+<!-- #end user rating -->
+
+
+
+</div>
+
+
+<!-- instruction -->
+<div class="col-md-6">
+
+<!-- Equipment -->
+      <div class="card text-center" style="">
+      <div class="row flex-wrap">
+        <div class="col col-md-4">
+          <a class="btn-floating blue accent-1">
+            <i class="fas fa-dumbbell"></i>
+          </a>
+          <p>{% trans 'Schwierigkeit' %}</p>
+                <div class="stars">
+                    {% for x in range %}
+                    {% if exercise.difficulty|is_star:forloop.counter %}
+                    <img class="star" src="{% static "images/star_shine.svg" %}">
+                    {% else %}
+                    <img class="star" src="{% static "images/star_off.svg" %}">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+        </div>
+   <div class="p-1 m-auto col-auto">   
+   <h5 class="text-weight-bolder text-center">{% trans 'Equipment:' %}</h5>
+    {% for e in exercise.equipment.all %}
+        
+        {% if forloop.first %}
+        <div class="row align-items-center flex-wrap no-gutters justify-content-center">                        
+        {% endif %}
+        <div class="chip lighten-4 m-0 text-center">
+        {{ e }}
+        </div>
+        {% if forloop.last %}
+        </div>
+        {% endif %}
+    {% empty %}
+    <h4 class="font-weight-bold title">{% trans 'Es wird kein Equipment benötigt' %}</h4>
+    {% endfor %}
+     </div>
+        <div class="col col-md-4">
+          <a class="btn-floating blue accent-1">
+                <i class="fas fa-chart-line"></i>
+          </a>
+          <p>{% trans 'Effektivität' %}</p>
+              <div class="stars">
+                    {% for x in range %}
+                    {% if exercise.efficiency|is_star:forloop.counter %}
+                    <img class="star" src="{% static "images/star_shine.svg" %}">
+                    {% else %}
+                    <img class="star" src="{% static "images/star_off.svg" %}">
+                    {% endif %}
+                    {% endfor %}
+              </div>
+        </div>
+        </div>
+</div>
+<!-- #end Equipment -->
+
+
+{% include "fitness/exercises/detail/instruction.html" with instruction=exercise.instruction %}
+</div>
+
+
+</div>
+{% endblock %}
+<!-- ###end### sub content -->
+
+
+<script>
+var iCurrant_rating = 0;
+var $stars;
+var iId = {{ exercise.id }}
+
+jQuery(document).ready(function ($) {
+
+
+
+  $stars = $('.rate-popover');
+
+  $stars.on('mouseover', function () {
+    var index = $(this).attr('data-index');
+    markStarsAsActive(index);
+  });
+
+  function markStarsAsActive(index) {
+    unmarkActive();
+    iCurrant_rating = index;
+    console.log(index);
+    console.log(iCurrant_rating);
+    for (var i = 0; i <= index - 1; i++) {
+      $($stars.get(i)).removeClass('fa-meh-blank');
+      $($stars.get(i)).addClass('live');
+      switch (index) {
+        case '1':
+          $($stars.get(i)).addClass('fa-angry');
+          break;
+        case '2':
+          $($stars.get(i)).addClass('fa-frown');
+          break;
+        case '3':
+          $($stars.get(i)).addClass('fa-meh');
+          break;
+        case '4':
+          $($stars.get(i)).addClass('fa-smile');
+          break;
+        case '5':
+          $($stars.get(i)).addClass('fa-laugh');
+          break;
+      }
+    }
+  }
+
+  function unmarkActive() {
+    $stars.addClass('fa-meh-blank');
+    $stars.removeClass('fa-angry fa-frown fa-meh fa-smile fa-laugh live');
+  }
+
+  $stars.on('click', function () {
+    $stars.popover('hide');
+    fUserRatingSmileyClicked();
+  });
+
+function fUserRatingSmileyClicked()
+{
+    console.log(iCurrant_rating);
+    console.log(iId);
+    if(iCurrant_rating != '0')
+    {
+          var settings = {
+        'url': '/de/fitness/exercise/detail/rating',
+        "method": "POST",
+        'traditional': true,
+        "data": {
+          'id': iId,
+          'rating': iCurrant_rating
+        }
+    }
+    $.ajax(settings).done(function (data) {
+      console.log('rated');
+      if(data['user'] == 'ok')
+      {
+          var sRating = data['rating'];
+          console.log(sRating);
+          fSetExerciseRating(sRating)
+      }
+      else
+      {
+        toastr["info"]("{% trans 'Melde dich an um Bewertungen abzugeben.' %}")
+      }
+    });
+    }
+}
+
+
+// set smiley
+function fSetExerciseRating(sRating)
+{
+        switch (sRating[1]) {
+        case 1:
+          $('#main_smiley').attr('class','far fa-angry text-muted smiley');
+          break;
+        case 2:
+          $('#main_smiley').attr('class','far fa-frown text-muted smiley');
+          break;
+        case 3:
+          $('#main_smiley').attr('class','far fa-meh text-muted smiley');
+          break;
+        case 4:
+          $('#main_smiley').attr('class','far fa-smile text-muted smiley');
+          break;
+        case 5:
+          $('#main_smiley').attr('class','far fa-laugh text-muted smiley');
+          break;
+      }
+}
+// #end set smiley
+
+
+});
+
+
+</script>

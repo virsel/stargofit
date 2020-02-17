@@ -1,0 +1,127 @@
+{% load static %}
+{% load training_plans_filters %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+<div class="d-flex flex-wrap justify-content-center align-items-center">
+<div id="sColumn-container" class="col d-none d-md-flex align-items justify-conten-center "></div>
+
+<!-- Chart controler  -->
+<div id="chart_controller" class="col-7 d-flex justify-content-center align-items-center w-p-300">
+
+<table class="table d-flex flex-wrap justify-content-center">
+  <thead class="col-12">
+    <tr class=" w-pct-100 d-flex">
+          <th class="w-60 d-none d-md-block col">
+        {% trans 'Ziel' %}
+      </th>
+        <th class="col">
+        {% trans 'Anteil' %}
+      </th>
+        <th class="w-60 col">
+        {% trans 'Fertig' %}
+      </th>
+    </tr>
+  </thead>
+  <tbody class="d-flex flex-wrap justify-content-center">
+
+    {% for goal in goals %}
+    <tr id="goal_row_{{ forloop.counter0 }}" class="disabled d-flex flex-wrap justify-content-center col-12">
+      <th class="goal_label goal_label_{{ forloop.counter0 }} col-12 col-md w-p-150">
+        {{ goal.title }}
+      </th>
+      <td class="col"><div class="input range" id='goal_range_{{ forloop.counter0 }}' data-index='{{ forloop.counter0 }}'></div></td>
+      <td class="col d-flex justify-content-center">
+        <div class="form-check form-check-inline">
+          <input type="checkbox" class="form-check-input" id="goal_row_input_{{ forloop.counter0 }}" data-index="{{ forloop.counter0 }}">
+          <label class="form-check-label" for="goal_row_input_{{ forloop.counter0 }}"></label>
+        </div>
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<!-- #end Chart controler  -->
+</div>
+
+
+<script>
+
+function fGetGoalRange()
+{
+ return new ej.inputs.Slider({
+    value: 0,
+    min: 0, 
+    max: 100,
+});
+}
+
+
+var lGoals_range = [];
+$('.table .range').each(function(index){
+lGoals_range.push(fGetGoalRange());
+lGoals_range[index].appendTo('#goal_range_' + String(index));
+fChangeChartAndRangeOnRangeChange(lGoals_range[index],index)
+});
+
+
+// range slider change event
+function fChangeChartAndRangeOnRangeChange(ejRange,iIndex)
+{
+ejRange.addEventListener('changed',function(data){
+  var iValue = data['value'];
+  var bAll_saved = (iSelected_goals - 1) == iFinished_goals;
+
+  if( !bAll_saved) // to big selection or to mush finished 
+  {
+    var bToo_big_selection = (iValue + iSaved_percentage) > 100;
+    if(bToo_big_selection)
+    iValue = 100 - iSaved_percentage;
+  var iPercentage = Math.round((100 - (iValue + iSaved_percentage)) / (iSelected_goals - iFinished_goals - 1));
+
+  $('#chart_controller .form-check-input').each(function(iSecond_index){
+    if(iIndex != iSecond_index) // not changed Goal
+    {
+    var bIs_enabled = !$(this).parent().parent().parent().hasClass('disabled');
+    if(!$(this).is(':checked') && bIs_enabled)
+    {
+      fSetRangeAndChartOfGoal(iSecond_index,iPercentage);
+    }
+
+    }
+    else 
+    {
+      if(bToo_big_selection)
+      fSetRangeAndChartOfGoal(iSecond_index,iValue);
+      else
+      fSetGoalChart(iSecond_index,iValue);
+    }
+  });
+  }
+  else 
+  {
+    console.log('set range back');
+    iValue = 100 - iSaved_percentage;
+    fSetGoalRange(iIndex,iValue);
+  }
+});
+}
+// #end range slider change event
+
+
+function fSetGoalRange(iIndex,iValue)
+{
+        lGoals_range[iIndex]["properties"]["value"] = iValue;
+        lGoals_range[iIndex].refresh();
+}
+
+
+function fSetGoalChart(iIndex,iValue)
+{
+        lSeries[iIndex]['dataModule']['dataManager']['dataSource']['json'][0]['y'] = iValue;
+        ejColumn_chart.refresh();
+}
+
+</script>

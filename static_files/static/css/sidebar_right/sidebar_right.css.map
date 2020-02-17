@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAC;EACX,SAAS,EAAE,KAAK;CAAG",
+    "sources": [
+        "sidebar_right.sass"
+    ],
+    "names": [],
+    "file": "sidebar_right.css"
+}

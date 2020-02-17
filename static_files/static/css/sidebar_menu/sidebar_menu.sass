@@ -1,0 +1,82 @@
+@import '../variables/variables.scss'
+
+#sidebar-left
+    min-width: 180px
+    position: relative
+    -webkit-box-shadow: 2px 4px 5px 0px rgba(209,209,209,1)
+    -moz-box-shadow: 2px 4px 5px 0px rgba(209,209,209,1)
+    box-shadow: 2px 4px 5px 0px rgba(209,209,209,1)
+    background: #193341
+    font-size: 0.65em
+    text-align: right
+    font-weight: bold
+
+    @media (max-width: $xl_width)
+        position: absolute !important
+        opacity: 0.95 !important
+        z-index: 10 !important
+        width: 0px !important
+        transition: all 0.4s ease-in
+        left: -180px
+    @media (max-width: $md_width)
+        width: 100% !important
+        left: 0px !important
+        top: -1000px !important
+        text-align: center
+        li
+            margin: 20px 0px !important
+
+    &.visible
+        left: 0px !important
+        top: 0px !important
+    .header
+        font-weight: bold
+
+    .e-list-text
+        color: #bbdefb
+        font-size: 15px
+
+    .main-menu
+        background: rgb(239,249,255)
+        background: -moz-linear-gradient(left,  rgba(239,249,255,1) 0%, rgba(249,253,255,0.7) 100%)
+        background: -webkit-linear-gradient(left,  rgba(239,249,255,1) 0%,rgba(249,253,255,0.7) 100%)
+        background: linear-gradient(to right,  rgba(239,249,255,1) 0%,rgba(249,253,255,0.7) 100%)
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eff9ff', endColorstr='#f9fdff',GradientType=1 )
+        height: 100%
+        color: white
+
+    ul
+        list-style: none
+        .start
+            font-size: 14px
+
+    li
+        position: relative
+        margin: 3.2em 0
+
+        a
+            line-height: 2em
+            text-transform: uppercase
+            text-decoration: none
+            letter-spacing: 0.3em
+            color: rgba(#FFF, 0.35)
+            display: block
+            transition: all ease-out 300ms
+
+        &.active a
+            color: white
+
+        &:not(.active)::after
+            opacity: 0.2
+
+        &:not(.active):hover a
+            color: rgba(#FFF, 0.75)
+
+        &::after
+            content: ''
+            position: absolute
+            width: 100%
+            height: 0.1em
+            background: linear-gradient(to right, #c2e9fb, #5d98f8)
+            left: 0
+            bottom: 0

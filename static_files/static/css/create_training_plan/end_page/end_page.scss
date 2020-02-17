@@ -1,0 +1,36 @@
+@import '../../variables/variables.scss';
+
+#schedule-form{
+.view{
+    p{
+        position: relative;
+        top: 7px;
+        font-weight: bold;
+        color: #1c2331;
+    }
+}
+    
+#planing-schedule{
+    .e-today{
+        display: none;
+    }
+    .e-schedule{
+        .e-appointment{
+            height: auto !important;
+            .description{
+                font-size: 10px;
+            }
+        }
+    }
+}
+}
+
+
+.e-dlg-container{
+    .e-footer-content{
+        .e-event-delete{
+            display: none;
+        }
+    }
+
+}

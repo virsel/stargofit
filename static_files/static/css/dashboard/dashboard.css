@@ -1,0 +1,554 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto");
+#window_middle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.recent_plan {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  position: relative;
+  display: block;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 120px -25px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 120px -25px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  text-align: center;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+}
+
+.recent_plan .header {
+  height: 30px;
+  background-color: #f2f2f2;
+}
+
+.recent_plan .header h4 {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  font-size: 14px;
+}
+
+.recent_plan .body .kinds {
+  margin-top: 5px;
+}
+
+.recent_plan .body > .top {
+  margin-top: 15px;
+  font-size: 13px;
+  padding: 0px 10px;
+}
+
+.recent_plan .body > .top .row {
+  margin: 0px;
+}
+
+.recent_plan .body > .top .row .title {
+  color: #09C;
+  font-weight: bold;
+}
+
+.recent_plan .body > .top .row .text {
+  background: rgba(250, 250, 250, 0.9);
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 3px;
+  padding: 0px 4px;
+  position: absolute;
+  left: 100px;
+}
+
+.recent_plan .body .bottom {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#82838c+0,a6acb2+100 */
+  background: #82838c;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #82838c 0%, #a6acb2 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82838c', endColorstr='#a6acb2',GradientType=1 );
+  /* IE6-9 fallback on horizontal gradient */
+  margin-top: 10px;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.recent_plan .body .bottom .head {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#56839e+0,49606f+100 */
+  background: #56839e;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(#56839e), to(#49606f));
+  background: linear-gradient(to bottom, #56839e 0%, #49606f 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#56839e', endColorstr='#49606f',GradientType=0 );
+  /* IE6-9 */
+  font-weight: bold;
+  color: #bbdefb;
+  border-radius: 5px 5px 0px 0px;
+  padding: 3px;
+}
+
+.recent_plan .body .bottom > .sub_body .title {
+  color: white;
+  font-weight: bold;
+}
+
+.recent_plan .body .bottom > .sub_body .text {
+  font-size: 12px;
+}
+
+.recent_plan .body .bottom > .sub_body > .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  left: 50%;
+  position: relative;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+}
+
+.recent_plan .body .bottom > .sub_body > .top .block {
+  display: block;
+  text-align: center;
+  width: 90px;
+}
+
+.recent_plan .body .bottom > .sub_body > .top .block span {
+  display: block;
+}
+
+.recent_plan .body .bottom > .sub_body .middle {
+  color: white;
+}
+
+.recent_plan .body .bottom > .sub_body .middle button {
+  padding: 0px 4px;
+  pointer-events: none;
+}
+
+.recent_plan .body .bottom > .sub_body .last button {
+  padding: 5px 15px;
+}
+
+.recent_plan .link {
+  display: block;
+  text-align: center;
+  color: #777;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.recent_plan:hover {
+  -webkit-box-shadow: 0px 0px 80px -25px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 80px -25px rgba(0, 0, 0, 0.5);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.recent_plan .info_section {
+  position: relative;
+  width: 100%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  background-blend-mode: multiply;
+  z-index: 2;
+  border-radius: 10px;
+}
+
+.recent_plan .info_section .movie_header {
+  position: relative;
+  padding: 25px;
+  height: 40%;
+}
+
+.recent_plan .info_section .movie_header h1 {
+  color: black;
+  font-weight: 400;
+}
+
+.recent_plan .info_section .movie_header h4 {
+  color: #555;
+  font-weight: 400;
+}
+
+.recent_plan .info_section .movie_header .minutes {
+  display: inline-block;
+  margin-top: 15px;
+  color: #555;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.recent_plan .info_section .movie_header .type {
+  display: inline-block;
+  color: #959595;
+  margin-left: 10px;
+}
+
+.recent_plan .info_section .movie_header .locandina {
+  position: relative;
+  float: left;
+  margin-right: 20px;
+  height: 120px;
+  -webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
+}
+
+.recent_plan .info_section .movie_desc {
+  padding: 25px;
+  height: 50%;
+}
+
+.recent_plan .info_section .movie_desc .text {
+  color: #545454;
+}
+
+.recent_plan .info_section .movie_social {
+  height: 10%;
+  padding-left: 15px;
+  padding-bottom: 20px;
+}
+
+.recent_plan .info_section .movie_social ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recent_plan .info_section .movie_social ul li {
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.3);
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  -webkit-transition-delay: 0.15s;
+          transition-delay: 0.15s;
+  margin: 0 10px;
+}
+
+.recent_plan .info_section .movie_social ul li:hover {
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.recent_plan .info_section .movie_social ul li i {
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.recent_plan .blur_back {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  height: 100%;
+  right: 0;
+  background-size: cover;
+  border-radius: 11px;
+}
+
+@media screen and (min-width: 768px) {
+  .movie_header {
+    width: 65%;
+  }
+  .movie_desc {
+    width: 50%;
+  }
+  .info_section {
+    background: -webkit-gradient(linear, left top, right top, color-stop(50%, #e5e6e6), to(transparent));
+    background: linear-gradient(to right, #e5e6e6 50%, transparent 100%);
+  }
+  .blur_back {
+    width: 80%;
+    background-position: -100% 10% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movie_card {
+    width: 95%;
+    margin: 70px auto;
+    min-height: 350px;
+    height: auto;
+  }
+  .blur_back {
+    width: 100%;
+    background-position: 50% 50% !important;
+  }
+  .movie_header {
+    width: 100%;
+    margin-top: 85px;
+  }
+  .movie_desc {
+    width: 100%;
+  }
+  .info_section {
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(50%, #e5e6e6), to(transparent));
+    background: linear-gradient(to top, #e5e6e6 50%, transparent 100%);
+    display: -ms-inline-grid;
+    display: inline-grid;
+  }
+}
+
+.bright_back {
+  background: url("https://occ-0-2433-448.1.nflxso.net/art/cd5c9/3e192edf2027c536e25bb5d3b6ac93ced77cd5c9.jpg");
+}
+
+.tomb_back {
+  background: url("https://fsmedia.imgix.net/cd/c9/5e/ba/4817/4d9a/93f0/c776ec32ecbc/lara-crofts-neck-looks-unnatural-in-the-new-poster-for-tomb-raider.png");
+}
+
+.dashboard.body {
+  background: -webkit-gradient(linear, left top, right top, from(#3FB6A8), to(#7ED386));
+  background: linear-gradient(to right, #3FB6A8, #7ED386);
+}
+
+.dashboard .container {
+  background: #FFFFFF;
+  width: 540px;
+  height: 420px;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 10%;
+  -webkit-box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+          box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+}
+
+.dashboard .logo {
+  float: right;
+  margin-right: 12px;
+  margin-top: 12px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #3DBB3D;
+  font-weight: 900;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+}
+
+.dashboard .CTA {
+  width: 80px;
+  height: 40px;
+  right: -20px;
+  bottom: 0;
+  margin-bottom: 90px;
+  position: absolute;
+  z-index: 1;
+  background: #7ED386;
+  font-size: 1em;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  cursor: pointer;
+}
+
+.dashboard .CTA h1 {
+  color: #FFFFFF;
+  margin-top: 10px;
+  margin-left: 9px;
+}
+
+.dashboard .CTA:hover {
+  background: #3FB6A8;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.dashboard .leftbox {
+  float: left;
+  top: -5%;
+  left: 5%;
+  position: absolute;
+  width: 15%;
+  height: 110%;
+  background: #7ED386;
+  -webkit-box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
+          box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
+}
+
+.dashboard nav a {
+  list-style: none;
+  padding: 35px;
+  color: #FFFFFF;
+  font-size: 1.1em;
+  display: block;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+.dashboard nav a:hover {
+  color: #3FB6A8;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  cursor: pointer;
+}
+
+.dashboard nav a:first-child {
+  margin-top: 7px;
+}
+
+.dashboard .active {
+  color: #3FB6A8;
+}
+
+.dashboard .rightbox {
+  float: right;
+  width: 60%;
+  height: 100%;
+}
+
+.dashboard .profile, .dashboard .payment, .dashboard .subscription, .dashboard .privacy, .dashboard .settings {
+  -webkit-transition: opacity .5s ease-in;
+  transition: opacity .5s ease-in;
+  position: absolute;
+  width: 70%;
+}
+
+.dashboard h1 {
+  font-family: "Montserrat", sans-serif;
+  color: #7ED386;
+  font-size: 1em;
+  margin-top: 40px;
+  margin-bottom: 35px;
+}
+
+.dashboard h2 {
+  color: #777777;
+  font-family: "Roboto", sans-serif;
+  width: 80%;
+  text-transform: uppercase;
+  font-size: 8px;
+  letter-spacing: 1px;
+  margin-left: 2px;
+}
+
+.dashboard p {
+  border-width: 1px;
+  border-style: solid;
+  -o-border-image: linear-gradient(to right, #3FB6A8, rgba(126, 211, 134, 0.5)) 1 0%;
+     border-image: -webkit-gradient(linear, left top, right top, from(#3FB6A8), to(rgba(126, 211, 134, 0.5))) 1 0%;
+     border-image: linear-gradient(to right, #3FB6A8, rgba(126, 211, 134, 0.5)) 1 0%;
+  border-top: 0;
+  width: 80%;
+  font-family: "Montserrat", sans-serif;
+  font-size: .7em;
+  padding: 7px 0;
+  color: #070707;
+}
+
+.dashboard span {
+  font-size: .5em;
+  color: #777777;
+}
+
+.dashboard .btn {
+  float: right;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-size: 10px;
+  border: none;
+  color: #3FB6A8;
+}
+
+.dashboard .btn:hover {
+  text-decoration: underline;
+  font-weight: 900;
+}
+
+.dashboard input {
+  border: 1px solid #dddddd;
+  font-family: "Roboto", sans-serif;
+  padding: 2px;
+  margin: 0;
+}
+
+.dashboard .privacy h2 {
+  margin-top: 25px;
+}
+
+.dashboard .settings h2 {
+  margin-top: 25px;
+}
+
+.dashboard .noshow {
+  opacity: 0;
+}
+
+.profile_img {
+  width: 80px;
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 4;
+  -webkit-box-shadow: 0px 5px 50px 0px #6c44fc, 0px 0px 0px 3px rgba(107, 74, 255, 0.5);
+          box-shadow: 0px 5px 50px 0px #6c44fc, 0px 0px 0px 3px rgba(107, 74, 255, 0.5);
+}
+
+@media screen and (max-width: 576px) {
+  .profile_img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.profile_img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+
+#settings {
+  position: absolute;
+  right: -28px;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  bottom: 5px;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+#settings i {
+  border-radius: 50px;
+  -webkit-box-shadow: 0px 0px 0px 0px #c2e9fb, 0px 0px 5px 0.0001px #5d98f8;
+          box-shadow: 0px 0px 0px 0px #c2e9fb, 0px 0px 5px 0.0001px #5d98f8;
+  width: 14px;
+  cursor: pointer;
+}
+
+#settings:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.active > #settings {
+  color: white !important;
+}
+
+.row {
+  margin: 0px;
+  padding: 15px;
+}
+
+.training_plan_list {
+  grid-gap: 20px 45px;
+}
+/*# sourceMappingURL=dashboard.css.map */

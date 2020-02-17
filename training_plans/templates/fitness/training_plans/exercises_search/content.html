@@ -1,0 +1,139 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+        
+
+
+
+
+
+
+
+
+ <!--Header-->
+<div class="topbar z-i-3 view view-cascade gradient-card-header  blue lighten-4 z-depth-1 py-2 d-flex justify-content-between align-items-center exercises_search_first_bar">
+
+ <!-- search -->
+        <form class="form-inline search"  id="exercises_search_form" autocomplete="off">
+            {% csrf_token %}
+      <input class="form-control mdb-autocomplete" type="text" name="exercises_search" placeholder="{% trans 'Suchen' %}" aria-label="Search" id="exercise_dlg_search_input">
+                  <button class="mdb-autocomplete-clear" id="autocomplete-clear">
+              <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </button>
+      <button class="btn btn-rounded btn-sm my-0 ml-sm-2" id="exercises_dlg_search_btn" type="button"><i class="fas fa-search"
+        aria-hidden="true"></i></button>
+    </form>
+
+<!-- eff + diff filter -->
+<div class="filter  dropdown">
+  <a class="btn btn-rounded btn-sm px-2 dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-filter"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuLink">
+  <form class="px-2 py-1">        
+        <div class="range_label">
+            <img class="eff_icon icon" src="/static/images/icons/efficiency-24px.svg">
+            <span class="text">Effektivität 
+            </span>
+            </div>
+            <div class="widget_container">
+          <div class="range" id="exercises_dlg_range_eff"></div>
+            <span class="output" id="exercises_dlg_eff_output">1.00 - 5.00</span>
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="range_label">
+            <img class="diff_icon icon" src="/static/images/icons/fitness_center-24px.svg">
+            <span class="text">Schwierigkeit 
+            </span>
+            </div>
+            <div class="widget_container">
+            <div class="range" id="exercises_dlg_range_diff"></div>
+            <span class="output" id="exercises_dlg_diff_output">1.00 - 5.00</span>
+            <i class="fas fa-star"></i>
+        </div>
+  <!-- ###end### eff + diff filter -->
+</form>
+  </div>
+</div>
+ <!--  # end filtering -->
+
+
+   
+
+    <!-- area selection -->
+                <div class="control-styles">
+                <select id="area-selection">
+        {% for area in areas %}
+        <option name="area" value="{{ area.0 }}">
+            {{ area.1 }}  
+        </option>
+        {% endfor %}
+            </select>
+            </div>
+<!-- #end area selection -->
+
+ 
+     <!-- area selection -->
+                <div class="control-styles">
+                <select id="kind-selection">
+        {% for kind in kinds %}
+        <option name="kind" value="{{ kind.0 }}">
+            {{ kind.1 }}  
+        </option>
+        {% endfor %}
+            </select>
+            </div>
+<!-- #end area selection -->
+
+
+
+    <button type="button" class="results btn btn-outline-info btn-rounded">
+    <span class="cInr" id="exercises_dlg_search_result_count">{{ count }}</span>
+    <span id="search_result_text">  Resultate</span></button> <!-- results --> 
+  </div>
+
+
+ <!-- sub bar for training kind selection -->
+<div class="btn-group kind-selection d-flex mx-auto w-p-500" data-toggle="buttons">
+  <label class="btn btn-light-blue form-check-label btn-rounded text-muted cloudy-knoxville-gradient warm"
+   data-main_kind="warm" onclick="fExerciseDialogKindSelectionClicked(this)">
+    <input class="form-check-input" type="radio" name="options" id="option1" autocomplete="off" checked>
+    {% trans 'Aufwärmen' %}
+  </label>
+  <label class="btn btn-light-blue form-check-label btn-rounded text-muted cloudy-knoxville-gradient train" 
+  data-main_kind="train" onclick="fExerciseDialogKindSelectionClicked(this)">
+    <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off"> {% trans 'Training' %}
+  </label>
+  <label class="btn btn-light-blue form-check-label btn-rounded  text-muted cloudy-knoxville-gradient cool" 
+   data-main_kind="cool" onclick="fExerciseDialogKindSelectionClicked(this)">
+    <input class="form-check-input" type="radio" name="options" id="option3" autocomplete="off"> {% trans 'Abwärmen' %}
+  </label>
+</div>
+<!-- #end sub bar for training kind selection -->
+
+
+      <!--Body-->
+      <div class="modal-body mb-0 text-center">
+
+<!-- content exercises -->
+<div class="list px-2  justify-content-center" id="exercise_search_el" data-url="{% url 'exercise_selection_box' %}">
+<!-- train choice -->
+{% for exercise in exercises %}
+
+{% include 'fitness/training_plans/exercises_search/exercise_search_element.html' with exercise=exercise area=exercise.area part=exercise.fGetAreaString kind=exercise.fGetKindString %}
+
+{% endfor %}
+<!-- #end warm up or cool dowm exercise choice -->
+</div>
+<!-- ###end### content exercises -->
+      
+      
+</div>
+
+
+
+
+

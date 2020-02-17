@@ -1,0 +1,40 @@
+@charset "UTF-8";
+/* colors */
+/* colors */
+/* gradients */
+/* colors */
+/* specials */
+/* ###end### specials */
+/* buttons */
+/* ###end### buttons */
+/* pictures */
+/* ###end### pictures */
+/* forms */
+/* ###end### forms */
+/* cards */
+/* ###end### cards */
+/* �positions */
+/* #end positions */
+#schedule-form .view p {
+  position: relative;
+  top: 7px;
+  font-weight: bold;
+  color: #1c2331;
+}
+
+#schedule-form #planing-schedule .e-today {
+  display: none;
+}
+
+#schedule-form #planing-schedule .e-schedule .e-appointment {
+  height: auto !important;
+}
+
+#schedule-form #planing-schedule .e-schedule .e-appointment .description {
+  font-size: 10px;
+}
+
+.e-dlg-container .e-footer-content .e-event-delete {
+  display: none;
+}
+/*# sourceMappingURL=end_page.css.map */

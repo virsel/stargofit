@@ -1,0 +1,569 @@
+.training_plan_detail .days_menu {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.training_plan_detail .days_menu .day_link .e-btn-group button {
+  padding: 3px !important;
+}
+
+.training_plan_detail .days_menu .e-input {
+  width: 120px !important;
+}
+
+.training_plan_detail .toggle_menu_bottom {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  position: relative;
+  border-radius: 0px 0px 5px 5px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #6c757d;
+}
+
+.training_plan_detail .toggle_menu_bottom #add_training_day {
+  display: none;
+}
+
+.training_plan_detail .day {
+  cursor: pointer;
+}
+
+.training_plan_detail .collapse_content {
+  position: relative;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: max-content max-content;
+      grid-template-columns: -webkit-max-content -webkit-max-content;
+      grid-template-columns: max-content max-content;
+  overflow: hidden;
+  -webkit-transition: height 0.3s ease-out;
+  transition: height 0.3s ease-out;
+  height: auto;
+}
+
+.training_plan_detail .collapse_content #units_list {
+  width: 100%;
+}
+
+.training_plan_detail .collapse_content #units_list .control-styles {
+  display: none !important;
+}
+
+.training_plan_detail .collapse_content #units_list li {
+  height: 50px;
+  padding: 8px;
+  background: #f4f7f9;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.training_plan_detail .collapse_content #units_list li.first {
+  border-radius: 4px 4px 0px 0px;
+}
+
+.training_plan_detail .collapse_content #units_list li.last {
+  border-radius: 0px 0px 4px 4px;
+}
+
+.training_plan_detail .collapse_content #units_list li .main_parts {
+  position: relative;
+  margin-left: 40px;
+  font-size: 14px;
+}
+
+.training_plan_detail .collapse_content #units_list li .unit_box {
+  width: 670px;
+  position: relative;
+  border-radius: 4px;
+  padding: 2px;
+  display: inline-block;
+}
+
+.training_plan_detail .collapse_content #units_list li .unit_ending {
+  position: absolute;
+  right: 110px;
+  color: #3F729B;
+}
+
+.training_plan_detail .collapse_content #units_list li .unit_heading {
+  left: 20px;
+  position: relative;
+}
+
+.training_plan_detail .collapse_content #units_list li:hover {
+  background-color: #c1def4 !important;
+}
+
+.training_plan_detail .collapse_content #units_list .fa-trash {
+  position: relative;
+}
+
+.training_plan_detail .collapse_content .days_list {
+  padding: 0px;
+}
+
+.training_plan_detail .collapse_content .days_list li {
+  height: 50px;
+}
+
+.training_plan_detail .collapse_content .days_list li .day_label {
+  font-weight: bold;
+  position: relative;
+  height: 100%;
+  border-radius: 0px;
+  text-align: left;
+  padding: 5px;
+}
+
+.training_plan_detail .collapse_content .days_list li .day_label .value_box {
+  display: inline-block;
+}
+
+.training_plan_detail .collapse_content .days_list li .day_label .value_box i {
+  display: none;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+.training_plan_detail .collapse_content .fa-th-large {
+  display: none;
+  position: relative;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.training_plan_detail .collapse_content .heading {
+  display: none;
+}
+
+.training_plan_detail .trainings_collapse {
+  position: relative;
+  border-radius: 0px 0px 15px 15px;
+  overflow: hidden;
+  padding: 0px;
+  -webkit-box-shadow: 0px;
+          box-shadow: 0px;
+}
+
+.training_plan_detail .trainings_collapse #current_kind {
+  -webkit-box-orient: vertical !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: column !important;
+          flex-direction: column !important;
+}
+
+.training_plan_detail .trainings_collapse .control-styles {
+  display: none !important;
+}
+
+.training_plan_detail .trainings_collapse #current_day_label {
+  font-weight: bold;
+  position: relative;
+  height: 100%;
+  background-color: #6c757d;
+  border-radius: 0px;
+  text-align: left;
+  color: white;
+  padding: 5px;
+  font-size: 10px;
+}
+
+.training_plan_detail .trainings_collapse .fa-trash {
+  display: none;
+}
+
+.training_plan_detail .trainings_collapse .fa-th-large {
+  display: none;
+}
+
+.training_plan_detail .trainings_collapse .text {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.training_plan_detail .trainings_collapse .text .heading {
+  font-weight: bold;
+}
+
+.training_plan_detail .trainings_collapse .navbar-toggler {
+  z-index: 1;
+}
+
+.training_plan_detail .trainings_collapse .navbar-toggler-icon {
+  background-image: url("data:image/svg+xmlcharset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.training_plan_detail .trainings_collapse .main_parts {
+  position: relative;
+}
+
+.training_plan_detail .trainings_collapse .exercises {
+  margin-left: 10px;
+  position: relative;
+}
+
+.training_plan_detail .trainings_collapse .unit_box {
+  width: 500px;
+  position: relative;
+  border-radius: 4px;
+  padding: 2px;
+  margin-left: 10px;
+}
+
+.responsive-table .header {
+  height: 30px;
+}
+
+.responsive-table .add_exercise {
+  font-weight: bold;
+  width: 150px;
+  right: 0px;
+  cursor: pointer;
+  height: 100%;
+  display: none;
+}
+
+.responsive-table .draganddrop {
+  display: none;
+}
+
+.responsive-table .draganddrop i {
+  cursor: pointer;
+}
+
+.responsive-table .delete {
+  display: none;
+}
+
+.responsive-table .delete i {
+  cursor: pointer;
+}
+
+.responsive-table .set_column {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.responsive-table .set_column .sets {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 10px 10px 10px 10px;
+  position: relative;
+  font-size: 10px;
+}
+
+.responsive-table .set_column .sets .count {
+  margin-right: 5px;
+}
+
+.responsive-table .set_column .sets .input {
+  display: none;
+  margin: auto !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.responsive-table .set_column .sets .btn-group {
+  height: 27px;
+}
+
+.responsive-table .set_column .sets .btn-group .unit_text {
+  border-radius: 0px;
+  font-size: 10px;
+  padding: 2px;
+}
+
+.responsive-table .set_column .sets .btn-group .btn {
+  padding: 0px 10px;
+}
+
+.responsive-table .set_column .sets .btn-group input {
+  text-align: center;
+  width: 45px;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+.responsive-table .set_column .sets .chip {
+  margin: 0px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.responsive-table .set_column .sets .chip .close {
+  float: none !important;
+  padding: 0px;
+}
+
+.responsive-table .set_column .sets .duration, .responsive-table .set_column .sets .repeats, .responsive-table .set_column .sets .wight {
+  color: #084174 !important;
+}
+
+.responsive-table .set_column .add_btn {
+  position: relative;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  display: none;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.responsive-table .table_img {
+  width: 100px;
+  height: 50px;
+  border-radius: 50px;
+  -webkit-box-shadow: inset 0 0 1px #e0e0e0, inset 0 0 14pxrgba 0, 0, 0, 0.2;
+          box-shadow: inset 0 0 1px #e0e0e0, inset 0 0 14pxrgba 0, 0, 0, 0.2;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.responsive-table li {
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.responsive-table .table-header {
+  background-color: #95A5A6;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.responsive-table .table-row {
+  background-color: #ffffff;
+  -webkit-box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+}
+
+.responsive-table .table-row .sorting_arrow {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+.sidebar-content.edit .edit-not-visible {
+  display: none !important;
+}
+
+.sidebar-content.edit .add_btn {
+  display: block;
+}
+
+.sidebar-content.edit input {
+  width: 30px !important;
+}
+
+.sidebar-content.edit #units_list {
+  padding: 1px;
+  margin-bottom: 20px !important;
+}
+
+.sidebar-content.edit #units_list .current_kind {
+  display: none !important;
+}
+
+.sidebar-content.edit #units_list .control-styles {
+  display: block !important;
+}
+
+.sidebar-content.edit #units_list .control-styles .e-multi-select-wrapper e-down-icon {
+  width: 150px;
+}
+
+.sidebar-content.edit .delete {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+
+.sidebar-content.edit #add_training_day {
+  display: block !important;
+}
+
+.sidebar-content.edit .value_box i {
+  display: inline-block !important;
+}
+
+.sidebar-content.edit .collapse_content .fa-th-large {
+  display: block !important;
+}
+
+.sidebar-content.edit .sets .edit {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+
+.sidebar-content.edit .sets .edit .close {
+  display: none;
+}
+
+.sidebar-content.edit .sets .edit .last {
+  display: inline-block !important;
+}
+
+.sidebar-content.edit .sets .text {
+  display: none;
+}
+
+.sidebar-content.edit .responsive-table {
+  min-width: 380px;
+}
+
+.sidebar-content.edit .responsive-table .fa-trash {
+  height: 100px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 0px 5px;
+}
+
+.sidebar-content.edit .add_exercise {
+  display: -ms-grid !important;
+  display: grid !important;
+}
+
+.sidebar-content.edit .delete {
+  display: block !important;
+}
+
+.sidebar-content.edit .draganddrop {
+  display: block !important;
+}
+
+#exercise_selection_small_window {
+  display: none;
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  top: 0px;
+  padding: 20px;
+}
+
+#exercise_selection_small_window .header {
+  height: 25px;
+}
+
+#exercise_selection_small_window .header button {
+  right: 5px;
+  position: relative;
+}
+
+#exercise_selection_small_window .area .stripe {
+  bottom: 0px;
+}
+
+#exercise_selection_small_window .kind-image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: 190px;
+  display: contents;
+}
+
+#exercise_selection_small_window .kind-image .view .mask {
+  opacity: 0.5;
+}
+
+#exercise_selection_small_window .kind-image .view.zoom {
+  cursor: pointer;
+  height: 170px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 25%;
+}
+
+#exercise_selection_small_window .kind-image .view.zoom .icon {
+  position: absolute;
+  left: 8px;
+  top: 5px;
+}
+
+#exercise_selection_small_window .kind-image .view.zoom i {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  background: white;
+  border-radius: 5px;
+}
+
+#exercise_selection_small_window .kind-image .stripe {
+  bottom: 0px;
+  padding: 10px;
+}
+
+#exercise_selection_small_window .kind-image .stripe p {
+  margin-bottom: 0px;
+}
+
+#exercise_selection_small_window.visible {
+  display: block;
+}
+
+@media (min-width: 960px) {
+  .responsive-table .sets {
+    display: -ms-grid !important;
+    display: grid !important;
+  }
+}
+
+@media (max-width: 753px) {
+  .responsive-table .fa-trash {
+    height: -webkit-max-content !important;
+    height: -moz-max-content !important;
+    height: max-content !important;
+    width: 100px !important;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+    padding: 5px 0px !important;
+  }
+}
+/*# sourceMappingURL=training_plan_detail.css.map */

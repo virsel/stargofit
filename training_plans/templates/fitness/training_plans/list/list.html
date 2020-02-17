@@ -1,0 +1,188 @@
+﻿
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+<div class="training_plan_list">
+{% for plan in plans %}
+{% include 'fitness/training_plans/list/components/card.html' with plan=plan %}
+{% endfor %}
+</div>
+
+
+<script>
+$('.more').on('click',function(){
+console.log('training plan detail');
+var sUrl = $(this).data('href');
+var sNew_state = sUrl.split('fitness/')[1];
+fGetPlanDetail(eSidebarContent,sNew_state,'');
+});
+
+$(function () {
+$('[data-toggle="tooltip"]').tooltip();
+});
+
+ej.base.enableRipple(true);
+
+
+function GetOptionItems(bFavorite,bCurrent_plan,bIsOwner)
+{
+    var items = [];
+    if(bFavorite)
+        items.push(    {
+            text: '{% trans "Aus Favoriten entfernen" %}',
+            iconCss: 'fas fa-star delete_favorite'
+        });
+    else
+        items.push(    {
+            text: '{% trans "Zu Favoriten hinzufügen" %}',
+            iconCss: 'far fa-star'
+        });
+    if(bCurrent_plan)
+        items.push(    {
+        text: '{% trans "Training beenden" %}',
+        iconCss: 'fas fa-edit delete_current_plan',
+        });
+    else
+        items.push(    {
+        text: '{% trans "Nach diesem Plan trainieren" %}',
+        iconCss: 'fas fa-edit',
+        });
+    if(bIsOwner)
+        items.push(    {
+        text: '{% trans "Plan löschen" %}',
+        iconCss: 'fas fa-trash-alt',
+        });
+
+
+    return items;
+}
+
+
+var test_btn;
+//To position the icon to the left of the text on a DropDownButton.
+function fSetOptionMenu()
+{
+    console.log('set option menü...');
+    $('.options').each(function(index){
+        var sButton_id = '#' + $(this).attr('id')
+        var sId = $(this).data('id');
+        var bFavorite = $(this).find('.fa-star').hasClass('visible');  // check if plan is in favorite list
+        var bCurrent_plan = $(this).find('.fa-edit').hasClass('visible');
+        var bIsOwner = $(this).find('.fa-trash-alt').hasClass('visible');
+        var items = GetOptionItems(bFavorite,bCurrent_plan,bIsOwner);
+        var drpDownBtn = new ej.splitbuttons.DropDownButton({iconCss: 'ddb-icons e-message', items: items}, sButton_id);
+        test_btn = drpDownBtn;
+        drpDownBtn.addEventListener('open',function() {
+            fSetOptionLinkAction(sButton_id, sId,drpDownBtn);
+        });
+    });
+}
+
+
+function fSetOptionLinkAction(sButton_id,sId,drpDownBtn)
+{
+    console.log(sButton_id + '-popup');
+    console.log($(sButton_id + '-popup').html());
+        $(sButton_id + '-popup').find('li').each(function(index){  // each link button in options list
+        console.log('link clicked');
+        $(this).on('click',function(){
+            if(index == 0)
+                fAddOrRemovePlanToFavorites(sId,$(this),drpDownBtn);
+            else if(index == 1)
+                fSetOrRemovePlanAsCurrentTraining(sId,$(this),drpDownBtn);
+            else
+                DeletePlan(sId);
+        });
+    });
+}
+
+
+function DeletePlan(sId)
+{
+
+    var settings = {
+        "url": '/de/fitness/plan/delete_plan/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'id':sId}
+    }
+    $.ajax(settings).done(function (data) {
+        console.log('delete plan with status: ' + data['status']);
+        if(data['status'] == 'ok')
+        {
+            $('#card_' + String(sId)).remove();
+        }
+    });
+}
+
+function ChangeOptionLink(sKind,bRemove,drpDownBtn)
+{
+    if (sKind == 'favorite')
+    {
+        $(drpDownBtn['element']).find('.fa-star').toggleClass('visible');
+        if(bRemove)
+        {
+            drpDownBtn['properties']['items'][0]['properties']['text'] = '{% trans "Zu Favoriten hinzufügen" %}';
+            drpDownBtn['properties']['items'][0]['properties']['iconCss'] = 'far fa-star';
+        }
+        else
+        {
+            drpDownBtn['properties']['items'][0]['properties']['text'] = '{% trans "Aus Favoriten entfernen" %}';
+            drpDownBtn['properties']['items'][0]['properties']['iconCss'] = 'fas fa-star delete_favorite';
+        }
+    }
+    else
+    {
+        $(drpDownBtn['element']).find('.fa-edit').toggleClass('visible');
+        if(bRemove)
+        {
+            drpDownBtn['properties']['items'][1]['properties']['text'] = '{% trans "Nach diesem Plan trainieren" %}';
+            drpDownBtn['properties']['items'][1]['properties']['iconCss'] = 'fas fa-edit';
+        }
+        else
+        {
+            drpDownBtn['properties']['items'][1]['properties']['text'] = '{% trans "Training beenden" %}';
+            drpDownBtn['properties']['items'][1]['properties']['iconCss'] = 'fas fa-edit delete_current_plan';
+        }
+    }
+    
+}
+
+
+function fAddOrRemovePlanToFavorites(sId, eLink,drpDownBtn)
+{
+    var bFavorite = eLink.find('.delete_favorite').length == 1;
+    var settings = {
+        "url": '/de/fitness/change_favorites_list/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'id':sId, 'favorite':bFavorite}
+    }
+    $.ajax(settings).done(function (data) {
+        console.log('add plan to favorites finished with status: ' + data['status']);
+        console.log('member removed: ');
+        console.log(data['member']);
+
+        ChangeOptionLink('favorite',bFavorite,drpDownBtn);
+
+    });
+}
+
+
+function fSetOrRemovePlanAsCurrentTraining(sId,eLink,drpDownBtn)
+{
+    var bCurrent_plan = eLink.find('.delete_current_plan').length == 1;
+    var settings = {
+        "url": '/de/fitness/change_current_plan_status/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'id':sId,'current_plan':bCurrent_plan}
+    }
+    $.ajax(settings).done(function (data) {
+        console.log('set plan as current plan finished with status: ' + data['status']);
+
+        ChangeOptionLink('current_plan',bCurrent_plan,drpDownBtn);
+    });
+}
+</script>

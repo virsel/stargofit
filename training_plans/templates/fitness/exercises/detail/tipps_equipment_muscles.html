@@ -1,0 +1,38 @@
+﻿{% load i18n %}
+{% load staticfiles %}
+{% load custom_tags %}
+<div class="detail_view_tipps">
+    
+
+            <!-- exercise equipment list -->
+            <div class="detail_equipment">
+                <h5>{% trans 'benötigtes Equipment:' %}</h5>
+                {% for e in exercise.equipment.all %}
+                <div class="main_information">{% blocktrans %}{{ e }}{% endblocktrans %}</div>
+                {% endfor %}                
+            </div>
+            <!-- ###end### exercise equipment list -->
+
+
+                    <!-- muscle groups -->
+                <div class="detail_used_muscles">
+                                    {% if exercise.kind == 'muscle_building' %}
+                {% include "fitness/exercises/detail/activated_area_info/muscle_building.html" with muscle=exercise.muscle_building.fGetMuscleString muscles=exercise.muscle_building.sub_muscles.all %}
+                {% elif exercise.kind == 'endurance_training' %}
+                                {% include "fitness/exercises/detail/activated_area_info/endurance_training.html" with area=exercise.endurance_training.fGetMuscleString areas=exercise.endurance_training.sub_areas.all %}
+                {% endif %}
+                </div>
+                <!-- ###end### muscle groups -->
+
+
+    {% for tipp in exercise.tipps.all %}
+    <div class="cloud_tipp cloud_tipp_{{ forloop.counter }}" data-text="{{ tipp }}">
+{% SetCompositVar 'images/cloud_' forloop.counter as path %}
+        <img src="{% static path  %}"/>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+
+</script>

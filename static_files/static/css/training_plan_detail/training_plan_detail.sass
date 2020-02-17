@@ -1,0 +1,386 @@
+.training_plan_detail
+    .days_menu
+        width: max-content
+        .day_link
+            .e-btn-group
+                button
+                    padding: 3px !important
+
+        .e-input
+            width: 120px !important
+
+    .toggle_menu_bottom
+        width: max-content
+        position: relative
+        border-radius: 0px 0px 5px 5px
+        height: max-content
+        cursor: pointer
+        text-align: center
+        font-weight: bold
+        align-items: center
+        color: #6c757d
+        #add_training_day
+            display: none
+
+    .day
+        cursor: pointer
+
+    .collapse_content
+        position: relative
+        width: max-content
+        display: grid
+        grid-template-columns: max-content max-content
+        overflow: hidden
+        transition: height 0.3s ease-out
+        height: auto
+
+        #units_list
+            width: 100%
+            .control-styles
+                display: none !important
+
+            li
+                height: 50px
+                padding: 8px
+                background: #f4f7f9 /* Old browsers */
+                display: flex
+                position: relative
+
+                &.first
+                    border-radius: 4px 4px 0px 0px
+
+                &.last
+                    border-radius: 0px 0px 4px 4px
+
+                .main_parts
+                    position: relative
+                    margin-left: 40px
+                    font-size: 14px
+
+                .unit_box
+                    width: 670px
+                    position: relative
+                    border-radius: 4px
+                    padding: 2px
+                    display: inline-block
+
+                .unit_ending
+                    position: absolute
+                    right: 110px
+                    color: #3F729B
+
+                .unit_heading
+                    left: 20px
+                    position: relative
+
+            li:hover
+                background-color: rgba(193, 222, 244, 1) !important
+
+            .fa-trash
+                position: relative
+
+        .days_list
+            padding: 0px
+            li
+                height: 50px
+                .day_label
+                    font-weight: bold
+                    position: relative
+                    height: 100%
+                    border-radius: 0px
+                    text-align: left
+                    padding: 5px
+                    .value_box
+                        display: inline-block
+                        i
+                            display: none
+                            cursor: pointer
+                            text-align: center
+                            transform: scale(1.5)
+
+        .fa-th-large
+            display: none
+            position: relative
+            height: max-content
+
+        .heading
+            display: none
+
+    .trainings_collapse
+        position: relative
+        border-radius: 0px 0px 15px 15px
+        overflow: hidden
+        padding: 0px
+        box-shadow: 0px
+        #current_kind
+            flex-direction: column !important
+
+        .control-styles
+            display: none !important
+
+        #current_day_label
+            font-weight: bold
+            position: relative
+            height: 100%
+            background-color: #6c757d
+            border-radius: 0px
+            text-align: left
+            color: white
+            padding: 5px
+            font-size: 10px
+
+        .fa-trash
+            display: none
+
+        .fa-th-large
+            display: none
+
+        .text
+            display: inline-block
+            font-size: 14px
+            .heading
+                font-weight: bold
+
+        .navbar-toggler
+            z-index: 1
+
+        .navbar-toggler-icon
+            background-image: url("data:image/svg+xmlcharset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E")
+
+        .main_parts
+            position: relative
+
+        .exercises
+            margin-left: 10px
+            position: relative
+
+        .unit_box
+            width: 500px
+            position: relative
+            border-radius: 4px
+            padding: 2px
+            margin-left: 10px
+
+.responsive-table
+
+    .header
+        height: 30px
+
+    .add_exercise
+        font-weight: bold
+        width :  150px
+        right: 0px
+        cursor: pointer
+        height: 100%
+        display: none
+
+    .draganddrop
+        display: none
+        i
+            cursor: pointer
+
+    .delete
+        display: none
+        i
+            cursor: pointer
+
+    .set_column
+        width: max-content
+        .sets
+            display: grid
+            grid-template-columns: 50% 50%
+            width: max-content
+            height: max-content
+            padding: 10px 10px 10px 10px
+            position: relative
+            font-size: 10px
+
+            .count
+                margin-right: 5px
+
+            .input
+                display: none
+                margin: auto !important
+                align-items: center
+
+            .btn-group
+                height: 27px
+                .unit_text
+                    border-radius: 0px
+                    font-size: 10px
+                    padding: 2px
+
+                .btn
+                    padding: 0px 10px
+
+                input
+                    text-align: center
+                    width: 45px
+                    -webkit-appearance: none
+                    -moz-appearance: textfield
+
+            .chip
+                margin: 0px
+                width: max-content
+                display: flex
+                .close
+                    float: none !important
+                    padding: 0px
+
+            .duration, .repeats, .wight
+                color: #084174 !important
+
+        .add_btn
+            position: relative
+            width: max-content
+            display: none
+            font-size: 15px
+            font-weight: bold
+            color: white
+            cursor: pointer
+
+    .table_img
+        width: 100px
+        height: 50px
+        border-radius: 50px
+        box-shadow: inset 0 0 1px #e0e0e0, inset 0 0 14pxrgba(0,0,0,0.2)
+        position: relative
+        left: 50%
+        transform: translate(-50%,0)
+
+    li
+        padding: 5px
+        display: flex
+        justify-content: space-between
+
+    .table-header
+        background-color: #95A5A6
+        font-size: 14px
+        text-transform: uppercase
+        letter-spacing: 0.03em
+
+    .table-row
+        background-color: #ffffff
+        box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1)
+        .sorting_arrow
+            transform: scale(1.5)
+
+.sidebar-content.edit
+    .edit-not-visible
+        display: none !important
+
+    .add_btn
+        display: block
+
+    input
+        width: 30px !important
+
+    #units_list
+        padding: 1px
+        margin-bottom: 20px !important
+        .current_kind
+            display: none !important
+
+        .control-styles
+            display: block !important
+            .e-multi-select-wrapper e-down-icon
+                width: 150px
+
+    .delete
+        display: flex !important
+
+    #add_training_day
+        display: block !important
+
+    .value_box
+        i
+            display: inline-block !important
+
+    .collapse_content .fa-th-large
+        display: block !important
+
+    .sets
+        .edit
+            display: flex !important
+            .close
+                display: none
+
+            .last
+                display: inline-block !important
+
+        .text
+            display: none
+
+    .responsive-table
+        min-width: 380px
+        .fa-trash
+            height: 100px
+            align-items: center
+            display: inline-flex
+            padding: 0px 5px
+
+    .add_exercise
+        display: grid !important
+    .delete
+        display: block !important
+    .draganddrop
+        display: block !important
+
+#exercise_selection_small_window
+    display: none
+    position: fixed
+    z-index: 5
+    width: 100%
+    top: 0px
+    padding: 20px
+    .header
+        height: 25px
+        button
+            right: 5px
+            position: relative
+    .area
+        .stripe
+            bottom: 0px
+    .kind-image
+        object-fit: cover
+        height: max-content
+        width: 190px
+        display: contents
+        .view .mask
+            opacity: 0.5
+
+        .view.zoom
+            cursor: pointer
+            height: 170px
+            display: inline-flex
+            width: 25%
+            .icon
+                position: absolute
+                left: 8px
+                top: 5px
+            i
+                transform: scale(1.5)
+                background: white
+                border-radius: 5px
+
+        .stripe
+            bottom: 0px
+            padding: 10px
+            p
+                margin-bottom: 0px
+
+    &.visible
+        display: block
+
+@media (min-width: 960px)
+    .responsive-table
+        .sets
+            display: grid !important
+
+@media (max-width: 753px)
+    .responsive-table
+        .fa-trash
+            height: max-content !important
+            width: 100px !important
+            justify-content: center !important
+            padding: 5px 0px !important

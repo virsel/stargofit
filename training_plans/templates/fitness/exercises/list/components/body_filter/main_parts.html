@@ -1,0 +1,17 @@
+{% load static %}
+{% load training_plans_filters %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+    <!-- area selection -->
+<div class="control-styles main_parts" >
+        <span class="btn text-muted select_all_areas" id="select_all_areas_btn">{% trans 'Auswahl zurücksetzen' %}</span>
+        <div class="selections">
+        {% for area in areas %}
+        <input type="checkbox" class="form-check-input" id="area_list_exercise_{{ area.0 }}" name="area" value="{{ area.0 }}">
+        <label class="form-check-label" for="area_list_exercise_{{ area.0 }}">{{ area.1 }}</label>
+        {% endfor %}
+        </div>
+</div>
+

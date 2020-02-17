@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+
+
+
+
+
+{% block main_content %}
+
+<!-- toolbar -->
+<div class="topbar view view-cascade gradient-card-header  z-depth-1 d-flex justify-content-between align-items-center">
+	<button class="navbar-toggler first-button d-block d-xl-none" type="button">
+	  <div class="nav-trigger"  id="nav-trigger"><span></span><span></span><span></span></div>
+	</button> <!-- toggle -->
+	{% block toolbar %}
+	
+	{% endblock %}
+</div>
+  <!-- #end toolbar -->
+
+
+
+<div id="main-text" class="e-sidebar-context">
+	
+	<nav class="nav justify-content-center d-flex" id="sidebar-left">
+		{% block left_sidebar %}
+		{% endblock %}
+	</nav>
+
+	<div class="sidebar-content  px-4 m-0 m-sm-4" style="background-image: url('{% static 'images/background/background.jpg' %}'); repeat: no-repeat;">
+		{% block sidebar_content %}
+		{% endblock %}
+	</div>
+
+	<div class="right_sidebar d-none d-xl-flex">
+		{% block right_sidebar %}
+		{% endblock %}
+	</div>
+</div>
+
+
+	{% block js %}
+	{% endblock %}
+{% endblock %}

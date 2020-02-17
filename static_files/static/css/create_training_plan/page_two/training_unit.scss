@@ -1,0 +1,311 @@
+@import '../../variables/variables.scss';
+.carousel {
+  .carousel-inner {
+    .carousel-item {
+.ex-count-btn{
+  position: absolute;
+  border-radius: 5px;
+  top: 0px;
+  right: 0px;
+  font-size: 18px;
+  padding: 8px 15px;
+  pointer-events: none;
+  span {
+    font-size: 18px;
+  }
+}
+.controls-top{
+  display: flex;
+  .next-btn
+    {
+      pointer-events: none;
+      opacity: 0.5
+    }
+    .btn{
+      border: 1px solid white;
+    }
+    .first-next.next-btn{
+      width: 100%;
+    }
+}
+      .finish-btn{
+        @include mSetElHorizontalMiddle(absolute);
+        i{
+          transform: translate(-100%) scale(1.5);
+        }
+        position: absolute;
+        bottom: -24px;
+        width: 250px;
+        border-radius: 0px 0px 20px 20px;
+        border: 1px solid #82b1ff;
+      }
+    }
+    .has-next {
+      .controls-top{
+        .next-btn
+        {
+          pointer-events: all;
+          opacity: 1;
+        }
+    }
+  }
+}
+}
+// �exercises lists
+
+.unit_block
+{
+margin-top: 50px;
+
+.main_exercises_box {
+  margin-top: 10px;
+
+  // Layout
+  .row {
+    display: flex;
+    .col {
+      flex: 1;
+      &:last-child {
+        margin-left: 1em;
+      }
+    }
+  }
+  /* Accordion styles */
+  .tabs {
+    border-radius: 8px;
+    overflow: visible;
+  }
+  .tab {
+    box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    color: white;
+    margin-bottom: 50px;
+    border-radius: 5px 5px 20px 20px;
+    .e-content{
+      height: max-content !important;
+    }
+    .add_button{
+      padding: 0px 0px;
+      font-weight: bold;
+      border-radius: 0px 0px 20px 20px;
+    .plus_btn {
+      position: relative;
+      pointer-events: none;
+      left: 0px;
+      width: 32px;
+      height: 32px;
+      top: -3px;
+      @include grLight_blue;
+      i {
+        position: absolute;
+        bottom: -8px;
+        right: 0px;
+      }
+    }
+  }
+    &.first-tab {
+
+      
+      background-color: #b2dfdb;
+
+    }
+    &.middle-tab {
+      background-color: #929fba;
+
+    }
+
+    &.last-tab {
+      
+      background-color: #b0bec5;
+    }
+
+    .tab_header {
+      width: 100%;
+      height: 45px;
+      position: relative;
+
+    
+      .tab_label {
+        left: 90px;
+        @include mSetElVerticalMiddle(absolute);
+        font-size: 18px;
+        font-weight: bold;
+        color: #212121 !important;
+        
+      }
+      .e-btn-group {
+        right: 45px;
+        @include mSetElVerticalMiddle(absolute);
+        .e-btn {
+          pointer-events: none;
+        }
+        .e-badge {
+          left: 15px;
+          position: relative;
+        }
+      }
+    }
+    &-label {
+      border-radius: 0px 5px;
+      display: flex;
+      justify-content: space-between;
+      padding: 1em;
+      background: $midnight;
+      font-weight: bold;
+      margin: 0px;
+      width: 40px;
+      position: absolute;
+      height: 100%;
+      right: 0px;
+      cursor: pointer;
+      /* Icon */
+      &:hover {
+        background: darken($midnight, 10%);
+      }
+      &::after {
+        content: '\276F';
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        transition: all 0.35s;
+        position: absolute;
+        right: 13px;
+        bottom: 26px;
+        transform: translate(0, 50%);
+      }
+    }
+    &-content {
+      display: none;
+      color: $midnight;
+      background: white;
+      transition: all 0.35s;
+    }
+    &.list-expended {
+      .tab-label {
+        background: darken($midnight, 10%);
+        &::after {
+          transform: rotate(90deg) translate(10px, -5px);
+        }
+      }
+      .tab-content {
+        padding: 0px;
+        display: block;
+      }
+    }
+    .content {
+      overflow: hidden !important;
+      max-height: 0px;
+      transition: max-height ease-in-out 1s;
+    
+        color: #37474F;
+        .e-table{
+          border-collapse: collapse;
+          .set-control{
+            .btn{
+              padding: 5px 10px;
+            }
+            .count{
+              pointer-events: none;
+              font-weight: bold;
+            }
+          }
+          .delete{
+            width: 32px;
+            height: 32px;
+            @include grLight_blue;
+            i {
+              position: relative;
+              bottom: 8px;
+            }
+          }
+          td {
+            padding: 2px 2px 3px 4px;
+            &.e-updatedtd {
+              background-color: white !important;
+            }
+          }
+          }
+        }
+        .e-detailindentcell{
+          border: 0px !important;
+        }
+      
+      .detailtable{
+        text-align: center;
+        font-size: 13px !important;
+        color: #212529 !important;
+        .sub_heading_col{
+          position: relative;
+        }
+        .first-col{
+          width: 40px;
+        }
+        .sub_header{
+          font-weight: bold;
+          position: absolute;
+          color: #00bfa5;
+        }
+        .weight{
+          .sub_header{
+            left: 35px;
+          }
+        }
+        .duration,.stretching{
+          .sub_header{
+            left: 150px
+          }
+        }
+        .repeats{
+          .sub_header{
+            left: -40px
+          }
+        }
+        .btn-group{
+          .btn,input{
+            padding: 0px 10px;
+          }
+          input{ 
+            text-align: center;
+            width: 45px;
+            -webkit-appearance: none; 
+            -moz-appearance: textfield;
+          }
+          .input-group-append{
+            span{
+              padding: 0px 5px;
+              border-radius: 0px !important;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+  .e-grid .e-table {
+    table-layout: initial;
+    width: 100%;
+
+
+    .title {
+      width: 30%;
+    }
+    .equipment {
+      width: 25%;
+    }
+    .sets {
+      width: 10%;
+    }
+    .area {
+      width: 20%;
+    }
+    .sets,
+    .equipment,
+    .area {
+      text-align: center;
+    }
+  }
+
+
+// #end exercises lists

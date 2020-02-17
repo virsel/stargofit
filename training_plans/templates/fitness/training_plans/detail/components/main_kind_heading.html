@@ -1,0 +1,11 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+<li class="table-row  align-items-center {{ heading_class }} row flex-wrap">                       <!-- drag and drop -->
+  <div class="col-6 d-flex flex-md-nowrap flex-wrap align-items-center">
+    {{ heading|safe }}
+  </div>                          <!-- image -->
+  <div class="col-6 set_column justify-content-right d-flex">{{ add_btn|safe }}</div>                    
+</li>

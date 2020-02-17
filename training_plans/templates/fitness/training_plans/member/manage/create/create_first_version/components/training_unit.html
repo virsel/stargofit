@@ -1,0 +1,109 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}                
+<script>
+var sMain_kind = '';
+
+</script>
+
+
+
+
+
+<!-- heading plus day choice -->
+<span class="heading text-uppercase" data-wow-delay="0.3s"><strong>{{ unit_number }}. {% trans 'Trainingseinheit' %}</strong></span>
+<!-- ###end### heading plus day choice -->
+
+
+<!-- exercises main div -->
+<div class="unit_block">
+<form  id="training_plan-create-{{ unit_id }}" class="training_unit" data-unit_id="{{ unit_id }}">
+<div class="main_exercises_box">
+
+<div class="tabs">
+      <div class="tab first-tab">
+      <div class="tab_header">
+      
+      
+      <span  class="tab_label text-body">{% trans 'Aufwärmen' %}</span>
+       <div class="e-btn-group e-custom-button">
+       {% for kind in kinds %}
+            <button class="e-btn">{{ kind.1 }}
+                <!-- Notification Badge -->
+                <span class="e-badge e-badge-info e-badge-notification e-badge-overlap" id="{{ kind.0 }}_warm_count-{{ unit_id }}">0</span>
+            </button>
+       {% endfor %}
+        </div>
+        <label class="tab-label" data-main_kind="warm" 
+      onclick="fOpenOrCloseExTable(false,this,'{{ unit_id }}')" id="warm_label_{{ unit_id }}"></label>
+         </div>
+        <div class="content" id="warm_ex_boxes">
+
+        {% include 'fitness/training_plans/member/manage/create/components/exercise_table.html' with kind='warm' id=unit_id %}
+
+        </div>
+        <button type="button" class="btn text-muted cloudy-knoxville-gradient btn-lg btn-block add_button" onclick="fAddWarmExClicked(this)" data-main_kind="warm">
+        <span class="plus_btn btn-floating btn-primary"><i class="fas fa-plus"></i></span>{% trans 'Übung hinzufügen' %}</button>
+      </div>
+
+
+      <div class="tab middle-tab">
+      <div class="tab_header">
+      <span class="tab_label text-body">{% trans 'Training' %}</span>
+       <div class="e-btn-group e-custom-button">
+       {% for kind in kinds %}
+            <button  class="e-btn">{{ kind.1 }}
+                <!-- Notification Badge -->
+                <span class="e-badge e-badge-info e-badge-notification e-badge-overlap" id="{{ kind.0 }}_train_count-{{ unit_id }}">0</span>
+            </button>
+       {% endfor %}
+        </div>
+        <label class="tab-label" data-main_kind="train" 
+      onclick="fOpenOrCloseExTable(false,this,'{{ unit_id }}')" id="train_label_{{ unit_id }}"></label>
+         </div>
+        <div class="content" id="train_ex_boxes">   
+        {% include 'fitness/training_plans/member/manage/create/components/exercise_table.html' with kind='train' id=unit_id %}
+        </div>
+        <button type="button" class="btn text-muted cloudy-knoxville-gradient btn-lg btn-block add_button" onclick="fAddTrainExClicked(this)" data-main_kind="train">
+        <span class="plus_btn btn-floating btn-primary"><i class="fas fa-plus"></i></span>{% trans 'Übung hinzufügen' %}</button>
+      </div>
+
+
+      <div class="tab last-tab">
+      <div class="tab_header">
+  
+  
+      <span class="tab_label text-body">{% trans 'Abwärmen' %}</span>
+       <div class="e-btn-group e-custom-button">
+       {% for kind in kinds %}
+            <button class="e-btn">{{ kind.1 }}
+                <!-- Notification Badge -->
+                <span class="e-badge e-badge-info e-badge-notification e-badge-overlap" id="{{ kind.0 }}_cool_count-{{ unit_id }}">0</span>
+            </button>
+       {% endfor %}
+        </div>
+        <label class="tab-label" data-main_kind="cool"  onclick="fOpenOrCloseExTable(false,this,'{{ unit_id }}')" id="cool_label_{{ unit_id }}"></label>
+         </div>
+        <div class="content"  id="cool_ex_boxes">
+        {% include 'fitness/training_plans/member/manage/create/components/exercise_table.html' with kind='cool' id=unit_id %}
+        </div>
+        <button type="button" class="btn text-muted cloudy-knoxville-gradient btn-lg btn-block add_button" onclick="fAddCoolExClicked(this)" data-main_kind="cool">
+        <span class="plus_btn btn-floating btn-primary"><i class="fas fa-plus"></i></span>{% trans 'Übung hinzufügen' %}</button>
+      </div>
+    </div>
+<div >
+</div>
+</div>
+<!-- ###end### exercises main div -->
+<!-- ###end### exercises main div -->
+</form>
+</div>
+      <div class="controls-top btn-group">
+        <a class="btn btn-light-blue btn-rounded carousel_back" href="#training_plan_create_carousel" data-slide="prev" data-prev="{{ prev_unit_number }}" onclick="fCarouselBackButtonClicked(this)"><i class="fa fa-chevron-left"></i></a>
+        <a class="btn btn-light-blue btn-rounded next-btn" href="#training_plan_create_carousel" data-slide="next"  data-next="{{ next_unit_number }}" data-current="{{ unit_number }}" onclick="fNextBtnClicked(this)">
+        <i class="fa fa-chevron-right next-icon"></i></a>
+      </div>
+      <button class="btn  float-right finish-btn cloudy-knoxville-gradient text-muted" type="button" onclick="fFinishTrainingPlan()"><i class="fas fa-save"></i>{% trans 'Plan speichern' %}</button>
+    
+            
+

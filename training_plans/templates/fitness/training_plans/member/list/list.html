@@ -1,0 +1,17 @@
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+
+
+{% for plan in plans %}
+{% if forloop.counter|divisibleby:2 %}
+{% include 'fitness/training_plans/member/list/components/row_picture_right.html' %}
+{% else %}
+{% include 'fitness/training_plans/member/list/components/row_picture_left.html' %}
+{% endif %}
+{% if not forloop.last %}<hr class="my-5">{% endif %}
+{% endfor %}
+
+

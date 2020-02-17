@@ -1,0 +1,10 @@
+﻿{% load i18n %}
+<!-- areas -->
+    <p>{% trans 'beanspruchte ' %}<h5>{% trans ' Regionen:' %}</h5></p>
+    <div class="card-properties-grid">
+        <i class="card-main-property" role="button" title="More options">{% blocktrans %}{{ area }}{% endblocktrans %}</i>
+        {% for area in sub_areas %}
+        <i class="card-sub-property" role="button" title="More options">{% blocktrans %}{{ area }}{% endblocktrans %}</i>
+        {% endfor %}
+    </div>
+<!-- ###end### areas -->

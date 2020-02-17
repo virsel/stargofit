@@ -1,0 +1,26 @@
+  
+{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+{% for table in tables %}
+<div class="container" data-unit="{{ table.unit }}" data-training_id="{{ training_plan_id }}">
+  <ul class="responsive-table"  id="unit_{{ table.training_id }}">
+    <li class="table-header d-none d-md-flex bg-c-d-2 txt-c-blue-1 text-center">
+      <div class="col col-md-1"></div>                          <!-- drag and drop -->
+      <div class="col col-md-3">{% trans 'Name' %}</div>
+      <div class="col col-md-2 d-none d-xl-block">{% trans 'Equipment' %}</div>
+      <div class="col col-md-3">{% trans 'Sätze' %}</div>
+      <div class="col col-md-2"></div>                           <!-- delete -->
+    </li>
+    {% for entry in table.entries %}
+      {% if entry.ex_id == '' %}
+        {% include 'fitness/training_plans/detail/components/main_kind_heading.html' with heading_class=entry.heading_class   heading=entry.title add_btn=entry.sets %}
+      {% else %}
+        {% include 'fitness/training_plans/detail/components/exercise.html' with heading_class=entry.heading_class img=entry.img title=entry.title equipment=entry.equipment sets=entry.sets delete=entry.delete ex_id=entry.ex_id next_pos=entry.next_pos kind=entry.kind %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}

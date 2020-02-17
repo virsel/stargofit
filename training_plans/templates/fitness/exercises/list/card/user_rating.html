@@ -1,0 +1,182 @@
+﻿
+{% load i18n %}
+
+{% if user_rating.1 == 1 %}
+      <i class="far fa-angry text-muted smiley" id="smiley-{{ id }}" data-index="0" data-rating="Very bad" data-id="{{ id }}"></i>
+{% elif user_rating.1 == 2 %}
+      <i class="far fa-frown text-muted smiley" id="smiley-{{ id }}" data-index="1" data-rating="Poor" data-id="{{ id }}"></i>
+{% elif user_rating.1 == 3 %}
+      <i class="far fa-meh text-muted smiley" id="smiley-{{ id }}" data-index="2" data-rating="OK" data-id="{{ id }}"></i>
+{% elif user_rating.1 == 4 %}
+      <i class="far fa-smile text-muted smiley" id="smiley-{{ id }}" data-index="3" data-rating="Good" data-id="{{ id }}"></i>
+{% else %}
+      <i class="far fa-laugh text-muted smiley" id="smiley-{{ id }}" data-index="4" data-rating="Excellent" data-id="{{ id }}"></i>
+{% endif %}
+
+<!-- popover -->
+<div id="popover_content_wrapper-{{ id }}" style="display: none;" data-rating="{{ user_rating }}">
+      <p>
+        {% trans 'Deine Bewertung:' %}
+      </p>
+    <span id="rating-{{ id }}">
+      <i class="far fa-meh-blank py-2 px-1 rate-popover index-1"></i>
+      <i class="far fa-meh-blank py-2 px-1 rate-popover index-2"></i>
+      <i class="far fa-meh-blank py-2 px-1 rate-popover index-3"></i>
+      <i class="far fa-meh-blank py-2 px-1 rate-popover index-4"></i>
+      <i class="far fa-meh-blank py-2 px-1 rate-popover index-5"></i>
+    </span>
+
+
+<!-- buttons -->
+      <div class="row">
+        <div class="col-md-2 deny button"  id="deny_{{ id }}">
+          <i class="far fa-times-circle fa-2x red-text"></i>
+        </div>
+        <div class="col-md-2 confirm button"  id="confirm_{{ id }}">
+          <i class="far fa-check-circle fa-2x green-text"></i>
+        </div>
+      </div>
+<!-- #end buttons -->
+    </div>
+<!-- #end popover -->
+<script>
+  // Custom whitelist to allow for using HTML tags in popover content
+  var myDefaultWhiteList = $.fn.tooltip.Constructor.Default.whiteList
+  myDefaultWhiteList.textarea = [];
+  myDefaultWhiteList.button = [];
+$('#smiley-{{ id }}').popover({
+html: true,
+trigger: 'click',
+placement: 'bottom',
+content: function () { return $('#popover_content_wrapper-{{ id }}').html(); }
+});
+
+$('#smiley-{{ id }}').on('inserted.bs.popover', function () {
+var iId = $(this).data('id');
+fSetRatingSmileys(iId);
+});
+
+
+// rating smileys
+function fSetRatingSmileys(iId){
+var $stars;
+var iCurrant_rating = 0;
+  $stars = $('.popover #rating-'+ iId + ' .rate-popover');
+
+  $stars.on('mouseover', function () {
+      var sClass_name = $(this).attr('class');
+      var iHelp_index = sClass_name.search('index');
+      var iIndex = sClass_name.slice(iHelp_index + 6, iHelp_index + 7);
+    console.log('smiley hover');
+    markStarsAsActive(iIndex);
+  });
+
+  function markStarsAsActive(index) {
+    unmarkActive();
+      console.log(index);
+    for (var i = 0; i < index; i++) {
+          console.log(i);
+      $($stars.get(i)).removeClass('fa-meh-blank');
+      $($stars.get(i)).addClass('live');
+      switch (index) {
+        case '1':
+          $($stars.get(i)).addClass('fa-angry');
+          break;
+        case '2':
+          $($stars.get(i)).addClass('fa-frown');
+          break;
+        case '3':
+          $($stars.get(i)).addClass('fa-meh');
+          break;
+        case '4':
+          $($stars.get(i)).addClass('fa-smile');
+          break;
+        case '5':
+          $($stars.get(i)).addClass('fa-laugh');
+          break;
+      }
+    }
+    iCurrant_rating = index;
+  }
+
+  function unmarkActive() {
+    $stars.addClass('fa-meh-blank');
+    $stars.removeClass('fa-angry fa-frown fa-meh fa-smile fa-laugh live');
+  }
+
+  $stars.on('click', function () {
+    console.log('smiley clicked');
+  });
+
+
+
+$('.popover #confirm_'+ iId).on('click',function(){
+    console.log(iCurrant_rating);
+    if(iCurrant_rating != 0)
+    {
+          var settings = {
+        'url': '/de/fitness/exercise/detail/rating',
+        "method": "POST",
+        'traditional': true,
+        "data": {
+          'id': iId,
+          'rating': iCurrant_rating
+        }
+    }
+    $.ajax(settings).done(function (data) {
+      console.log('rated');
+      if(data['user'] == 'ok')
+      {
+          var sRating = data['rating'];
+          console.log(sRating);
+          fSetExerciseRating(iId,sRating)
+      }
+      else
+      {
+        toastr["info"]("{% trans 'Melde dich an um Bewertungen abzugeben.' %}")
+      }
+    });
+    $('#smiley-' + iId).popover('hide');
+    }
+});
+
+
+// set smiley
+function fSetExerciseRating(sId,sRating)
+{
+        switch (sRating[1]) {
+        case 1:
+          $('#smiley-' + sId).attr('class','far fa-angry text-muted smiley');
+          break;
+        case 2:
+          $('#smiley-' + sId).attr('class','far fa-frown text-muted smiley');
+          break;
+        case 3:
+          $('#smiley-' + sId).attr('class','far fa-meh text-muted smiley');
+          break;
+        case 4:
+          $('#smiley-' + sId).attr('class','far fa-smile text-muted smiley');
+          break;
+        case 5:
+          $('#smiley-' + sId).attr('class','far fa-laugh text-muted smiley');
+          break;
+      }
+}
+// #end set smiley
+
+
+
+$(function () {
+  $('.popover #rating-'+ iId + ' .rate-popover').tooltip();
+});
+
+$('.popover #deny_' + iId).on('click',function(){
+    console.log('close clicked');
+    $('#smiley-' + iId).popover('hide');
+});
+}
+
+
+
+// close and submit button
+</script>

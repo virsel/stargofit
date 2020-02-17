@@ -1,0 +1,30 @@
+﻿{% load staticfiles %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+    <div class="set set-unused">
+        {% if kind == 'muscle_building' %}
+            <span class="top">{{ count }}.</span>
+            <div class="right">
+                <div class="row_1">
+                    <div class="range rep">
+                    <input type="number" name="sets-0-reversrements" id="id_sets-0-reversrements">
+                    </div>
+                    <label for="id_sets-0-reversrements">{% trans 'Wiederholungen' %}</label>
+                </div>
+                <div class="row_2">
+                    <div class="range weight">
+                    <input type="number" name="sets-0-weight" step="0.1" id="id_sets-0-weight">
+                    </div>
+                    <label for="id_sets-0-weight">{% trans 'Gewicht' %}</label>
+                </div>
+            </div>
+        {% else %}
+            <span class="top">{{ count }}.</span>
+            <label for="id_sets-0-duration">{% trans 'Dauer' %}:</label>
+            <div class="range time">
+            <input type="text" name="sets-0-duration" value="00:10:00" id="id_sets-0-duration">
+            </div>
+        {% endif %}
+    </div>

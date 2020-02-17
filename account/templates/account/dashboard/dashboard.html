@@ -1,0 +1,210 @@
+{% extends "sub_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+{% block css %}
+<link href="{% static "css/dashboard/dashboard.css" %}" rel="stylesheet">
+<link href="{% static "css/training_plans_list/training_plans_list.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block left_sidebar %}
+
+
+    <ul class="">
+      <div class="profile_img">
+      <img src="{% static request.user.profile.photo.url %}" alt="profile image">
+      </div>
+      <li class="active start" ><a class="sidebar-link" id="profile" href="{% url 'profile' %}">{% trans 'Startseite' %}</a>
+      <a data-toggle="tooltip" data-placement="bottom"  title="{% trans 'Einstellungen' %}"><i class="fas fa-cog sidebar-link" id="settings"></i></a>
+      </li>
+      <span class="e-list-text header" >{% trans 'Trainingspläne' %}</span>
+      <li><a class="sidebar-link" href="{% url 'member_plans' %}" id="member_plans">{% trans 'Eigene' %}</a></li>
+      <li><a  class="sidebar-link" href="{% url 'member_favorites' %}" id="member_favorites">{% trans 'Favoriten' %}</a></li>
+    </ul>
+{% endblock %}
+ 
+<!-- end of sidebar element -->
+<!--/. Sidebar navigation -->
+<!-- end - left navigation -->
+
+
+{% block sidebar_content %}
+<script>
+var eSidebarContent = $('.sidebar-content');
+var sPage = '{{ page }}';
+
+
+
+function fOpenPlanDetail(eBtn)
+{
+    var sUrl = $(eBtn).data('href');    
+    var sDay = $(eBtn).data('day');  
+
+    var settings = {
+        "url": '/de/fitness/send_data/',
+        "method": "POST",
+        'traditional': true,
+        "data": {'day': sDay}
+    }
+    $.ajax(settings).done(function (data) {
+        console.log('send data to redis server finished with status: ' + data['status']);
+        location.href = sUrl;
+    });
+
+    
+}
+
+
+function fSetProfileEditForm()
+{
+  var datepicker = new ej.calendars.DatePicker();
+  datepicker.appendTo('#birthday');
+
+  var ejCountry_selection = new ej.dropdowns.DropDownList({
+        mode: 'CheckBox',
+        showDropDownIcon: true,
+        popupHeight: '350px',
+        popupWidth: '250px',
+    });
+  console.log('country selection: ')
+  console.log(ejCountry_selection);
+  ejCountry_selection.appendTo('#country_selection');
+}
+
+
+
+// click on sidebar el
+$('.sidebar-link').click(function(e){
+  e.preventDefault()
+  var sCurrant_section = location.href.split('dashboard/')[1];
+  console.log(sCurrant_section);
+  var sSection = $(this).attr('id');
+  history.pushState(null, null, '/de/dashboard/' + sSection +'/');
+// #end set history
+  DashboardMenuChoices(sSection,false);
+});
+// specific selection
+
+
+function DashboardMenuChoices(sSection,bIs_reload)
+{
+  DeleteOldPopups();
+  console.log(sSection);
+    if(sSection == 'profile')
+    {
+    SetSidebarLinkActive(sSection);
+    GetProfileContent();
+    }
+    else if(sSection == 'settings')
+    {
+    SetSidebarLinkActive(sSection);
+    GetProfileEditForm();
+    }
+    else if(sSection == 'member_plans')
+    {
+      SetSidebarLinkActive(sSection);
+      GetMemberPlansContent();
+    }
+    else if(sSection == 'member_favorites')
+    {
+      SetSidebarLinkActive(sSection);
+      GetMemberFavoritesContent()
+    }
+}
+
+
+
+function GetProfileEditForm()
+{
+  var settings = {
+        'url': '/de/account/dashboard/settings/',
+        "method": "POST",
+        'traditional': true,
+        'data': {}
+    }
+   $.ajax(settings).done(function (data) {
+    eSidebarContent.empty();
+    eSidebarContent.append(data);
+    fSetProfileEditForm();
+   });
+}
+
+
+function GetMemberPlansContent()
+{
+    var settings = {
+        'url': '/de/account/dashboard/member_plans/',
+        "method": "POST",
+        'traditional': true,
+        "data": {}
+    }
+    $.ajax(settings).done(function (data) {
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content member_plans');
+        fSetOptionMenu();
+    });
+}
+
+
+function GetProfileContent()
+{
+    var settings = {
+        'url': '/de/account/dashboard/profile/',
+        "method": "POST",
+        'traditional': true,
+        "data": {}
+    }
+    $.ajax(settings).done(function (data) {
+      console.log(data);
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content profile');
+    });
+}
+
+
+function GetMemberFavoritesContent()
+{
+    var settings = {
+        'url': '/de/account/dashboard/member_favorites/',
+        "method": "POST",
+        'traditional': true,
+        "data": {}
+    }
+    $.ajax(settings).done(function (data) {
+        eSidebarContent.empty();
+        eSidebarContent.append(data);
+        $('#main_content').attr('class','main_content member_favorites');
+        fSetOptionMenu();
+    });
+}
+
+
+window.addEventListener('popstate', function (event)
+{
+  var sSection = location.href.split('dashboard/')[1];
+  if(sSection[sSection.length - 1] == '/')
+  {
+    sSection = sSection.slice(0, -1);
+  }
+  bBack_button = true;
+  DashboardMenuChoices(sSection,false);
+  bBack_button = false;
+});
+
+
+
+// document initiation
+$( document ).ready(function() {
+  console.log('Dashboard view start... current page: ' + sPage);
+DashboardMenuChoices(sPage,true);
+});
+</script>
+{% endblock %}
+
+
+
+

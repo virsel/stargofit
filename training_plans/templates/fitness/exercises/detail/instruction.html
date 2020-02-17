@@ -1,0 +1,21 @@
+﻿{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+
+
+
+
+<!-- Timeline -->
+
+      <!-- Timeline Wrapper -->
+      <ul class="timeline">
+      {% for step in instruction.all %}
+    <li class="event" data-date="{{ forloop.counter }}">
+      <p>{{ step }}</p>
+    </li>
+      {% endfor %}
+  </ul>
+
+
+<!-- Timeline -->

@@ -1,0 +1,13 @@
+{% load static %}
+{% load training_plans_filters %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+
+<div class="checkboxes area_weaks {{ col }} d-flex flex-wrap f-c-c" data-area="{{ area }}">
+    {% for area_weak in area_weaks %}
+            <input type="checkbox" data-area="{{ area }}" data-weak="{{ area_weak.identify }}" class="form-check-input" id="{{ area_weak.identify }}_{{ area }}">
+            <label class="form-check-label col-6 d-flex f-c-c" for="{{ area_weak.identify }}_{{ area }}">{{ area_weak.title }}</label>
+    {% endfor %}
+</div>

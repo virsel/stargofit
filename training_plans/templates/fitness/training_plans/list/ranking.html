@@ -1,0 +1,18 @@
+﻿    {% for training_plan in object_list %}
+    <div class="training_plan-info">
+<h3>{{ training_plan.title }}</h3>
+        <p>
+            <a href="{% url "training_plan_edit" training_plan.id %}">Edit</a>
+            <a href="{% url "training_plan_delete" training_plan.id %}">Delete</a>
+            <a href="{% url "training_plan_day_update" training_plan.id %}">Edit days</a>
+
+            <!-- for accessing the contents of the first day of a training plan, if any -->
+            {% if training_plan.days.count > 0 %}
+            <a href="{% url "day_exercise_list" training_plan.days.first.id %}">Manage exercises</a>
+            {% endif %}
+        </p>
+    </div>
+
+    {% empty %}
+    <p>Any training plans were found yet.</p>
+    {% endfor %}

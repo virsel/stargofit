@@ -1,0 +1,327 @@
+
+#arrow {
+    top: 50%;
+    position: absolute;
+    transform: translate(0,-50%);
+    cursor: pointer;
+}
+
+.muscles_dropdown{
+    padding: 0px;
+}
+
+.select_all_muscles{
+    position: absolute;
+    left: 50%;
+    transform: translate(-61%,285px);
+    padding: 5px 10px;
+    font-weight: bold;
+    background: #bbdefb;
+    border: 1px solid white;
+    border-radius: 30px;
+}
+
+
+
+
+
+.human-muscles_menu_selector {
+    height: 100%;
+    width: 30px;
+    background-color: #00BCD4;
+}
+
+
+.human-muscles_labels {
+.muscle-group-heading{
+    width: 100%;
+    text-align: center;
+}
+}
+
+
+.human-muscles_picture {
+    float:left;
+}
+
+.body_areas h1 {
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+
+
+.body_areas h2 {
+    margin: 0 0 .5rem;
+    font-size: .8rem;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+}
+
+
+
+
+
+.body_areas label:hover, .body_areas label.hover {
+    opacity: 0.7;
+}
+
+    .body_areas input:checked + label {
+        opacity: 1;
+        &.muscle-group-heading{
+            font-weight: bold;
+        }
+    }
+
+.body_areas input:checked + .muscle-group-heading {
+    color: #046572;
+}
+
+
+
+
+
+
+
+.body_areas .muscles-input-heading {
+    display: none;
+}
+
+.body_areas .muscles-input {
+    display: none;
+}
+
+
+
+    .body_areas label[for="abs"]:hover ~ svg #Abs path {
+        opacity: .75;
+    }
+
+    .body_areas .abs:checked ~ svg #Abs path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="quads"]:hover ~ svg #Quads path {
+        opacity: .75;
+    }
+
+    .body_areas .quads:checked ~ svg #Quads path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="biceps"]:hover ~ svg #Biceps path {
+        opacity: .75;
+    }
+
+    .body_areas .biceps:checked ~ svg #Biceps path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="adductors"]:hover ~ svg #Adductors path {
+        opacity: .75;
+    }
+
+    .body_areas .adductors:checked ~ svg #Adductors path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="pectorals"]:hover ~ svg #Pectorals path {
+        opacity: .75;
+    }
+
+    .body_areas .pectorals:checked ~ svg #Pectorals path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="deltoids"]:hover ~ svg #Deltoids path {
+        opacity: .75;
+    }
+
+    .body_areas .deltoids:checked ~ svg #Deltoids path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="hamstrings"]:hover ~ svg #Hamstrings path {
+        opacity: .75;
+    }
+
+    .body_areas .hamstrings:checked ~ svg #Hamstrings path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="quads"]:hover ~ svg #Quads path {
+        opacity: .75;
+    }
+
+    .body_areas .quads:checked ~ svg #Quads path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="forearms"]:hover ~ svg #Forearms path {
+        opacity: .75;
+    }
+
+    .body_areas .forearms:checked ~ svg #Forearms path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="calves"]:hover ~ svg #Calves path {
+        opacity: .75;
+    }
+
+    .body_areas .calves:checked ~ svg #Calves path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="triceps"]:hover ~ svg #Triceps path {
+        opacity: .75;
+    }
+
+    .body_areas .triceps:checked ~ svg #Triceps path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="glutes"]:hover ~ svg #Glutes path {
+        opacity: .75;
+    }
+
+    .body_areas .glutes:checked ~ svg #Glutes path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="lats"]:hover ~ svg #Lats path {
+        opacity: .75;
+    }
+
+    .body_areas .lats:checked ~ svg #Lats path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+    .body_areas label[for="trapezius"]:hover ~ svg #Trapezius path {
+        opacity: .75;
+    }
+
+    .body_areas .trapezius:checked ~ svg #Trapezius path {
+        opacity: .8;
+        fill: #00BCD4 !important;
+    }
+
+
+
+    
+/* Select all button */
+.human-muscles-select-all-button {
+    visibility: hidden;
+    padding: 5px;
+    border-radius: 2px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    top: 30px;
+    display: block;
+}
+    .human-muscles-select-all-button.clickable {
+        visibility: visible;
+        padding: 5px;
+        border-radius: 2px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        top: 30px;
+        display: block;
+    }
+/* ###end### Select all button */
+
+
+/* labels */
+.body_areas label + h2 {
+    margin-top: 1rem;
+}
+
+.body_areas label {
+    width: max-content;
+    display: block;
+    margin-bottom: .3rem;
+    cursor: pointer;
+    font-size: .7rem;
+    opacity: .5;
+    z-index: 200;
+    border-left: 5px solid transparent;
+    padding-left: 6px;
+    margin-left: -11px;
+    transition: opacity .25s ease-in-out;
+
+}
+
+.muscle-group-heading {
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+.human-muscles_labels .hover + label {
+    opacity: 1;
+    font-weight: bold;
+    color: #93d8ff;
+}
+
+.human-muscles_labels .hover + .muscle-group-heading {
+    opacity: 1;
+    font-weight: bold;
+    color: blue;
+}
+
+/* ###end###  labels */
+/* shapes */
+
+.body_areas svg .muscle {
+    transition: fill .25s ease-in-out;
+    fill: #a2e3ea;
+}
+.body_areas svg .path-start {
+    fill: #a2e3ea;
+}
+
+.body_areas svg .path-unselected {
+    fill: #404040;
+}
+
+.body_areas svg .main_shape:hover {
+    cursor: pointer;
+    fill: #00BCD4;
+    opacity: 0.6;
+}
+
+.body_areas svg .muscle:hover {
+    cursor: pointer;
+    fill: blue;
+    opacity: 1;
+}
+
+.body_areas svg .muscle-label-hover {
+    fill: blue;
+    opacity: 1;
+}
+
+.body_areas svg .selected {
+    cursor: pointer;
+    opacity: .5;
+    fill: #00BCD4 !important;
+}
+
+/* ###end### shapes */
+/* ###end### content grid */

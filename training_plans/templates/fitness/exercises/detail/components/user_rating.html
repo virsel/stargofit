@@ -1,0 +1,20 @@
+
+{% load staticfiles %}
+{% load custom_tags %}
+{% load training_plans_filters %}
+{% load i18n %}
+
+    <span id="rateMe">
+      <i 
+class="far{% if user_rating != 0 %} live {% endif %} {% if user_rating == 0 %}fa-meh-blank{% elif user_rating == 1 %}fa-angry{% elif user_rating == 2 %}fa-frown{% elif user_rating == 3 %}fa-meh{% elif user_rating == 4 %}fa-smile{% elif user_rating == 5 %}fa-laugh{% endif %} py-2 px-1 rate-popover" 
+      data-index="1" data-html="true" data-toggle="popover"
+        data-placement="top" title="Very bad"></i>
+      <i class="far{% if user_rating > 1 %} live {% endif %} {% if user_rating <= 1 %}fa-meh-blank{% elif user_rating == 2 %}fa-frown{% elif user_rating == 3 %}fa-meh{% elif user_rating == 4 %}fa-smile{% elif user_rating == 5 %}fa-laugh{% endif %} py-2 px-1 rate-popover" data-index="2" data-html="true" data-toggle="popover"
+        data-placement="top" title="Poor"></i>
+      <i class="far{% if user_rating > 2 %} live {% endif %} {% if user_rating <= 2 %}fa-meh-blank{% elif user_rating == 3 %}fa-meh{% elif user_rating == 4 %}fa-smile{% elif user_rating == 5 %}fa-laugh{% endif %} py-2 px-1 rate-popover" data-index="3" data-html="true" data-toggle="popover"
+        data-placement="top" title="OK"></i>
+      <i class="far{% if user_rating > 3 %} live {% endif %} {% if user_rating <= 3 %}fa-meh-blank{% elif user_rating == 4 %}fa-smile{% elif user_rating == 5 %}fa-laugh{% endif %} py-2 px-1 rate-popover" data-index="4" data-html="true" data-toggle="popover"
+        data-placement="top" title="Good"></i>
+      <i class="far{% if user_rating > 4 %} live {% endif %} {% if user_rating <= 4 %}fa-meh-blank{% elif user_rating == 5 %}fa-laugh{% endif %} py-2 px-1 rate-popover" data-index="5" data-html="true" data-toggle="popover"
+        data-placement="top" title="Excellent"></i>
+    </span>

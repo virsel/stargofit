@@ -1,0 +1,418 @@
+@import '../variables/variables.sass'
+
+.e-dlg-header-content
+    .e-dlg-header #warm,
+    .e-dlg-header #cool,
+    .e-dlg-header #train
+        display: none
+
+    .e-dlg-header
+        span
+            font-size: 20px
+            position: absolute
+            font-weight: bold
+
+    &.warm
+        .e-dlg-header #warm
+            display: block
+
+            background-color: #b2dfdb
+
+    &.cool
+        .e-dlg-header #cool
+            display: block
+
+            background-color: #b0bec5
+
+    &.train
+        .e-dlg-header #train
+            display: block
+
+            background-color: #929fba
+
+// exercises search
+.modal-backdrop
+    position: relative
+    z-index: -1
+    opacity: 0
+
+.input-group
+    display: inline-block
+    width: 300px
+
+    > div,
+    input
+        display: inline-block
+
+    .btn
+        width: 20px
+
+#exercises_search-dialog
+    padding: 0px
+    margin: 0px
+    min-width: 900px !important
+    min-height: 360px !important
+    overflow: unset
+    overflow-x: unset
+    .e-dlg-content
+        background-color: #f5f5f5
+        padding: 0px !important
+        height: 100%
+        overflow: hidden
+        .topbar
+
+            position: relative
+            height: 45px !important
+            padding: 0px 20px !important
+            margin-right: 0px !important
+        &.exercises_search_first_bar
+            z-index: 3
+
+        .search
+            position: relative
+            .mdb-autocomplete-clear
+                right: 80px
+
+            .mdb-autocomplete-wrap
+                top: 100%
+
+            .btn
+                border: 1px solid white !important
+
+            .fa-search
+                color: #45526e
+
+        .control-styles
+            width: 150px !important
+
+        .results
+            height: 30px
+            pointer-events: none
+            border: 1px solid white !important
+            #exercises_dlg_search_result_count
+                position: relative
+                bottom: 11px
+                right: 10px
+                color: #45526e !important
+
+            #search_result_text
+                position: relative
+                bottom: 13px
+                color: #45526e !important
+                font-weight: bold
+
+        .filter.dropdown
+            .btn
+                border: 1px solid white !important
+
+            .fa-filter
+                color: #45526e !important
+                &::after
+                    color: #45526e !important
+
+            .range
+                width: 50px
+                top: 4px
+                height: 10px
+
+                #exercises_dlg_range_eff,
+                #exercises_dlg_range_diff
+                    height: 10px
+                    margin: 0 10px
+
+                .noUi-handle
+                    width: 20px
+                    height: 10px
+                    top: -1px
+
+                .noUi-handle::after,
+                .noUi-handle::before
+                    content: ''
+                    display: block
+                    position: absolute
+                    height: 6px
+                    width: 1px
+                    background: #e8e7e6
+                    left: 7px
+                    top: 1px
+
+                .noUi-handle::after
+                    left: 10px
+
+                .noUi-connect
+                    background: lightblue
+
+            .dropdown-menu
+                width: 200px
+                font-size: 13px
+                .range_label,
+                .widget_container
+                    display: flex
+
+                .output
+                    margin-left: 23px
+
+                .fa-star
+                    position: relative
+                    left: 5px
+                    top: 2px
+
+                .text
+                    margin-left: 10px
+
+        .kind-selection
+            .btn
+                padding: 5px 15px
+                border: 1px solid #bbdefb
+                font-weight: bold
+            .btn.active
+                border: 1px solid white
+                background: #bbdefb !important
+
+        .modal-body
+            height: 80%
+            flex: content
+
+@media (min-width: 576px)
+    .modal-dialog
+        max-width: 800px
+
+#exercise_search_el
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(350px, 350px))
+    width: 100%
+    grid-gap: 10px
+    padding: 20px 0px
+    background-color: #f5f5f5
+    overflow: auto
+    height: 100%
+
+    .exercise
+        width: 97%
+        height: 80px
+        background: white
+        border-radius: 40px
+        position: relative
+        @include button_border_shadow
+        display: -webkit-box
+        > div
+            display: inline-block
+
+        .stg
+            position: absolute
+            width: 10%
+            height: 100%
+            left: 20px
+            > div
+                @include mSetElMiddle(absolute)
+                width: 25px
+                background-color: aliceblue
+
+            .e-dropdown-btn
+                border: 0px
+                @include button_light_border_shadow
+                position: absolute
+                left: 0
+
+            .e-btn-icon
+                position: relative
+                right: 6px
+                top: 1px
+
+        .img
+            position: absolute
+            left: 40px
+            width: 30%
+            overflow: hidden
+            height: 80px
+            top: 0
+
+            > img
+                width: 100%
+                height: 100%
+
+        .text
+            width: 40%
+            position: absolute
+            top: 2px
+            text-align: center
+            left: 140px
+
+            .icons
+                @include mSetElHorizontalMiddle
+                height: 22px
+                width: 100px
+                display: grid
+                grid-gap: 5px
+                grid-template-columns: 50% 50%
+
+                div
+                    display: block
+                    width: 100%
+
+                    i,
+                    span,
+                    img
+                        display: inline-block
+
+                    .icon
+                        width: 13px
+                        height: 13px
+
+                .number
+                    position: relative
+                    bottom: 2px
+
+            .e-card
+                position: absolute
+                left: 5px
+                height: 52px
+                .e-card-header-title
+                    font-size: 12px !important
+
+                .e-card-sub-title
+                    font-size: 10px !important
+
+        .add_box
+            @include mSetElVerticalMiddle(absolute)
+            height: max-content
+            right: 0px
+            width: max-content
+
+            button
+                display: block
+                width: 40px
+                height: 40px
+                i
+                    position: relative
+                    right: 2px
+                    bottom: 5px
+
+        .count
+            width: 30px
+            text-align: right
+            height: max-content
+            @include mSetElVerticalMiddle(absolute)
+            right: 6px
+            font-weight: 600
+            color: #3d9efd
+
+    .searched-exercise
+        background-color: red
+
+#test_text_2
+    width: max-content
+    transform: translate(calc(2 * 50) 146)
+
+@media screen and (max-width: 600px) and (min-width: 320px)
+    .photo img
+        width: 50px
+        height: 50px
+
+@media screen and (max-width: 800px) and (min-width: 600px)
+    .photo img
+        width: 70px
+        height: 70px
+
+// small device:
+.exercise_list_small_screen
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(350px, 350px))
+    width: 100%
+    grid-gap: 10px
+    background-color: #f5f5f5
+    overflow: scroll
+    height: 100vh
+    padding: 20px
+    .exercise
+        background: white
+        border-radius: 40px
+        position: relative
+        @include button_border_shadow
+        display: -webkit-box
+        height: 80px
+        > div
+            display: inline-block
+        .stg
+            position: absolute
+            width: 10%
+            height: 100%
+            left: 20px
+            > div
+                @include mSetElMiddle(absolute)
+                width: 25px
+                background-color: aliceblue
+            .e-dropdown-btn
+                border: 0px
+                @include button_light_border_shadow
+                position: absolute
+                left: 0
+            .e-btn-icon
+                position: relative
+                right: 6px
+                top: 1px
+        .img
+            position: absolute
+            left: 40px
+            width: 30%
+            overflow: hidden
+            height: 80px
+            top: 0
+            > img
+                width: 100%
+                height: 100%
+        .text
+            width: 40%
+            position: absolute
+            top: 2px
+            text-align: center
+            left: 140px
+            .icons
+                @include mSetElHorizontalMiddle
+                height: 22px
+                width: 100px
+                display: grid
+                grid-gap: 5px
+                grid-template-columns: 50% 50%
+                div
+                    display: block
+                    width: 100%
+                    i,
+                    span,
+                    img
+                        display: inline-block
+                    .icon
+                        width: 13px
+                        height: 13px
+                .number
+                    position: relative
+                    bottom: 2px
+            .e-card
+                position: absolute
+                left: 5px
+                height: 52px
+                .e-card-header-title
+                    font-size: 12px !important
+                .e-card-sub-title
+                    font-size: 10px !important
+        .add_box
+            @include mSetElVerticalMiddle(absolute)
+            height: max-content
+            right: 0px
+            width: max-content
+            button
+                display: block
+                width: 40px
+                height: 40px
+                i
+                    position: relative
+                    right: 2px
+                    bottom: 5px
+        .count
+            width: 30px
+            text-align: right
+            height: max-content
+            @include mSetElVerticalMiddle(absolute)
+            right: 6px
+            font-weight: 600
+            color: #3d9efd

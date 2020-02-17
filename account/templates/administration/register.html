@@ -1,0 +1,63 @@
+
+{% load i18n %}
+{% load staticfiles %}
+
+
+
+        <!-- Form -->
+        <form class="text-center" style="color: #757575;" id="register_form" action="{% url 'register' %}"  method="post">
+          {% csrf_token %}
+            <div class="form-row">
+                <div class="col">
+                    <!-- First name -->
+                    <div class="md-form">
+                        <input type="text" id="materialRegisterFormFirstName" class="form-control" name="first_name">
+                        <label for="first_name">{% trans 'Vorname' %}</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Last name -->
+                    <div class="md-form">
+                        <input type="text" id="materialRegisterFormLastName" class="form-control" name="last_name">
+                        <label for="materialRegisterFormLastName">{% trans 'Nachname' %}</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-mail -->
+            <div class="md-form mt-0">
+                <input type="email" id="materialRegisterFormEmail" class="form-control" name="email">
+                <label for="materialRegisterFormEmail">E-mail</label>
+            </div>
+
+            <!-- Password -->
+            <div class="md-form">
+                <input type="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" name="password">
+                <label for="materialRegisterFormPassword">{% trans 'Passwort' %}</label>
+                <input type="password" id="materialRegisterFormPassword2" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" name="password2">
+                <label for="materialRegisterFormPassword2">{% trans 'Passwort' %}</label>
+            </div>
+
+
+
+
+            <!-- Sign up button -->
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" >{% trans 'registrieren' %}</button>
+
+            <!-- Social register -->
+            <p>{% trans 'Oder melde dich an mit:' %}</p>
+
+            <a type="button" class="btn-floating btn-fb btn-sm">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a type="button" class="btn-floating btn-tw btn-sm">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <hr>
+
+            <!-- Terms of service -->
+            <p>{% trans 'Mit einem Klick auf' %}
+                <em> {% trans 'registrieren' %} </em>{% trans 'stimmst du unseren' %}
+                <a href="" target="_blank">{% trans 'Nutzungsbedingungen' %}</a> {% trans 'zu' %}
+        </form>
+        <!-- Form -->

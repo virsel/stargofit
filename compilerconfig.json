@@ -1,0 +1,62 @@
+﻿[
+  {
+    "outputFile": "static_files/static/css/base_sass.css",
+    "inputFile": "static_files/static/css/base_sass.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/base.css",
+    "inputFile": "static_files/static/css/base.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/cards/cards.css",
+    "inputFile": "static_files/static/css/cards/cards.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/detail_view/detail_view.css",
+    "inputFile": "static_files/static/css/detail_view/detail_view.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/exercise_list/exercises_list.css",
+    "inputFile": "static_files/static/css/exercise_list/exercises_list.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/human_muscles/human_muscles.css",
+    "inputFile": "static_files/static/css/human_muscles/human_muscles.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/main_top_menu/main_top_menu.css",
+    "inputFile": "static_files/static/css/main_top_menu/main_top_menu.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/sidebar_navigation/sidebar_navigation.css",
+    "inputFile": "static_files/static/css/sidebar_navigation/sidebar_navigation.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/top_menu/top_menu.css",
+    "inputFile": "static_files/static/css/top_menu/top_menu.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/voting/voting.css",
+    "inputFile": "static_files/static/css/voting/voting.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/create_training_plan/start_page/start_page.css",
+    "inputFile": "static_files/static/css/create_training_plan/start_page/start_page.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/create_training_plan/base/base.css",
+    "inputFile": "static_files/static/css/create_training_plan/base/base.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/base/base.css",
+    "inputFile": "static_files/static/css/base/base.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/create_training_plan/page_two/page_two.css",
+    "inputFile": "static_files/static/css/create_training_plan/page_two/page_two.scss"
+  },
+  {
+    "outputFile": "static_files/static/css/ui_components/library/material.css",
+    "inputFile": "static_files/static/css/ui_components/library/material.scss"
+  }
+]

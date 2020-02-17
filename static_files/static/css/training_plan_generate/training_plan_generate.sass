@@ -1,0 +1,238 @@
+@import '../variables/variables.sass'
+
+.plan_generate
+    display: grid
+    grid-gap: 40px
+    margin-bottom: 50px
+    .card_heading
+        color: #bbdefb !important
+        position: relative
+        width: 100%
+        padding-top: 0px
+        z-index: 1
+        height: 40px
+        .text
+            color: white
+            font-weight: bold
+            font-size: 20px
+            position: absolute
+            left: 50%
+            transform: translate(-50%)
+            top: 5px
+            label
+                width: max-content
+
+    .card
+        z-index: 0
+        height: max-content !important
+        .time
+            .e-slider-container
+                padding: 0px 15px
+
+        .personal_info
+            transition: max-height 1s ease-in-out !important
+            max-height: 150px !important
+            height: auto !important
+            .pRow
+                padding: 10px
+                .btn-group
+                    position: absolute
+                    left: 130px
+
+        .chart_content
+            transition: max-height 1s ease-in-out !important
+            max-height: 600px !important
+            height: auto !important
+
+        .btn-group
+            .btn
+                padding: 0px 10px
+
+            input
+                text-align: center
+                width: 45px
+                -webkit-appearance: none
+                -moz-appearance: textfield
+
+            .weight
+                padding: 0 10px
+                border-radius: 0px
+
+        .row
+            margin: 0px
+            display: grid
+            grid-template-columns: 50% 50%
+            width: 92%
+            left: 50%
+            position: relative
+            transform: translate(-50%)
+
+            margin-bottom: 25px
+            z-index: 0
+
+            &.middle
+                grid-template-columns: 100%
+                margin-bottom: 50px
+                .badge
+                    width: max-content
+                    padding: 7px 15px
+                    font-size: 15px
+                    @include mSetElHorizontalMiddle
+
+                .heading
+                    width: max-content
+                    left: 50%
+                    transform: translate(-50%)
+                    position: relative
+
+                .input
+                    width: max-content
+                    left: 50%
+                    transform: translate(-50%)
+
+                .control-styles
+                    width: 70%
+                    position: relative
+
+            &.last
+                margin-bottom: 20px
+
+            &.dropdown
+                z-index: 1
+
+        &.second
+            transition: max-height 1s ease-in-out !important
+            max-height: 500px !important
+            height: 500px !important
+            width: 100%
+            left: 50%
+            transform: translate(-50%)
+            .checkboxes
+                display: grid
+                color: black
+                grid-template-columns: 50% 50%
+                width: max-content
+                label
+                    margin: 0px !important
+                    padding: 0px !important
+                    &::before
+                        margin: 0px 10px 0px 0px !important
+                        position: relative !important
+                        display: inline-block !important
+
+            .body_areas
+                width: 100%
+                transition: max-height 1s ease-in-out !important
+                max-height: 460px !important
+                height: 460px !important
+                overflow: auto
+                svg
+                    height: max-content
+                    z-index: 100
+                    transition: all 1s ease-in-out
+                    .field
+                        fill: #a1e7fc
+                        fill: -moz-radial-gradient(center, ellipse cover,  #a1e7fc 0%, #60dee5 100%)
+                        fill: -webkit-radial-gradient(center, ellipse cover,  #a1e7fc 0%,#60dee5 100%)
+                        fill: radial-gradient(ellipse at center,  #a1e7fc 0%,#60dee5 100%)
+                    .selected
+                        fill: blue
+                        .field
+                            fill: blue !important
+        &.disable
+            .personal_info, .body_areas,.chart_content
+                max-height: 0px !important
+
+            &.second
+                max-height: 40px !important
+
+        &#column_chart
+            display: none
+
+            &.enabled
+                display: block
+
+            #sColumn-container
+                height: 300px !important
+
+            #chart_controller
+                height: 85%
+                width: 85%
+                position: relative
+                .saved
+                    .range
+                        pointer-events: none
+
+                .disabled
+                    display: none !important
+
+                .goal_label
+                    color: white
+                    font-weight: bold
+
+                .goal_label_0
+                    background-color: #00bdae
+
+                .goal_label_1
+                    background-color: #404041
+
+                .goal_label_2
+                    background-color: #357cd2
+
+                .goal_label_3
+                    background-color: #e56590
+
+                .goal_label_4
+                    background-color: #f8b883
+
+                .goal_label_5
+                    background-color: #70ad47
+
+                th
+                    text-align: center
+
+                th, td
+                    padding: 10px 10px
+
+                td
+                    .form-check
+                        margin-right: 0px
+                        margin-left: 10px
+
+                .w-60
+                    width: 60px !important
+
+                .e-slider-container
+                    height: 25px
+                    width: 90%
+                    left: 50%
+                    position: relative
+                    transform: translate(-50%)
+
+            .grid
+                grid-template-columns: 50% 50%
+                display: grid
+
+    .first
+        width: 100%
+        left: 50%
+        transform: translate(-50%)
+        position: relative
+        margin: 0px
+
+    .last
+
+        width: 100%
+
+        .bottom
+            a
+                position: relative
+                margin: 0
+                width: 110px
+                height: 110px
+
+                span
+                    color: white
+                    font-weight: bold
+                    @include mSetElMiddle(absolute)
+                    font-size: 17px

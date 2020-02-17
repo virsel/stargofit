@@ -1,0 +1,490 @@
+@import '../variables/variables.scss';
+
+/* menu toggler */
+.animated-icon1,
+.animated-icon2,
+.animated-icon3 {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  margin: 0px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.animated-icon1 span,
+.animated-icon2 span,
+.animated-icon3 span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+}
+
+.animated-icon2 span {
+  background: #e3f2fd;
+}
+
+.animated-icon2 span:nth-child(1) {
+  top: 0px;
+}
+
+.animated-icon2 span:nth-child(2),
+.animated-icon2 span:nth-child(3) {
+  top: 10px;
+}
+
+.animated-icon2 span:nth-child(4) {
+  top: 20px;
+}
+
+.animated-icon2.open span:nth-child(1) {
+  top: 11px;
+  width: 0%;
+  left: 50%;
+}
+
+.animated-icon2.open span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.animated-icon2.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.animated-icon2.open span:nth-child(4) {
+  top: 11px;
+  width: 0%;
+  left: 50%;
+}
+
+#sidebar-hamburger {
+  z-index: 2;
+}
+/* #end menu toggler */
+
+
+
+
+
+
+.e-sidebar.e-close .e-treeview .e-ul {
+  .e-icons.interaction {
+    position: relative;
+    left: 7px;
+  }
+  .e-level-2 .e-list-icon {
+    right: 13px;
+  }
+}
+
+/* header-section styles */
+#header-section.main-header {
+  border-bottom: 1px solid #d2d6de;
+  height: 55px;
+  min-height: 55px;
+  max-height: 55px;
+  background: #1c86c8;
+  color: #fff;
+}
+
+#header-section .header-style {
+  line-height: 40px;
+  height: 55px;
+  padding: 8px;
+  list-style: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: 18px;
+}
+
+#header-section .border-left {
+  border-left: 1px solid #d2d6de;
+  width: 10em;
+}
+
+#header-section .float-left {
+  float: left;
+  padding-right: 0px;
+}
+
+#header-section .icon-menu {
+  width: 40px;
+}
+
+#header-section .header-list,
+#sidebar-treeview .e-treeview,
+#sidebar-treeview .e-treeview .e-ul {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+
+  .e-icons.interaction {
+    float: right;
+    position: relative;
+    top: 5px;
+  }
+  .e-list-icon {
+    position: relative;
+    bottom: 4px;
+  }
+  .e-list-text {
+    padding: 0 9px;
+  }
+}
+
+.midle{
+  display: flex;
+  @include mSetElHorizontalMiddle;
+}
+
+/*end of header-section styles */
+.topbar {
+  overflow: visible;
+  margin-bottom: 0px;
+  z-index: 2;
+  background: #2d4451;
+height: 35px;
+
+  #exercises_topbar{
+    left: 70%;
+    width: 0px;
+    overflow: hidden;
+    .custom-control{
+      label::before, label::after{
+        cursor: pointer;
+      }
+    }
+    .form-control{
+      height: 25px;
+      padding: 0px 10px;
+    }
+    #exercise_search{
+      input{
+      border-radius: 3px 0px 0px 3px;
+      }
+      button{
+        background: white !important;
+        padding: 6px !important;
+        border-radius: 0px 3px 3px 0px;
+        border: 1px solid #bbdefb !important;
+        height: 25px;
+      }
+    }
+  }
+  .btn{
+    color:black !important;
+    border: 1px solid white;
+  }
+  .topbar_contant {
+    width: 100%;
+    position: absolute;
+    transition: left ease-in-out 1s;
+    width: 0px;
+    display: flex;
+    overflow: hidden;
+    left: 70%;
+    .search {
+      width: max-content;
+      left: 50%;
+      position: relative;
+      transform: translate(-50%);
+      .mdb-autocomplete-wrap{
+        top: 45px;
+      }
+      
+    }
+    .filter{
+      border-radius: 0px;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      right: -400px;
+      position: relative;
+      z-index: -1;
+      width: 300px;
+      .filter {
+        width: max-content;
+        margin: 0px;
+        padding: 7px;
+        .dropdown-menu {
+          left: 190px;
+          position: absolute;
+          width: 200px;
+          
+          .range_label {
+            display: -webkit-box;
+          }
+          .widget_container {
+            display: -webkit-box;
+            padding: 5px;
+          }
+          .form-check-input {
+            margin: 0px;
+          }
+          .equipment-row {
+            padding: 0px;
+          }
+          .icon {
+            top: 3px;
+            right: 3px;
+          }
+          .text {
+            margin-right: 10px;
+          }
+          .range {
+            width: 50px;
+            vertical-align: middle;
+            height: 10px;
+            top: 7px;
+            #range_eff,
+            #range_diff {
+              height: 10px;
+              margin: 0 10px;
+            }
+
+            .noUi-handle {
+              width: 20px;
+              height: 10px;
+              top: -1px;
+            }
+
+            .noUi-handle::after,
+            .noUi-handle::before {
+              content: '';
+              display: block;
+              position: absolute;
+              height: 6px;
+              width: 1px;
+              background: #e8e7e6;
+              left: 7px;
+              top: 1px;
+            }
+
+            .noUi-handle::after {
+              left: 10px;
+            }
+
+            .noUi-connect {
+              background: lightblue;
+            }
+          }
+
+          .output {
+            margin-left: 20px;
+            font-size: 10px;
+          }
+        }
+      }
+      .results {
+        padding: 3px 10px;
+        position: relative;
+        left: 150px;
+        pointer-events: none;
+        background: white;
+      }
+    }
+    &.visible {
+      width: 100%;
+      left: 0px;
+      overflow: visible;
+    }
+  }
+}
+
+  #kinds_btn_group
+  {
+    left: 50%;
+    transform: translate(-50%,0);
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    transition: all 1s ease-in-out;
+    visibility: hidden;
+    .btn 
+    {
+      padding: 7px 15px;
+      border: 1px solid #bbdefb;
+      font-weight: bold;
+    }
+    .btn.active
+    {
+      border: 1px solid white;
+      background: #bbdefb !important;
+    }
+    .left{
+      border-radius: 0px 0px 0px 10px;
+    }
+    .right{
+      border-radius: 0px 0px 10px 0px;
+    }
+  }
+
+
+
+
+.custom-btn-group
+{
+  right: 0px;
+  height: 30px;
+  width: max-content;
+  left: 0px;
+  @include mSetElVerticalMiddle(absolute);
+  .left{
+    position: absolute;
+    left: 23px;
+    bottom: -33px;
+    border-radius: 20px;
+    background-color: white !important;
+    padding: 5px 10px;
+  }
+  .midle-wrapper{
+    @include mSetElVerticalMiddle(absolute);
+    left: 0px;
+    button{
+      padding: 5px;
+    }
+    .dropdown-menu{
+      width: 200px;
+      left: 50px;
+      padding:0px;
+      .header{
+        height: 25px;
+        border-radius: 3px 3px 0px 0px;
+        position: relative;
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#79909b+0,62757f+100 */
+background: #79909b; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #79909b 0%, #62757f 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover,  #79909b 0%,#62757f 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center,  #79909b 0%,#62757f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#79909b', endColorstr='#62757f',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        .close{
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translate(0,-50%);
+        }
+      }
+      .range_label{
+        display: flex;
+        i{
+            position: relative;
+            top: 4px;
+            margin-right: 7px;
+        }
+      }
+      .widget_container{
+        display: block ruby;
+        .range{
+          margin-right: 15px;
+        }
+      }
+
+    }
+  }
+  .right-wrapper{
+    @include mSetElVerticalMiddle(absolute);
+    right: 0px;
+    .btn{
+      padding: 5px !important;
+      margin: 0px;
+    }
+  }
+  .midle{
+    border-radius: 0px;
+    width: 50px;
+    background: white;
+    border-radius: 1px 0px 0px 1px;
+  }
+  .right{
+    border-radius: 0px 1px 1px 0px !important;
+    width: 50px;
+    background-color: white;
+  }
+  .btn{
+  display: inherit;
+  }
+}
+
+
+.main_content.all_exercises{
+  #kinds_btn_group
+  {
+    visibility: visible;
+    top: 50px;
+  }
+  #exercises_topbar{
+    left: 0px;
+    width: 100%;
+    overflow: visible;
+  }
+}
+
+
+#exercises_topbar{
+  .main_parts{
+    display:block;
+    position: relative;
+    bottom: 10px;
+    label{
+      width: max-content !important;
+      padding-right: 15px;
+    }
+    .select_all_areas{
+      color:black !important;
+      border: 1px solid white;
+      padding: 3px 7px;
+      background: #bbdefb !important;
+      font-size: 10px;
+      border-radius: 2px;
+    }
+    .selections{
+      display: grid;
+      grid-template-columns: 50% 50%;
+    }
+  }
+  .human-muscles_menu{
+    display:none !important;
+  }
+  &.muscle_building
+  {
+ .main_parts{
+   display:none;
+ }
+ .human-muscles_menu{
+   display:block !important;
+ }
+  } 
+}
+
+
+
+
+
+
+

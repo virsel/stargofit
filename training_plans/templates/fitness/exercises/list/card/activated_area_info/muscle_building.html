@@ -1,0 +1,10 @@
+﻿{% load i18n %}
+<!-- areas -->
+    <p>{% trans 'beanspruchte ' %}<h5>{% trans ' Muskeln:' %}</h5></p>
+<ul class="dLst card_footer_left_list">
+    <li class="card-main-property" role="button" title="More options">{% blocktrans %}{{ muscle }}{% endblocktrans %}</li>
+    {% for muscle in muscles %}
+    <li class="card-sub-property" role="button" title="More options">{% blocktrans %}{{ muscle }}{% endblocktrans %}</li>
+    {% endfor %}
+</ul>
+<!-- ###end### areas -->

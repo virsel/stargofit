@@ -1,0 +1,90 @@
+
+$midnight: #2c3e50
+$blue: blue
+$darkblue: #2e5e86
+$chillblue: #4c75a3
+
+@mixin grVenice_blue
+    background: #085078
+    background: -webkit-linear-gradient(to left,#85d8ce,#085078)
+    background: linear-gradient(to left,#85d8ce,#085078)
+
+@mixin grSnug_blue
+    background: #24c6dc
+    background: -webkit-linear-gradient(to right,#514a9d,#24c6dc)
+    background: linear-gradient(to right,#514a9d,#24c6dc)
+
+@mixin grLight_blue
+    background: #00d2ff
+    background: -webkit-linear-gradient(to right,#3a7bd5,#00d2ff)
+    background: linear-gradient(to right,#3a7bd5,#00d2ff)
+
+$special_border_color: #a4a7b1
+
+$light_box_border_shadow: 0 0 3px #686868
+$activated_border_color: #3aa6d0
+$activated_background_color: #e3f5ff
+$light_box_light_border_shadow: 0 0 2px #cccccc
+$on_off_btn_color: #7d8291
+
+@mixin activated_button
+    border-color: $activated_border_color
+    background-color: $activated_background_color
+
+@mixin button_border_shadow
+    box-shadow: $light_box_border_shadow
+    -moz-box-shadow: $light_box_border_shadow
+    -webkit-box-shadow: $light_box_border_shadow
+    -o-box-shadow: $light_box_border_shadow
+
+@mixin button_light_border_shadow
+    box-shadow: $light_box_light_border_shadow
+    -moz-box-shadow: $light_box_light_border_shadow
+    -webkit-box-shadow: $light_box_light_border_shadow
+    -o-box-shadow: $light_box_light_border_shadow
+
+$picture_label_color: #43bfea
+$picture_label_shadow: 0px 0px 5px rgb(14, 14, 14)
+
+@mixin picture_label
+    color: #43bfea
+    text-shadow: $picture_label_shadow
+    font-size: 17px
+    font-weight: bold
+
+$form_heading_label_color: #171e49
+
+@mixin form_heading_label
+    color: $form_heading_label_color
+    font-size: 15px
+    font-weight: bold
+
+$main_card_background_color: #fefefe
+$main_card_border_shadow: 0 0 7px rgba(0, 0, 0, 0.2)
+$card_element_bg_color: #f0f0f0
+$bottom_shadow: 0px 4px 2px -2px gray
+
+@mixin main_card_border_shadow
+    box-shadow: $main_card_border_shadow
+    -moz-box-shadow: $main_card_border_shadow
+    -webkit-box-shadow: $main_card_border_shadow
+    -o-box-shadow: $main_card_border_shadow
+
+@mixin mSetElMiddle($position: relative, $left: 50%)
+    position: $position
+    left: $left
+    top: 50%
+    transform: translate(-50%, -50%)
+
+@mixin mSetElHorizontalMiddle($position: relative, $left: 50%)
+    position: $position
+    left: $left
+    transform: translate(-50%, 0)
+
+@mixin mSetElVerticalMiddle($position: relative, $bottom: 50%)
+    position: $position
+    bottom: $bottom
+    transform: translate(0, 50%)
+
+$xl_width: 1200px
+$md_width: 786px

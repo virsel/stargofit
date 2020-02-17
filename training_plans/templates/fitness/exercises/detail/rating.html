@@ -1,0 +1,20 @@
+﻿{% load training_plans_filters %}
+{% load staticfiles %}
+
+
+                <div class="row card detail-rating">
+                    <h4>Efficiency:</h4>
+
+                </div>
+                <div class="detail_view_box detail-rating detail-rating-down">
+                    <h4>Difficulty level:</h4>
+                    <div class="stars">
+                    {% for x in range %}
+                    {% if difficulty|is_star:forloop.counter %}
+                    <img class="star" src="{% static "images/star_shine.svg" %}">
+                    {% else %}
+                    <img class="star" src="{% static "images/star_off.svg" %}">
+                    {% endif %}
+                    {% endfor %}
+                        </div>
+                </div>
